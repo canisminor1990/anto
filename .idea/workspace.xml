@@ -2,16 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="469931ba-3f48-4f3e-8595-ff2342560e45" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/panel/components/Icon/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/panel/routes/Setting.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/handleChange.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/handleDash.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/handleExport.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/handleLine.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/handleTitle.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/handleTop.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/library.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/panel/routes/Note.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AfuxTools.sketchplugin/Contents/Sketch/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/AfuxTools.sketchplugin/Contents/Sketch/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AfuxTools.sketchplugin/Contents/Sketch/index.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/AfuxTools.sketchplugin/Contents/Sketch/index.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AfuxTools.sketchplugin/Contents/Sketch/library.js" beforeDir="false" afterPath="$PROJECT_DIR$/AfuxTools.sketchplugin/Contents/Sketch/library.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/AfuxTools.sketch" beforeDir="false" afterPath="$PROJECT_DIR$/docs/AfuxTools.sketch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panel/models/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/panel/models/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panel/routes/Setting.js" beforeDir="false" afterPath="$PROJECT_DIR$/panel/routes/Setting.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/panel/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/panel/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -35,7 +35,8 @@
           <entry key="LICENSE" value="1" />
           <entry key="babelrc" value="3" />
           <entry key="css" value="2" />
-          <entry key="js" value="133" />
+          <entry key="gitignore" value="1" />
+          <entry key="js" value="142" />
           <entry key="json" value="16" />
           <entry key="map" value="1" />
           <entry key="md" value="1" />
@@ -47,9 +48,9 @@
         <counts>
           <entry key="CSS" value="2" />
           <entry key="JSON" value="19" />
-          <entry key="JavaScript" value="133" />
+          <entry key="JavaScript" value="142" />
           <entry key="Markdown" value="1" />
-          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="PLAIN_TEXT" value="2" />
           <entry key="SCSS" value="1" />
           <entry key="SourceMap" value="1" />
           <entry key="XML" value="1" />
@@ -58,7 +59,7 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="19" />
-          <entry key="js" value="10754" />
+          <entry key="js" value="11440" />
           <entry key="json" value="210" />
           <entry key="md" value="13" />
           <entry key="xml" value="1" />
@@ -68,8 +69,8 @@
         <counts>
           <entry key="CSS" value="19" />
           <entry key="JSON" value="210" />
-          <entry key="JavaScript" value="10649" />
-          <entry key="Less" value="105" />
+          <entry key="JavaScript" value="11319" />
+          <entry key="Less" value="121" />
           <entry key="Markdown" value="13" />
           <entry key="XML" value="1" />
         </counts>
@@ -93,59 +94,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/panel/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="624">
-              <caret line="24" column="10" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
-              <folding>
-                <element signature="e#0#31#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="526">
-              <caret line="69" column="36" lean-forward="true" selection-start-line="69" selection-start-column="36" selection-end-line="69" selection-end-column="36" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/handleTitle.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="11" column="22" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="22" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/handleExport.js">
+        <entry file="file://$PROJECT_DIR$/panel/routes/Note.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="12" column="52" lean-forward="true" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/panel/routes/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1608">
-              <caret line="106" column="4" selection-start-line="106" selection-start-column="4" selection-end-line="106" selection-end-column="46" />
+            <state relative-caret-position="490">
+              <caret line="76" column="70" lean-forward="true" selection-start-line="76" selection-start-column="70" selection-end-line="76" selection-end-column="70" />
               <folding>
                 <element signature="e#0#34#0" expanded="true" />
               </folding>
@@ -156,8 +109,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/panel/routes/Setting.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="95" column="45" lean-forward="true" selection-start-line="95" selection-start-column="45" selection-end-line="95" selection-end-column="45" />
+            <state relative-caret-position="247">
+              <caret line="17" column="2" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="20" />
+              <folding>
+                <element signature="e#0#34#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/panel/routes/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4368">
+              <caret line="168" column="42" selection-start-line="168" selection-start-column="42" selection-end-line="168" selection-end-column="42" />
               <folding>
                 <element signature="e#0#34#0" expanded="true" />
               </folding>
@@ -192,9 +157,9 @@
       <find>find</find>
       <find>50px</find>
       <find>localStorage</find>
-      <find>console</find>
-      <find>Setting</find>
       <find>g</find>
+      <find>Setting</find>
+      <find>console</find>
     </findStrings>
     <replaceStrings>
       <replace>48px</replace>
@@ -235,11 +200,12 @@
         <option value="$PROJECT_DIR$/src/manifest.json" />
         <option value="$PROJECT_DIR$/panel/components/Icon/index.js" />
         <option value="$PROJECT_DIR$/.webpackrc.js" />
-        <option value="$PROJECT_DIR$/panel/models/config.js" />
-        <option value="$PROJECT_DIR$/panel/routes/index.js" />
-        <option value="$PROJECT_DIR$/panel/routes/Setting.js" />
-        <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/handleExport.js" />
+        <option value="$PROJECT_DIR$/src/index.js" />
+        <option value="$PROJECT_DIR$/panel/models/config.js" />
+        <option value="$PROJECT_DIR$/panel/routes/Setting.js" />
+        <option value="$PROJECT_DIR$/panel/routes/index.js" />
+        <option value="$PROJECT_DIR$/panel/routes/Note.js" />
       </list>
     </option>
   </component>
@@ -291,6 +257,12 @@
               <item name="sketch-afux-tools" type="b2602c69:ProjectViewProjectNode" />
               <item name="sketch-afux-tools" type="462c0819:PsiDirectoryNode" />
               <item name="panel" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sketch-afux-tools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sketch-afux-tools" type="462c0819:PsiDirectoryNode" />
+              <item name="panel" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="sketch-afux-tools" type="b2602c69:ProjectViewProjectNode" />
@@ -364,12 +336,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1543637067693</updated>
-      <workItem from="1543637069069" duration="64352000" />
+      <workItem from="1543637069069" duration="67973000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64352000" />
+    <option name="totallyTimeSpent" value="67973000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-240" y="-1057" width="1920" height="1057" extended-state="6" />
@@ -643,32 +615,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/panel/models/config.js">
+    <entry file="file://$PROJECT_DIR$/src/handleTitle.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="15" column="12" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/panel/routes/Setting.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="95" column="45" lean-forward="true" selection-start-line="95" selection-start-column="45" selection-end-line="95" selection-end-column="45" />
+        <state relative-caret-position="221">
+          <caret line="11" column="22" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="22" />
           <folding>
-            <element signature="e#0#34#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/panel/routes/index.js">
+    <entry file="file://$PROJECT_DIR$/src/handleExport.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1608">
-          <caret line="106" column="4" selection-start-line="106" selection-start-column="4" selection-end-line="106" selection-end-column="46" />
+        <state relative-caret-position="-1072">
+          <caret line="17" column="54" selection-start-line="17" selection-start-column="54" selection-end-line="17" selection-end-column="54" />
           <folding>
-            <element signature="e#0#34#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/panel/index.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -682,30 +650,47 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="526">
-          <caret line="69" column="36" lean-forward="true" selection-start-line="69" selection-start-column="36" selection-end-line="69" selection-end-column="36" />
+        <state relative-caret-position="266">
+          <caret line="64" column="5" selection-start-line="64" selection-start-column="5" selection-end-line="64" selection-end-column="5" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/handleTitle.js">
+    <entry file="file://$PROJECT_DIR$/panel/models/config.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="11" column="22" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="22" />
+        <state relative-caret-position="390">
+          <caret line="15" column="38" lean-forward="true" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/panel/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4368">
+          <caret line="168" column="42" selection-start-line="168" selection-start-column="42" selection-end-line="168" selection-end-column="42" />
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#0#34#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/handleExport.js">
+    <entry file="file://$PROJECT_DIR$/panel/routes/Setting.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="12" column="52" lean-forward="true" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
+        <state relative-caret-position="247">
+          <caret line="17" column="2" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="20" />
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#0#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/panel/routes/Note.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="490">
+          <caret line="76" column="70" lean-forward="true" selection-start-line="76" selection-start-column="70" selection-end-line="76" selection-end-column="70" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
           </folding>
         </state>
       </provider>

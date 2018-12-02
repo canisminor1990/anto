@@ -10,21 +10,31 @@ const FormItem = Form.Item;
 /// /////////////////////////////////////////////
 
 const View = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  padding: 1rem;
+  width: 250px;
 `;
 
 const Title = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #999;
-  margin-bottom: 1rem;
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin-bottom: 0.5rem;
 `;
 
 const Group = styled.div`
+  background: #222;
+  position: fixed;
+  padding: 1rem;
+  bottom: 0;
+  left: 48px;
   display: flex;
-  width: 100%;
+  width: 250px;
   button {
     flex: 1;
   }
@@ -65,10 +75,10 @@ class Setting extends Component {
   }
 
   render() {
-    return (
-      <View>
+    return [
+      <Title key="title">设置</Title>,
+      <View key="panel">
         <div>
-          <Title>设置</Title>
           <FormItem label="花名">
             <Input
               placeholder="请输入花名"
@@ -85,8 +95,8 @@ class Setting extends Component {
             保存
           </Button>
         </Group>
-      </View>
-    );
+      </View>,
+    ];
   }
 
   handleChange = (e, key) => {

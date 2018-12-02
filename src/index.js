@@ -60,6 +60,13 @@ export default context => {
     UI.message(`切换到「${e}模式」`);
   });
 
+  webContents.on('openPanel', () => {
+    browserWindow.setSize(width * 2, height);
+  });
+  webContents.on('closePanel', () => {
+    browserWindow.setSize(width, height, true);
+  });
+
   webContents.on('openSetting', () => {
     browserWindow.setSize(width + 250, height);
   });

@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { connect } from 'dva';
 import styled from 'styled-components';
 import { Icon } from '../components';
+import Note from './Note';
 import Setting from './Setting';
 
 /// /////////////////////////////////////////////
@@ -27,7 +28,6 @@ const Panel = styled.div`
   width: 100%;
   flex: 1;
   height: 100vh;
-  padding: 1rem;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
@@ -119,6 +119,7 @@ class WebView extends Component {
       />
       <Icon type="icon-dash" title="虚实" onClick={() => window.postMessage('handleDash', null)} />
       <Icon type="icon-top" title="置顶" onClick={() => window.postMessage('handleTop', null)} />
+      <Icon type="icon-note" title="标注" onClick={this.openNote} />
       <Icon
         type="icon-title"
         title="制标"
@@ -143,7 +144,10 @@ class WebView extends Component {
     return (
       <View>
         <this.SideBar />
-        <Panel>{this.props.setting ? <Setting /> : null}</Panel>
+        <Panel>
+          {this.props.note ? <Note /> : null}
+          {this.props.setting ? <Setting /> : null}
+        </Panel>
       </View>
     );
   }
@@ -159,6 +163,11 @@ class WebView extends Component {
   openSetting = () => {
     window.postMessage('openSetting', null);
     this.props.setConfig({ setting: true });
+  };
+
+  openNote = () => {
+    window.postMessage('openPanel', null);
+    this.props.setConfig({ note: true });
   };
 }
 
