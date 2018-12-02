@@ -1,0 +1,26 @@
+html,
+body,
+#root {
+  height: 100%;
+  background: #222;
+  overflow: hidden;
+  user-select: none;
+}
+
+body {
+  -webkit-app-region: drag
+}
+
+*:focus {
+  outline: none;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+}
+
+div {
+  box-sizing: border-box;
+  position: relative;
+}
+

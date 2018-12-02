@@ -1,0 +1,12 @@
+# npm
+node_modules
+.npm
+npm-debug.log
+
+# mac
+.DS_Store
+yarn.lock
+
+# other
+test
+dist

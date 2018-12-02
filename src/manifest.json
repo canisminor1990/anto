@@ -1,0 +1,33 @@
+{
+	"name"             : "AFUX Tools",
+	"identifier"       : "sketch.afux.tools",
+	"compatibleVersion": 3,
+	"bundleVersion"    : 1,
+	"icon"             : "icon.png",
+	"commands"         : [
+		{
+			"script"  : "library.js",
+			"handlers": {
+				"actions": {
+					"Startup"     : "addLibrary",
+					"Shutdown"    : "addLibrary",
+					"OpenDocument": "addLibrary"
+				}
+			}
+		},
+		{
+			"name"      : "💰 AFUX Tools",
+			"icon"      : "minicon.png",
+			"identifier": "afux-tools",
+			"shortcut"  : "ctrl cmd n",
+			"script"    : "index.js"
+		}
+	],
+	"menu"             : {
+		"title" : "AFUX Tools",
+		"isRoot": true,
+		"items" : [
+			"afux-tools"
+		]
+	}
+}
