@@ -9,11 +9,11 @@ import handleChange from './handleChange';
 import handleTop from './handleTop';
 import handleTitle from './handleTitle';
 import handleExport from './handleExport';
-
+import handleNote from './handleNote';
 const isDev = process.env.NODE_ENV === 'development';
 const Panel = isDev ? 'http://localhost:8000' : 'index.html';
 const width = 48;
-const height = 600;
+const height = 700;
 
 export default context => {
   const options = {
@@ -60,6 +60,17 @@ export default context => {
     UI.message(`切换到「${e}模式」`);
   });
 
+  // Set
+  webContents.on('setHeader', () => handleNote('header'));
+  webContents.on('setText', () => handleNote('text'));
+  webContents.on('setBlock', () => handleNote('block'));
+  webContents.on('setList', () => handleNote('list'));
+  webContents.on('setUl', () => handleNote('ul'));
+  webContents.on('setPoint', () => handleNote('point'));
+  webContents.on('setIf', () => handleNote('if'));
+  webContents.on('setChangelog', () => handleNote('changelog'));
+
+  // Panel
   webContents.on('openPanel', () => {
     browserWindow.setSize(width * 2, height);
   });

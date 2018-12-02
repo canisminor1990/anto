@@ -72,34 +72,22 @@ class Setting extends Component {
         <Icon
           type="icon-header"
           title="链路"
-          onClick={() => window.postMessage('handleHeader', null)}
+          onClick={() => window.postMessage('setHeader', null)}
         />
-        <Icon
-          type="icon-text"
-          title="注释"
-          onClick={() => window.postMessage('handleText', null)}
-        />
+        <Icon type="icon-text" title="注释" onClick={() => window.postMessage('setText', null)} />
         <Icon
           type="icon-block"
           title="注释块"
-          onClick={() => window.postMessage('handleBlock', null)}
+          onClick={() => window.postMessage('setBlock', null)}
         />
-        <Icon
-          type="icon-list"
-          title="注释列"
-          onClick={() => window.postMessage('handleList', null)}
-        />
-        <Icon type="icon-ul" title="列表" onClick={() => window.postMessage('handleUl', null)} />
-        <Icon
-          type="icon-point"
-          title="节点"
-          onClick={() => window.postMessage('handlePoint', null)}
-        />
-        <Icon type="icon-if" title="判断" onClick={() => window.postMessage('handleIf', null)} />
+        <Icon type="icon-list" title="注释列" onClick={() => window.postMessage('setList', null)} />
+        <Icon type="icon-ul" title="列表" onClick={() => window.postMessage('setUl', null)} />
+        <Icon type="icon-point" title="节点" onClick={() => window.postMessage('setPoint', null)} />
+        <Icon type="icon-if" title="判断" onClick={() => window.postMessage('setIf', null)} />
         <Icon
           type="icon-changelog"
           title="变更"
-          onClick={() => window.postMessage('handleChangelog', null)}
+          onClick={() => window.postMessage('setChangelog', null)}
         />
         <Close onClick={this.handleClose} />
       </View>,

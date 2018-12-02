@@ -7,6 +7,7 @@ const Img = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: 32px;
+  transition: all 0.1s ease-out;
 `;
 const Title = styled.div`
   text-align: center;
@@ -22,11 +23,16 @@ const View = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  opacity: 0.5;
+  opacity: 0.6;
   transition: all 0.2s ease-out;
   cursor: pointer;
   &:hover {
     opacity: 1;
+  }
+  &:active {
+    ${Img} {
+      transform: scale(0.9);
+    }
   }
 `;
 
