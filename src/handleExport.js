@@ -5,9 +5,10 @@ import moment from 'moment';
 import _ from 'lodash';
 import { find, setByValue, removeLayer } from './utils';
 
-export default page => {
+export default context => {
   console.log('[Start]', 'handleExport');
 
+  const page = context.document.currentPage();
   const document = sketch.getSelectedDocument();
   const selectPage = document.selectedPage;
   const mode = Settings.settingForKey('panel-mode');

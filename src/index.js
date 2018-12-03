@@ -52,12 +52,12 @@ export default context => {
 
   // Webview数据交互
   const webContents = browserWindow.webContents;
-  webContents.on('handleLine', () => handleLine(context.document.currentPage()));
+  webContents.on('handleLine', () => handleLine(context));
   webContents.on('handleChange', () => handleChange());
   webContents.on('handleDash', () => handleDash());
   webContents.on('handleTop', () => handleTop());
   webContents.on('handleTitle', () => handleTitle());
-  webContents.on('handleExport', () => handleExport(context.document.currentPage()));
+  webContents.on('handleExport', () => handleExport(context));
   webContents.on('changeMode', e => {
     Settings.setSettingForKey('panel-mode', e);
     UI.message(`切换到「${e}模式」`);
@@ -70,6 +70,7 @@ export default context => {
   webContents.on('setList', () => handleNote('list'));
   webContents.on('setUl', () => handleNote('ul'));
   webContents.on('setPoint', () => handleNote('point'));
+  webContents.on('setRound', () => handleNote('round'));
   webContents.on('setIf', () => handleNote('if'));
   webContents.on('setChangelog', () => handleNote('changelog'));
 

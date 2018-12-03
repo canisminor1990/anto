@@ -44,6 +44,10 @@ export default type => {
       name: `交互 / 节点-矩形`,
       replace: '标题',
     },
+    round: {
+      name: `交互 / 节点-胶囊`,
+      replace: '标题',
+    },
     if: {
       name: `交互 / 节点-判断`,
       replace: '标题',

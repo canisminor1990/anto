@@ -16,9 +16,10 @@ let LineStyle = {
   },
 };
 
-export default page => {
+export default context => {
   console.log('[Start]', 'handleLine');
 
+  const page = context.document.currentPage();
   const document = sketch.getSelectedDocument();
   const selectPage = document.selectedPage;
   const selection = document.selectedLayers;
