@@ -16,6 +16,9 @@ const width = 48;
 const height = 700;
 
 export default context => {
+  const mode = Settings.settingForKey('panel-mode');
+  if (!mode) Settings.setSettingForKey('panel-mode', '交互');
+
   const options = {
     identifier: 'afux.tools',
     width: width,
