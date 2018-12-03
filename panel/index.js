@@ -11,6 +11,7 @@ const app = dva({
 });
 
 // 2. Models
+app.model(require('./models/store').default);
 app.model(require('./models/config').default);
 
 // 2. Plugins

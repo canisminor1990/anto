@@ -20,7 +20,8 @@ const SideBar = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  z-index: 999;
 `;
 
 const Panel = styled.div`
@@ -28,7 +29,6 @@ const Panel = styled.div`
   width: 100%;
   flex: 1;
   height: 100vh;
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
 const Logo = styled.div`
@@ -84,6 +84,7 @@ const Config = styled.div`
 
 const State = state => {
   return {
+    ...state.store,
     ...state.config,
   };
 };
@@ -92,6 +93,9 @@ const Dispatch = dispatch => ({
   setConfig(obj) {
     dispatch({ type: `config/update`, payload: obj });
   },
+  setStore(obj) {
+    dispatch({ type: `store/update`, payload: obj });
+  },
 });
 
 /// /////////////////////////////////////////////
@@ -99,17 +103,10 @@ const Dispatch = dispatch => ({
 /// /////////////////////////////////////////////
 
 class WebView extends Component {
-  state = {
-    mode: '交互',
-  };
-
-  componentDidMount() {
-    const mode = localStorage.getItem('mode');
-    this.setState({ mode: mode || '交互' });
-  }
+  componentDidMount() {}
 
   SideBar = () => (
-    <SideBar>
+    <SideBar style={{ background: this.props.theme === 'black' ? '#222' : '#fff' }}>
       <Logo />
       <Icon type="icon-line" title="连线" onClick={() => window.postMessage('handleLine', null)} />
       <Icon
@@ -132,9 +129,12 @@ class WebView extends Component {
       />
       <Mode
         onClick={this.handleChangeMode}
-        style={{ background: this.state.mode === '视觉' ? '#666' : '#2A72FF' }}
+        style={{
+          background: this.props.mode === '视觉' ? '#666' : '#2A72FF',
+          borderColor: this.props.theme === 'black' ? '#222' : '#fff',
+        }}
       >
-        {this.state.mode}
+        {this.props.mode}
       </Mode>
       <Config onClick={this.openSetting} />
     </SideBar>
@@ -142,7 +142,7 @@ class WebView extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{ background: this.props.theme === 'black' ? '#222' : '#fff' }}>
         <this.SideBar />
         <Panel>
           {this.props.note ? <Note /> : null}
@@ -153,11 +153,10 @@ class WebView extends Component {
   }
 
   handleChangeMode = () => {
-    const preMode = this.state.mode;
+    const preMode = this.props.mode;
     const mode = preMode === '视觉' ? '交互' : '视觉';
-    this.setState({ mode });
+    this.props.setStore({ mode });
     window.postMessage('changeMode', mode);
-    localStorage.setItem('mode', mode);
   };
 
   openSetting = () => {

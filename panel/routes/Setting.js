@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import styled from 'styled-components';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Switch } from 'antd';
 import { connect } from 'dva';
 
 const FormItem = Form.Item;
@@ -49,6 +49,8 @@ const Group = styled.div`
 
 const State = state => {
   return {
+    store: state.store,
+    ...state.store,
     ...state.config,
   };
 };
@@ -56,6 +58,9 @@ const State = state => {
 const Dispatch = dispatch => ({
   setConfig(obj) {
     dispatch({ type: `config/update`, payload: obj });
+  },
+  setStore(obj) {
+    dispatch({ type: `store/update`, payload: obj });
   },
 });
 
@@ -66,12 +71,11 @@ const Dispatch = dispatch => ({
 class Setting extends Component {
   state = {
     name: '',
+    theme: 'black',
   };
 
   componentDidMount() {
-    const config = localStorage.getItem('config');
-    console.log('[config]', config);
-    this.setState(config ? JSON.parse(config) : {});
+    this.setState(this.props.store);
   }
 
   render() {
@@ -86,9 +90,24 @@ class Setting extends Component {
               onChange={e => this.handleChange(e.target.value, 'name')}
             />
           </FormItem>
+          <FormItem label="皮肤">
+            <Switch
+              checkedChildren="黑"
+              unCheckedChildren="白"
+              defaultChecked={this.props.theme === 'black'}
+              onChange={this.handleTheme}
+            />
+          </FormItem>
         </div>
-        <Group>
-          <Button style={{ background: '#333' }} onClick={this.handleClose}>
+        <Group
+          style={{
+            background: this.props.theme === 'black' ? '#222' : '#fff',
+          }}
+        >
+          <Button
+            style={{ background: this.props.theme === 'black' ? '#333' : '#fff' }}
+            onClick={this.handleClose}
+          >
             取消
           </Button>
           <Button type="primary" onClick={this.handleSave}>
@@ -103,13 +122,17 @@ class Setting extends Component {
     this.setState({ [key]: e });
   };
 
+  handleTheme = bool => {
+    this.setState({ theme: bool ? 'black' : 'white' });
+  };
+
   handleClose = () => {
     this.props.setConfig({ setting: false });
     window.postMessage('closeSetting', null);
   };
 
   handleSave = () => {
-    localStorage.setItem('config', JSON.stringify(this.state));
+    this.props.setStore(this.state);
     this.props.setConfig({ setting: false });
     window.postMessage('closeSetting', this.state);
   };

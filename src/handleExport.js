@@ -82,9 +82,9 @@ export default context => {
 
   const instance = symbolMaster.createNewInstance();
   instance.frame.x = x - Padding;
-  instance.frame.y = y - Padding * 2.2;
+  instance.frame.y = y - Padding * 2.1;
   instance.frame.width = x2 - x + 2 * Padding;
-  instance.frame.height = y2 - y + 3.2 * Padding;
+  instance.frame.height = y2 - y + 3.7 * Padding;
   instance.parent = selectPage;
   instance.locked = true;
 

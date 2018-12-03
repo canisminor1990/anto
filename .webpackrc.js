@@ -7,9 +7,9 @@ export default {
     "@primary-color": "#2A72FF",
     "@text-color": "#999",
     "@heading-color": "#999",
-    "@border-color-base":"#444",
-    "@input-bg":"#333",
-    "@input-placeholder-color":"#666"
+    "@border-color-base":"rgba(100,100,100,.3)",
+    "@input-bg":"rgba(255,255,255,.03)",
+    "@input-placeholder-color":"rgba(100,100,100,.5)"
   },
   html              : {
     "template": "./panel/index.ejs"
