@@ -11,6 +11,7 @@ export default context => {
   const page = context.document.currentPage();
   const document = sketch.getSelectedDocument();
   const selectPage = document.selectedPage;
+  const selection = document.selectedLayers;
   const mode = Settings.settingForKey('panel-mode');
   const author = Settings.settingForKey('config-name');
 
@@ -33,7 +34,13 @@ export default context => {
     layers: [],
   });
   const symbolMaster = master.import();
-  const Artboards = _.filter(selectPage.layers, layer => layer.name[0] !== '@');
+  let Artboards;
+  if (selection.isEmpty) {
+    Artboards = _.filter(selectPage.layers, layer => layer.name[0] !== '@');
+  } else {
+    Artboards = selection;
+  }
+
   if (Artboards.length === 0) return UI.message('找不到可用画板');
   let x = Infinity;
   let y = Infinity;
@@ -47,7 +54,7 @@ export default context => {
     if (rect.y < y) y = rect.y;
     if (rect.x + rect.width > x2) x2 = rect.x + rect.width;
     if (rect.y + rect.height > y2) y2 = rect.y + rect.height;
-    if (mode === '交互') {
+    if (mode === '交互' && Artboard.type === 'Artboard') {
       const ShapeShadow = new sketch.Shape({
         name: Artboard.name,
         frame: Artboard.frame,
@@ -61,7 +68,7 @@ export default context => {
           borders: [],
           shadows: [
             {
-              color: '#00000033',
+              color: '#00000022',
               y: 40,
               blur: 100,
               spread: -20,
@@ -75,9 +82,9 @@ export default context => {
 
   const instance = symbolMaster.createNewInstance();
   instance.frame.x = x - Padding;
-  instance.frame.y = y - Padding * 1.5;
+  instance.frame.y = y - Padding * 2;
   instance.frame.width = x2 - x + 2 * Padding;
-  instance.frame.height = y2 - y + 2.5 * Padding;
+  instance.frame.height = y2 - y + 3 * Padding;
   instance.parent = selectPage;
   instance.locked = true;
 

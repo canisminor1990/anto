@@ -36,7 +36,7 @@ export default () => {
       layer.type === 'Artboard' &&
       layer.name[0] !== '@' &&
       layer.frame.width >= 750 / 2 &&
-      layer.frame.width <= 750 * 2
+      layer.frame.width <= 750 * 3
   );
   if (Artboards.length === 0) return UI.message('找不到可用画板');
   Artboards.forEach(Artboard => {
