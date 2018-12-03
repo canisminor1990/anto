@@ -26,6 +26,12 @@ export default context => {
 
   // 导入
   removeLayer(selectPage, '@制版');
+  removeLayer(selectPage, '@画板投影');
+  const ShadowGroup = new sketch.Group({
+    name: '@画板投影',
+    parent: selectPage,
+    layers: [],
+  });
   const symbolMaster = master.import();
   const Artboards = _.filter(selectPage.layers, layer => layer.name[0] !== '@');
   if (Artboards.length === 0) return UI.message('找不到可用画板');
@@ -41,6 +47,30 @@ export default context => {
     if (rect.y < y) y = rect.y;
     if (rect.x + rect.width > x2) x2 = rect.x + rect.width;
     if (rect.y + rect.height > y2) y2 = rect.y + rect.height;
+    if (mode === '交互') {
+      const ShapeShadow = new sketch.Shape({
+        name: Artboard.name,
+        frame: Artboard.frame,
+        style: {
+          fills: [
+            {
+              color: '#ffffff',
+              fill: 'Color',
+            },
+          ],
+          borders: [],
+          shadows: [
+            {
+              color: '#00000033',
+              y: 40,
+              blur: 100,
+              spread: -20,
+            },
+          ],
+        },
+        parent: ShadowGroup,
+      });
+    }
   });
 
   const instance = symbolMaster.createNewInstance();
@@ -67,8 +97,11 @@ export default context => {
     parent: selectPage,
     layers: [instance],
   });
-  Group.moveToBack();
+
+  ShadowGroup.locked = true;
   Group.locked = true;
+  ShadowGroup.moveToBack();
+  Group.moveToBack();
 
   // 原生切片
   const sliceLayer = MSSliceLayer.new();
@@ -80,7 +113,7 @@ export default context => {
   sliceFrame.setY(instance.frame.y);
   sliceFrame.setWidth(instance.frame.width);
   sliceFrame.setHeight(instance.frame.height);
-  makeLayerExportable(sliceLayer);
+  makeLayerExportable(sliceLayer, mode);
   MSLayerMovement.moveToFront([sliceLayer]);
   page.layers().forEach(l => {
     if (String(l.name()) === '@制版') {
@@ -91,11 +124,11 @@ export default context => {
   });
 };
 
-function makeLayerExportable(layer) {
+function makeLayerExportable(layer, mode) {
   const size = layer.exportOptions().addExportFormat();
   size.setAbsoluteSize(0);
   size.setVisibleScaleType(0);
   size.setFileFormat('png');
   size.setNamingScheme(0);
-  size.setScale(1);
+  size.setScale(mode === '交互' ? 0.5 : 1);
 }
