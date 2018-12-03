@@ -30,7 +30,7 @@
       "afux-tools"
     ]
   },
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Sketch tools for AFUX",
   "homepage": "https://github.com/canisminor1990/sketch-afux-tools",
   "disableCocoaScriptPreprocessor": true,
