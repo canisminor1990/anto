@@ -35,7 +35,7 @@ export default context => {
   });
   const symbolMaster = master.import();
   let Artboards;
-  if (selection.isEmpty) {
+  if (_.filter(selection.layers, l => l.type && l.type === 'Artboard').length === 0) {
     Artboards = _.filter(selectPage.layers, layer => layer.name[0] !== '@');
   } else {
     Artboards = selection;
@@ -82,9 +82,9 @@ export default context => {
 
   const instance = symbolMaster.createNewInstance();
   instance.frame.x = x - Padding;
-  instance.frame.y = y - Padding * 2;
+  instance.frame.y = y - Padding * 2.2;
   instance.frame.width = x2 - x + 2 * Padding;
-  instance.frame.height = y2 - y + 3 * Padding;
+  instance.frame.height = y2 - y + 3.2 * Padding;
   instance.parent = selectPage;
   instance.locked = true;
 
