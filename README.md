@@ -12,7 +12,7 @@ AFUX Tools 依赖 Anima 部分布局功能，请按顺安装
 
 - 点击下方按钮下载 `AnimaToolkitPlugin`：
 
-[<img src="https://raw.githubusercontent.com/canisminor1990/sketch-afux-tools/master/docs/button-2.png" width="300"/>](https://github.com/canisminor1990/sketch-afux-tools/releases/download/v1.0.2/AnimaToolkitPlugin.sketchplugin.zip)
+[<img src="https://raw.githubusercontent.com/canisminor1990/sketch-afux-tools/master/docs/button-anima.png" width="300"/>](https://github.com/canisminor1990/sketch-afux-tools/releases/download/v1.0.2/AnimaToolkitPlugin.sketchplugin.zip)
 
 - 点击下方按钮下载 `AfuxTools.sketchplugin`：
 
