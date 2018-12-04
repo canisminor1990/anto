@@ -5,12 +5,14 @@ import moment from 'moment';
 import _ from 'lodash';
 import { find, setByValue, removeLayer } from './utils';
 
-export default context => {
+export default () => {
   console.log('[Start]', 'handleExport');
+  const app = NSDocumentController.sharedDocumentController();
+  const nativeDocument = app.currentDocument();
+  const nativePage = nativeDocument.currentPage();
 
-  const page = context.document.currentPage();
   const document = sketch.getSelectedDocument();
-  const selectPage = document.selectedPage;
+  const page = document.selectedPage;
   const selection = document.selectedLayers;
   const mode = Settings.settingForKey('panel-mode');
   const author = Settings.settingForKey('config-name');
@@ -26,17 +28,17 @@ export default context => {
   if (!master) return UI.message('请检查Symbol是否存在');
 
   // 导入
-  removeLayer(selectPage, '@制版');
-  removeLayer(selectPage, '@画板投影');
+  removeLayer(page, '@制版');
+  removeLayer(page, '@画板投影');
   const ShadowGroup = new sketch.Group({
     name: '@画板投影',
-    parent: selectPage,
+    parent: page,
     layers: [],
   });
   const symbolMaster = master.import();
   let Artboards;
   if (_.filter(selection.layers, l => l.type && l.type === 'Artboard').length === 0) {
-    Artboards = _.filter(selectPage.layers, layer => layer.name[0] !== '@');
+    Artboards = _.filter(page.layers, layer => layer.name[0] !== '@');
   } else {
     Artboards = selection;
   }
@@ -85,7 +87,7 @@ export default context => {
   instance.frame.y = y - Padding * 2.1;
   instance.frame.width = x2 - x + 2 * Padding;
   instance.frame.height = y2 - y + 3.7 * Padding;
-  instance.parent = selectPage;
+  instance.parent = page;
   instance.locked = true;
 
   // 设置override-title
@@ -93,7 +95,7 @@ export default context => {
   const timeId = '日期';
   const nameId = '花名';
 
-  const newTitle = selectPage.name + `（${mode}）`;
+  const newTitle = page.name + `（${mode}）`;
 
   setByValue(instance, titleId, newTitle);
   setByValue(instance, timeId, moment().format('YYYY-MM-DD'));
@@ -101,7 +103,7 @@ export default context => {
 
   const Group = new sketch.Group({
     name: '@制版',
-    parent: selectPage,
+    parent: page,
     layers: [instance],
   });
 
@@ -122,7 +124,7 @@ export default context => {
   sliceFrame.setHeight(instance.frame.height);
   makeLayerExportable(sliceLayer, mode);
   MSLayerMovement.moveToFront([sliceLayer]);
-  page.layers().forEach(l => {
+  nativePage.layers().forEach(l => {
     if (String(l.name()) === '@制版') {
       console.log(l.name());
       l.addLayers([sliceLayer]);

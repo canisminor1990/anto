@@ -19,8 +19,12 @@
 			"name"      : "💰 AFUX Tools",
 			"icon"      : "minicon.png",
 			"identifier": "afux-tools",
-			"shortcut"  : "ctrl cmd n",
-			"script"    : "index.js"
+			"script"    : "index.js",
+			"handlers": {
+				"actions": {
+					"OpenDocument"     : "onRun"
+				}
+			}
 		}
 	],
 	"menu"             : {

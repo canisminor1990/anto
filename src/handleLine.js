@@ -18,10 +18,12 @@ let LineStyle = {
 
 export default context => {
   console.log('[Start]', 'handleLine');
+  const app = NSDocumentController.sharedDocumentController();
+  const nativeDocument = app.currentDocument();
+  const nativePage = nativeDocument.currentPage();
 
-  const page = context.document.currentPage();
   const document = sketch.getSelectedDocument();
-  const selectPage = document.selectedPage;
+  const page = document.selectedPage;
   const selection = document.selectedLayers;
   if (selection.isEmpty) return UI.message('请选择图层');
   if (selection.length > 2) return UI.message('不能大于两个图层');
@@ -70,20 +72,26 @@ export default context => {
     const lineSh = MSShapePathLayer.layerWithPath(MSPath.pathWithBezierPath(linePath));
     const tempName = '@tempLine' + Math.random();
     lineSh.setName(tempName);
-    page.addLayers([lineSh]);
+    nativePage.addLayers([lineSh]);
 
-    const Groups = find(selectPage.layers, 'name', '@交互连线');
+    const Groups = find(page.layers, 'name', '@交互连线');
     const Group =
       Groups ||
       new sketch.Group({
         name: '@交互连线',
-        parent: selectPage,
+        frame: {
+          x: -50000,
+          y: -50000,
+          width: 100000,
+          height: 100000,
+        },
+        parent: page,
         layers: [],
       });
 
     const Line = document.getLayersNamed(tempName)[0];
     const rect = Line.frame;
-    const newRect = rect.changeBasis({ from: selectPage, to: Group });
+    const newRect = rect.changeBasis({ from: page, to: Group });
     selection.clear();
 
     Line.selected = true;

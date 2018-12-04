@@ -15,7 +15,7 @@ const Panel = isDev ? 'http://localhost:8000' : 'index.html';
 const width = 48;
 const height = 700;
 
-export default context => {
+export const onRun = context => {
   const mode = Settings.settingForKey('panel-mode');
   if (!mode) Settings.setSettingForKey('panel-mode', '交互');
 
@@ -52,12 +52,12 @@ export default context => {
 
   // Webview数据交互
   const webContents = browserWindow.webContents;
-  webContents.on('handleLine', () => handleLine(context));
+  webContents.on('handleLine', () => handleLine());
   webContents.on('handleChange', () => handleChange());
   webContents.on('handleDash', () => handleDash());
   webContents.on('handleTop', () => handleTop());
   webContents.on('handleTitle', () => handleTitle());
-  webContents.on('handleExport', () => handleExport(context));
+  webContents.on('handleExport', () => handleExport());
   webContents.on('changeMode', e => {
     Settings.setSettingForKey('panel-mode', e);
     UI.message(`切换到「${e}模式」`);
@@ -98,3 +98,5 @@ export default context => {
   // 开始
   browserWindow.loadURL(Panel);
 };
+
+export default onRun;
