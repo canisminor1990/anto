@@ -14,5 +14,7 @@ Sketch Tools for AFUX
 
 ## Contact
 
+<div style="display:flex">
 <img src="https://raw.githubusercontent.com/canisminor1990/sketch-afux-tools/master/public/qrcode-canisminor.jpg" width="250"/>
 <img src="https://raw.githubusercontent.com/canisminor1990/sketch-afux-tools/master/public/qrcode.jpg" width="250"/>
+</div>
