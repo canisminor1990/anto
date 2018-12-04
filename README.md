@@ -8,4 +8,4 @@ Sketch Tools for AFUX
 
 ## Contact
 
-<img src="https://raw.githubusercontent.com/canisminor1990/sketch-afux-tools/master/public/qrcode.jpg" width="160"/>
+<img src="https://raw.githubusercontent.com/canisminor1990/sketch-afux-tools/master/public/qrcode.jpg" width="250"/>
