@@ -10,7 +10,7 @@ Sketch Tools for AFUX
 
 点击下方按钮前往 releases，下载最新版：
 
-[![](<img src="https://raw.githubusercontent.com/canisminor1990/sketch-afux-tools/master/docs/qrcode-canisminor.jpg" width="300"/>)](https://github.com/canisminor1990/sketch-afux-tools/releases)
+[![](<img src="https://raw.githubusercontent.com/canisminor1990/sketch-afux-tools/master/docs/button.png" width="300"/>)](https://github.com/canisminor1990/sketch-afux-tools/releases)
 
 ## Contact
 
