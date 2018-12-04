@@ -8,9 +8,15 @@ Sketch Tools for AFUX
 
 ## Download
 
-点击下方按钮前往 releases，下载最新版：
+AFUX Tools 依赖 Anima 部分布局功能，请按顺安装
 
-[<img src="https://raw.githubusercontent.com/canisminor1990/sketch-afux-tools/master/docs/button.png" width="300"/>](https://github.com/canisminor1990/sketch-afux-tools/releases)
+- 点击下方按钮下载 `AnimaToolkitPlugin`：
+
+[<img src="https://raw.githubusercontent.com/canisminor1990/sketch-afux-tools/master/docs/button-2.png" width="300"/>](https://github.com/canisminor1990/sketch-afux-tools/releases/download/v1.0.2/AnimaToolkitPlugin.sketchplugin.zip)
+
+- 点击下方按钮下载 `AfuxTools.sketchplugin`：
+
+[<img src="https://raw.githubusercontent.com/canisminor1990/sketch-afux-tools/master/docs/button.png" width="300"/>](https://github.com/canisminor1990/sketch-afux-tools/archive/master.zip)
 
 ## Contact
 
