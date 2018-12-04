@@ -35,7 +35,8 @@ module.exports = {
     "NSBezierPath"    : true,
     "NSMakePoint"     : true,
     "MSShapePathLayer": true,
-    "MSPath"          : true
+    "MSPath"          : true,
+    "NSDocumentController": true,
   },
   env          : {
     "es6" : true,
