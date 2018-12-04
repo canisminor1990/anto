@@ -1,4 +1,5 @@
 import sketch from 'sketch/dom';
+import UI from 'sketch/ui';
 import { find, GroupOrder } from './utils';
 
 export default () => {
@@ -36,4 +37,6 @@ export default () => {
 
   Group.locked = true;
   GroupOrder(page);
+
+  UI.message('置顶成功');
 };

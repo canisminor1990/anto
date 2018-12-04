@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { connect } from 'dva';
 import styled from 'styled-components';
 import { Icon } from '../components';
+import Line from './Line';
 import Note from './Note';
 import Layer from './Layer';
 import Setting from './Setting';
@@ -109,13 +110,7 @@ class WebView extends Component {
   SideBar = () => (
     <SideBar style={{ background: this.props.theme === 'black' ? '#222' : '#fff' }}>
       <Logo />
-      <Icon type="icon-line" title="连线" onClick={() => window.postMessage('handleLine', null)} />
-      <Icon
-        type="icon-change"
-        title="变向"
-        onClick={() => window.postMessage('handleChange', null)}
-      />
-      <Icon type="icon-dash" title="虚实" onClick={() => window.postMessage('handleDash', null)} />
+      <Icon type="icon-line" title="连线" onClick={this.openLine} />
       <Icon type="icon-layer" title="图层" onClick={this.openLayer} />
       <Icon type="icon-note" title="标注" onClick={this.openNote} />
       <Icon
@@ -146,6 +141,7 @@ class WebView extends Component {
       <View style={{ background: this.props.theme === 'black' ? '#222' : '#fff' }}>
         <this.SideBar />
         <Panel>
+          {this.props.line ? <Line /> : null}
           {this.props.note ? <Note /> : null}
           {this.props.layer ? <Layer /> : null}
           {this.props.setting ? <Setting /> : null}
@@ -169,6 +165,11 @@ class WebView extends Component {
   openNote = () => {
     window.postMessage('openPanel', null);
     this.props.setConfig({ note: true });
+  };
+
+  openLine = () => {
+    window.postMessage('openPanel', null);
+    this.props.setConfig({ line: true });
   };
 
   openLayer = () => {

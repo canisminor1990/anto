@@ -134,6 +134,8 @@ export default () => {
       sliceLayer.select_byExtendingSelection(true, true);
     }
   });
+
+  UI.message('制版成功');
 };
 
 function makeLayerExportable(layer, mode) {

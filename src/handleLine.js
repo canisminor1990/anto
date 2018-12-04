@@ -102,6 +102,7 @@ export default context => {
 
     Group.locked = true;
     GroupOrder(page);
+    UI.message('连线成功');
   }
 };
 

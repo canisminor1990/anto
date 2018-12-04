@@ -11,6 +11,8 @@ import handleBottom from './handleBottom';
 import handleTitle from './handleTitle';
 import handleExport from './handleExport';
 import handleNote from './handleNote';
+import handleSort from './handleSort';
+import handleLayout from './handleLayout';
 
 const isDev = process.env.NODE_ENV === 'development';
 const Panel = isDev ? 'http://localhost:8000' : 'index.html';
@@ -57,12 +59,6 @@ export const onRun = context => {
 
   // Webview数据交互
   const webContents = browserWindow.webContents;
-
-  webContents.on('handleLine', () => handleLine());
-  webContents.on('handleChange', () => handleChange());
-  webContents.on('handleDash', () => handleDash());
-  webContents.on('handleTop', () => handleTop());
-  webContents.on('handleBottom', () => handleBottom());
   webContents.on('handleTitle', () => handleTitle());
   webContents.on('handleExport', () => handleExport());
   webContents.on('changeMode', e => {
@@ -70,7 +66,18 @@ export const onRun = context => {
     UI.message(`切换到「${e}模式」`);
   });
 
-  // Set
+  // 连线
+  webContents.on('handleLine', () => handleLine());
+  webContents.on('handleChange', () => handleChange());
+  webContents.on('handleDash', () => handleDash());
+
+  // 图层
+  webContents.on('handleTop', () => handleTop());
+  webContents.on('handleBottom', () => handleBottom());
+  webContents.on('handleSort', () => handleSort());
+  webContents.on('handleLayout', () => handleLayout());
+
+  // 注释
   webContents.on('setHeader', () => handleNote('header'));
   webContents.on('setText', () => handleNote('text'));
   webContents.on('setBlock', () => handleNote('block'));

@@ -7,6 +7,7 @@ export default {
     setting: false,
     note: false,
     layer: false,
+    line: false,
   },
 
   reducers: {

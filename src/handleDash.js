@@ -16,4 +16,5 @@ export default () => {
   } else {
     Line.style.borderOptions.dashPattern = [0, 0, 0, 0];
   }
+  UI.message('变更成功');
 };

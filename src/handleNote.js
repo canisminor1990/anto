@@ -14,7 +14,7 @@ export default type => {
 
   if (selection.isEmpty) return UI.message('请选择文本');
 
-  const texts = _.filter(selection.layers, l => l.type === 'Text');
+  const texts = _.filter(selection.layers, l => l.type === 'Text' || l.type === 'SymbolInstance');
   if (texts.length === 0) return UI.message('请选择文本');
 
   // 找到Library
@@ -68,6 +68,7 @@ export default type => {
   selection.clear();
   _.forEach(texts, text => {
     if (type === 'text') {
+      if (text.type === 0) return UI.message('请选择文本');
       text.systemFontSize = 32;
       text.frame.width = 750;
       text.style = {
@@ -76,7 +77,7 @@ export default type => {
         shadows: [],
         fills: [
           {
-            color: mode === '交互' ? '#2B79FF' : '#ffffff',
+            color: mode === '交互' ? '#333' : '#ffffff',
             fill: sketch.Style.FillType.Color,
           },
         ],
@@ -91,11 +92,19 @@ export default type => {
       instance.frame.y = text.frame.y;
       instance.selected = true;
       // 设置override
-      setByValue(instance, Name[type].replace, text.text);
-      if (type === 'changelog') {
-        setByValue(instance, Name.changelog.replace2, moment().format('MMDD'));
+      if (text.type === 'Text') {
+        setByValue(instance, Name[type].replace, text.text);
+      } else {
+        console.log(text.overrides);
+        _.forEach(text.overrides, o => {
+          if (!o.isDefault && o.property === 'stringValue')
+            setByValue(instance, Name[type].replace, o.value);
+        });
       }
+      if (type === 'changelog')
+        setByValue(instance, Name.changelog.replace2, moment().format('MMDD'));
       text.remove();
     }
   });
+  UI.message('生成成功');
 };

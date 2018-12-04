@@ -11,6 +11,16 @@ export default () => {
   const page = document.selectedPage;
   const mode = Settings.settingForKey('panel-mode');
 
+  const Artboards = _.filter(
+    page.layers,
+    layer =>
+      layer.type === 'Artboard' &&
+      layer.name[0] !== '@' &&
+      layer.frame.width >= 750 / 2 &&
+      layer.frame.width <= 750 * 3
+  );
+  if (Artboards.length === 0) return UI.message('找不到可用画板');
+
   // 找到Library
   const libraries = sketch.Library.getLibraries();
 
@@ -36,15 +46,8 @@ export default () => {
     layers: [],
   });
   const symbolMaster = master.import();
-  const Artboards = _.filter(
-    page.layers,
-    layer =>
-      layer.type === 'Artboard' &&
-      layer.name[0] !== '@' &&
-      layer.frame.width >= 750 / 2 &&
-      layer.frame.width <= 750 * 3
-  );
-  if (Artboards.length === 0) return UI.message('找不到可用画板');
+
+  // 遍历
   Artboards.forEach(Artboard => {
     const instance = symbolMaster.createNewInstance();
     instance.parent = Group;
@@ -56,6 +59,9 @@ export default () => {
     const titleId = '标题';
     setByValue(instance, titleId, Artboard.name);
   });
+
   Group.locked = true;
   GroupOrder(page);
+
+  UI.message('生成成功');
 };

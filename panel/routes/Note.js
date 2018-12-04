@@ -83,7 +83,6 @@ class Setting extends Component {
         <Icon type="icon-list" title="注释列" onClick={() => window.postMessage('setList', null)} />
         <Icon type="icon-ul" title="列表" onClick={() => window.postMessage('setUl', null)} />
         <Icon type="icon-point" title="节点" onClick={() => window.postMessage('setPoint', null)} />
-        <Icon type="icon-round" title="胶囊" onClick={() => window.postMessage('setRound', null)} />
         <Icon type="icon-if" title="判断" onClick={() => window.postMessage('setIf', null)} />
         <Icon
           type="icon-changelog"

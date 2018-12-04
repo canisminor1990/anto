@@ -67,24 +67,24 @@ class Setting extends Component {
 
   render() {
     return [
-      <Title key="title">层</Title>,
+      <Title key="title">线</Title>,
       <View key="panel">
         <Icon
-          type="icon-layout"
-          title="对齐"
-          onClick={() => window.postMessage('handleLayout', null)}
+          type="icon-link"
+          title="连线"
+          onClick={() => window.postMessage('handleLine', null)}
         />
         <Icon
-          type="icon-sort"
-          title="排序"
-          onClick={() => window.postMessage('handleSort', null)}
+          type="icon-change"
+          title="变向"
+          onClick={() => window.postMessage('handleChange', null)}
         />
-        <Icon type="icon-top" title="置顶" onClick={() => window.postMessage('handleTop', null)} />
         <Icon
-          type="icon-bottom"
-          title="置底"
-          onClick={() => window.postMessage('handleBottom', null)}
+          type="icon-dash"
+          title="虚实"
+          onClick={() => window.postMessage('handleDash', null)}
         />
+        <Icon type="icon-round" title="标签" onClick={() => window.postMessage('setRound', null)} />
         <Close onClick={this.handleClose} />
       </View>,
     ];

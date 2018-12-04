@@ -13,4 +13,5 @@ export default () => {
   const End = Line.style.borderOptions.endArrowhead;
   Line.style.borderOptions.startArrowhead = End;
   Line.style.borderOptions.endArrowhead = Start;
+  UI.message('变更成功');
 };
