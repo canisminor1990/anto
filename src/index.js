@@ -7,9 +7,11 @@ import handleLine from './handleLine';
 import handleDash from './handleDash';
 import handleChange from './handleChange';
 import handleTop from './handleTop';
+import handleBottom from './handleBottom';
 import handleTitle from './handleTitle';
 import handleExport from './handleExport';
 import handleNote from './handleNote';
+
 const isDev = process.env.NODE_ENV === 'development';
 const Panel = isDev ? 'http://localhost:8000' : 'index.html';
 const width = 48;
@@ -41,6 +43,9 @@ export const onRun = context => {
   browserWindow.once('ready-to-show', () => {
     const Positon = Settings.settingForKey('panel-position');
     if (_.isArray(Positon)) browserWindow.setPosition(Positon[0], browserWindow.getPosition()[1]);
+    browserWindow.webContents.executeJavaScript(
+      `localStorage.setItem("version","${String(context.plugin.version())}")`
+    );
     browserWindow.show();
   });
 
@@ -52,10 +57,12 @@ export const onRun = context => {
 
   // Webview数据交互
   const webContents = browserWindow.webContents;
+
   webContents.on('handleLine', () => handleLine());
   webContents.on('handleChange', () => handleChange());
   webContents.on('handleDash', () => handleDash());
   webContents.on('handleTop', () => handleTop());
+  webContents.on('handleBottom', () => handleBottom());
   webContents.on('handleTitle', () => handleTitle());
   webContents.on('handleExport', () => handleExport());
   webContents.on('changeMode', e => {

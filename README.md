@@ -21,6 +21,6 @@ AFUX Tools 依赖 Anima 部分布局功能，请按顺安装
 ## Contact
 
 <div style="display:flex">
-<img src="https://raw.githubusercontent.com/canisminor1990/sketch-afux-tools/master/public/qrcode-canisminor.jpg" width="250"/>
-<img src="https://raw.githubusercontent.com/canisminor1990/sketch-afux-tools/master/public/qrcode.jpg" width="250"/>
+<img src="https://raw.githubusercontent.com/canisminor1990/sketch-afux-tools/master/public/qrcode-canisminor.jpg" width="310"/>
+<img src="https://raw.githubusercontent.com/canisminor1990/sketch-afux-tools/master/public/qrcode.jpg" width="310"/>
 </div>

@@ -41,3 +41,21 @@ export const setByValue = (instance, setByValue, value) => {
   if (result.length === 0) return UI.message(`请检查Override-${instance.name}`);
   instance.setOverrideValue(result[0], value);
 };
+
+// 排序
+export const GroupOrder = page => {
+  const GorupTop = find(page.layers, 'name', '@置顶');
+  const GroupLine = find(page.layers, 'name', '@交互连线');
+  const GroupTitle = find(page.layers, 'name', '@画板标题');
+  const GroupShadow = find(page.layers, 'name', '@画板投影');
+  const GorupBottom = find(page.layers, 'name', '@置底');
+  const GroupBg = find(page.layers, 'name', '@制版');
+
+  if (GroupTitle) GroupTitle.moveToFront();
+  if (GroupLine) GroupLine.moveToFront();
+  if (GorupTop) GorupTop.moveToFront();
+
+  if (GroupShadow) GroupShadow.moveToBack();
+  if (GorupBottom) GorupBottom.moveToBack();
+  if (GroupBg) GroupBg.moveToBack();
+};

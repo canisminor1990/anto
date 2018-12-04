@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import styled from 'styled-components';
 import { Icon } from '../components';
 import Note from './Note';
+import Layer from './Layer';
 import Setting from './Setting';
 
 /// /////////////////////////////////////////////
@@ -115,7 +116,7 @@ class WebView extends Component {
         onClick={() => window.postMessage('handleChange', null)}
       />
       <Icon type="icon-dash" title="虚实" onClick={() => window.postMessage('handleDash', null)} />
-      <Icon type="icon-top" title="置顶" onClick={() => window.postMessage('handleTop', null)} />
+      <Icon type="icon-layer" title="图层" onClick={this.openLayer} />
       <Icon type="icon-note" title="标注" onClick={this.openNote} />
       <Icon
         type="icon-title"
@@ -146,6 +147,7 @@ class WebView extends Component {
         <this.SideBar />
         <Panel>
           {this.props.note ? <Note /> : null}
+          {this.props.layer ? <Layer /> : null}
           {this.props.setting ? <Setting /> : null}
         </Panel>
       </View>
@@ -167,6 +169,11 @@ class WebView extends Component {
   openNote = () => {
     window.postMessage('openPanel', null);
     this.props.setConfig({ note: true });
+  };
+
+  openLayer = () => {
+    window.postMessage('openPanel', null);
+    this.props.setConfig({ layer: true });
   };
 }
 

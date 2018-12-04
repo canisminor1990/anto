@@ -27,6 +27,20 @@ const Title = styled.div`
   margin-bottom: 0.5rem;
 `;
 
+const Version = styled.div`
+  font-weight: 600;
+  font-size: 1.2rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+  span {
+    font-weight: 400;
+    font-size: 0.8rem;
+    opacity: 0.5;
+  }
+  border-bottom: 1px solid rgba(100, 100, 100, 0.2);
+`;
+
 const Group = styled.div`
   background: #222;
   position: fixed;
@@ -74,6 +88,8 @@ class Setting extends Component {
     theme: 'black',
   };
 
+  version = localStorage.getItem('version');
+
   componentDidMount() {
     this.setState(this.props.store);
   }
@@ -83,6 +99,9 @@ class Setting extends Component {
       <Title key="title">设置</Title>,
       <View key="panel">
         <div>
+          <Version>
+            AFUX Tools <span>ver{this.version ? this.version : '1.0.0'}</span>
+          </Version>
           <FormItem label="花名">
             <Input
               placeholder="请输入花名"

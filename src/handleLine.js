@@ -1,7 +1,7 @@
 import sketch from 'sketch/dom';
 import UI from 'sketch/ui';
 import _ from 'lodash';
-import { find } from './utils';
+import { find, GroupOrder } from './utils';
 
 let LineStyle = {
   borders: [
@@ -100,8 +100,8 @@ export default context => {
     Line.frame = newRect;
     Line.parent = Group;
 
-    Group.moveToFront();
     Group.locked = true;
+    GroupOrder(page);
   }
 };
 

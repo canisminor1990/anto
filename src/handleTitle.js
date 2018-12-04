@@ -2,13 +2,13 @@ import sketch from 'sketch/dom';
 import UI from 'sketch/ui';
 import Settings from 'sketch/settings';
 import _ from 'lodash';
-import { find, setByValue, removeLayer } from './utils';
+import { find, setByValue, removeLayer, GroupOrder } from './utils';
 
 export default () => {
   console.log('[Start]', 'handleTitle');
 
   const document = sketch.getSelectedDocument();
-  const selectPage = document.selectedPage;
+  const page = document.selectedPage;
   const mode = Settings.settingForKey('panel-mode');
 
   // 找到Library
@@ -23,15 +23,21 @@ export default () => {
   if (!master) return UI.message('请检查Symbol是否存在');
 
   // 导入
-  removeLayer(selectPage, '@画板标题');
+  removeLayer(page, '@画板标题');
   const Group = new sketch.Group({
     name: '@画板标题',
-    parent: selectPage,
+    parent: page,
+    frame: {
+      x: -50000,
+      y: -50000,
+      width: 100000,
+      height: 100000,
+    },
     layers: [],
   });
   const symbolMaster = master.import();
   const Artboards = _.filter(
-    selectPage.layers,
+    page.layers,
     layer =>
       layer.type === 'Artboard' &&
       layer.name[0] !== '@' &&
@@ -45,10 +51,11 @@ export default () => {
     instance.frame.x = Artboard.frame.x;
     instance.frame.y = Artboard.frame.y - 150;
     instance.frame.width = Artboard.frame.width;
+    instance.frame = instance.frame.changeBasis({ from: page, to: Group });
     // 设置override
     const titleId = '标题';
     setByValue(instance, titleId, Artboard.name);
   });
-  Group.moveToFront();
   Group.locked = true;
+  GroupOrder(page);
 };

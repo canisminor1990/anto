@@ -2,17 +2,17 @@ import sketch from 'sketch/dom';
 import { find, GroupOrder } from './utils';
 
 export default () => {
-  console.log('[Start]', 'handleTop');
+  console.log('[Start]', 'handleBottom');
 
   const document = sketch.getSelectedDocument();
   const page = document.selectedPage;
   const selection = document.selectedLayers;
 
-  const Groups = find(page.layers, 'name', '@置顶');
+  const Groups = find(page.layers, 'name', '@置底');
   const Group =
     Groups ||
     new sketch.Group({
-      name: '@置顶',
+      name: '@置底',
       frame: {
         x: -50000,
         y: -50000,

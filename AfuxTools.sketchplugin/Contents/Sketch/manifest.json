@@ -22,6 +22,7 @@
       "script": "index.js",
       "handlers": {
         "actions": {
+          "run": "onRun",
           "OpenDocument": "onRun"
         }
       }

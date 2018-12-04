@@ -20,9 +20,10 @@
 			"icon"      : "minicon.png",
 			"identifier": "afux-tools",
 			"script"    : "index.js",
-			"handlers": {
+			"handlers"  : {
 				"actions": {
-					"OpenDocument"     : "onRun"
+					"run"         : "onRun",
+					"OpenDocument": "onRun"
 				}
 			}
 		}

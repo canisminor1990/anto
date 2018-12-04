@@ -3,7 +3,7 @@ import UI from 'sketch/ui';
 import Settings from 'sketch/settings';
 import moment from 'moment';
 import _ from 'lodash';
-import { find, setByValue, removeLayer } from './utils';
+import { find, setByValue, removeLayer, GroupOrder } from './utils';
 
 export default () => {
   console.log('[Start]', 'handleExport');
@@ -104,13 +104,16 @@ export default () => {
   const Group = new sketch.Group({
     name: '@制版',
     parent: page,
-    layers: [instance],
+    frame: instance.frame,
+    layers: [],
   });
+
+  instance.frame = instance.frame.changeBasis({ from: page, to: Group });
+  instance.parent = Group;
 
   ShadowGroup.locked = true;
   Group.locked = true;
-  ShadowGroup.moveToBack();
-  Group.moveToBack();
+  GroupOrder(page);
 
   // 原生切片
   const sliceLayer = MSSliceLayer.new();

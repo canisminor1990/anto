@@ -6,6 +6,7 @@ export default {
   state: {
     setting: false,
     note: false,
+    layer: false,
   },
 
   reducers: {

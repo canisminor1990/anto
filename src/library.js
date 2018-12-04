@@ -9,9 +9,7 @@ export const addLibrary = context => {
       const libraryPath = String(libraryUrl.path());
       const library = Library.getLibraryForDocumentAtPath(libraryPath);
       AppController.sharedInstance().checkForAssetLibraryUpdates();
-      if (context.action === 'Shutdown') {
-        library.remove();
-      }
+      if (context.action === 'Shutdown') library.remove();
     }
   });
 };
