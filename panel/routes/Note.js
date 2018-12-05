@@ -38,10 +38,16 @@ class Note extends Component {
         animConfig={{ opacity: [0.6, 0], translateY: [0, 50] }}
       >
         <Icon
-          key="链路"
-          title="链路"
+          key="大标题"
+          title="大标题"
           type="icon-header"
           onClick={() => window.postMessage('setHeader', null)}
+        />
+        <Icon
+          key="小标题"
+          title="小标题"
+          type="icon-subheader"
+          onClick={() => window.postMessage('setSubHeader', null)}
         />
         <Icon
           key="注释"
@@ -72,12 +78,6 @@ class Note extends Component {
           title="节点"
           type="icon-point"
           onClick={() => window.postMessage('setPoint', null)}
-        />
-        <Icon
-          key="判断"
-          title="判断"
-          type="icon-if"
-          onClick={() => window.postMessage('setIf', null)}
         />
         <Icon
           key="变更"

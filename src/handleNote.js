@@ -26,35 +26,30 @@ export default type => {
   const Name = {
     header: {
       name: `${mode} / 标题-链路`,
-      replace: '标题',
+    },
+    subheader: {
+      name: `${mode} / 标题-小标题`,
     },
     block: {
       name: `${mode} / 注释-块`,
-      replace: '注释',
     },
     list: {
       name: `${mode} / 注释-列`,
-      replace: '注释',
     },
     ul: {
       name: `${mode} / 描述-列表`,
-      replace: '注释',
     },
     point: {
       name: `交互 / 节点-矩形`,
-      replace: '标题',
     },
     round: {
       name: `交互 / 节点-胶囊`,
-      replace: '标题',
     },
     if: {
       name: `交互 / 节点-判断`,
-      replace: '标题',
     },
     changelog: {
       name: `${mode} / 描述-变更记录`,
-      replace: '注释',
       replace2: '日期',
     },
   };
@@ -67,11 +62,9 @@ export default type => {
   }
   selection.clear();
   _.forEach(texts, text => {
+    if (!text.type) return UI.message('请选择文本');
     if (type === 'text') {
-      if (text.type === 0) return UI.message('请选择文本');
-      text.systemFontSize = 32;
-      text.frame.width = 750;
-      text.style = {
+      const style = {
         opacity: 1,
         borders: [],
         shadows: [],
@@ -82,6 +75,23 @@ export default type => {
           },
         ],
       };
+      if (text.type === 'Text') {
+        text.systemFontSize = 32;
+        text.frame.width = 750;
+        text.style = style;
+      } else {
+        const newText = new sketch.Text({
+          frame: text.frame,
+          parent: text.parent,
+          style: style,
+          systemFontSize: 32,
+          selected: true,
+        });
+        _.forEach(text.overrides, o => {
+          if (!o.isDefault && o.property === 'stringValue') newText.value = o.value;
+        });
+        text.remove();
+      }
     } else {
       const symbolMaster = master.import();
       const instance = symbolMaster.createNewInstance();
@@ -93,16 +103,15 @@ export default type => {
       instance.selected = true;
       // 设置override
       if (text.type === 'Text') {
-        setByValue(instance, Name[type].replace, text.text);
+        setByValue(instance, '文字', text.text);
       } else {
-        console.log(text.overrides);
         _.forEach(text.overrides, o => {
-          if (!o.isDefault && o.property === 'stringValue')
-            setByValue(instance, Name[type].replace, o.value);
+          if (!o.isDefault && o.property === 'stringValue') setByValue(instance, '文字', o.value);
         });
       }
       if (type === 'changelog')
-        setByValue(instance, Name.changelog.replace2, moment().format('MMDD'));
+        setByValue(instance, Name.changelog.replace, moment().format('MMDD'));
+
       text.remove();
     }
   });

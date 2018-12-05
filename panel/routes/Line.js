@@ -100,10 +100,16 @@ class Line extends Component {
           onClick={() => window.postMessage('handleDash', null)}
         />
         <Icon
-          key="标签"
-          title="标签"
+          key="说明"
+          title="说明"
           type="icon-round"
           onClick={() => window.postMessage('setRound', null)}
+        />
+        <Icon
+          key="判断"
+          title="判断"
+          type="icon-if"
+          onClick={() => window.postMessage('setIf', null)}
         />
         <Close onClick={this.handleClose} />
       </View>,

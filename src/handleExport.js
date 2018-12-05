@@ -117,7 +117,7 @@ export default () => {
 
   // 原生切片
   const sliceLayer = MSSliceLayer.new();
-  sliceLayer.setName([moment().format('MMDD'), newTitle].join(' '));
+  sliceLayer.setName([newTitle, moment().format('MMDD')].join(' '));
   sliceLayer.setIsLocked(true);
   sliceLayer.setIsVisible(false);
   const sliceFrame = sliceLayer.frame();

@@ -79,6 +79,7 @@ export const onRun = context => {
 
   // 注释
   webContents.on('setHeader', () => handleNote('header'));
+  webContents.on('setSubHeader', () => handleNote('subheader'));
   webContents.on('setText', () => handleNote('text'));
   webContents.on('setBlock', () => handleNote('block'));
   webContents.on('setList', () => handleNote('list'));
