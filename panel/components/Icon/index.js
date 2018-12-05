@@ -24,10 +24,10 @@ const View = styled.div`
   flex-direction: column;
   align-items: center;
   opacity: 0.6;
-  transition: all 0.2s ease-out;
+
   cursor: pointer;
   &:hover {
-    opacity: 1;
+    opacity: 1 !important;
   }
   &:active {
     ${Img} {

@@ -2,7 +2,11 @@ var that=this;function __skpm_run(r,t){that.context=t;var e=function(r){var t={}
 /*!************************!*\
   !*** ./src/library.js ***!
   \************************/
-/*! exports provided: addLibrary */function(r,t,e){"use strict";e.r(t),e.d(t,"addLibrary",function(){return a});var n=e(/*! sketch/dom */"sketch/dom"),o=e.n(n),a=function(r){var t=o.a.Library;["AFUX 输出组件.sketch"].forEach(function(e){var n=r.plugin.urlForResourceNamed(e);if(n){var o=String(n.path()),a=t.getLibraryForDocumentAtPath(o);AppController.sharedInstance().checkForAssetLibraryUpdates(),"Shutdown"===r.action&&a.remove()}})}},"sketch/dom":
+/*! exports provided: addLibrary */function(r,t,e){"use strict";e.r(t),e.d(t,"addLibrary",function(){return i});var n=e(/*! sketch/dom */"sketch/dom"),o=e.n(n),a=e(/*! path */"path"),i=function(r){var t=o.a.Library;["AFUX 输出组件.sketch","AFUX 交互组件.sketch"].forEach(function(e){var n=r.plugin.urlForResourceNamed(Object(a.join)("sketch",e));if(n){var o=String(n.path()),i=t.getLibraryForDocumentAtPath(o);AppController.sharedInstance().checkForAssetLibraryUpdates(),"Shutdown"===r.action&&i.remove()}})}},path:
+/*!***********************!*\
+  !*** external "path" ***!
+  \***********************/
+/*! no static exports found */function(r,t){r.exports=require("path")},"sketch/dom":
 /*!*****************************!*\
   !*** external "sketch/dom" ***!
   \*****************************/

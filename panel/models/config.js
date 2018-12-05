@@ -8,6 +8,7 @@ export default {
     note: false,
     layer: false,
     line: false,
+    symbol: false,
   },
 
   reducers: {

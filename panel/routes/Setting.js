@@ -2,6 +2,7 @@ import { Component } from 'react';
 import styled from 'styled-components';
 import { Form, Input, Button, Switch } from 'antd';
 import { connect } from 'dva';
+import QueueAnim from 'rc-queue-anim';
 
 const FormItem = Form.Item;
 
@@ -16,14 +17,15 @@ const View = styled.div`
 
 const Title = styled.div`
   font-size: 1.2rem;
-  color: #999;
+  color: rgba(100, 100, 100, 0.4);
   width: 100%;
   height: 48px;
   display: flex;
   align-items: center;
   padding: 0 1rem;
   font-weight: 600;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: ${props =>
+    props.theme === 'black' ? '0 4px 12px rgba(0, 0, 0, 0.2)' : '0 4px 8px rgba(0, 0, 0, 0.05)'};
   margin-bottom: 0.5rem;
 `;
 
@@ -42,7 +44,7 @@ const Version = styled.div`
 `;
 
 const Group = styled.div`
-  background: #222;
+  background: ${props => (props.theme === 'black' ? '#222' : '#fff')};
   position: fixed;
   padding: 1rem;
   bottom: 0;
@@ -86,6 +88,7 @@ class Setting extends Component {
   state = {
     name: '',
     theme: 'black',
+    title: 'low',
   };
 
   version = localStorage.getItem('version');
@@ -96,20 +99,22 @@ class Setting extends Component {
 
   render() {
     return [
-      <Title key="title">设置</Title>,
+      <Title key="title" theme={this.props.theme}>
+        设置
+      </Title>,
       <View key="panel">
-        <div>
-          <Version>
+        <QueueAnim type="bottom">
+          <Version key="title">
             AFUX Tools <span>ver{this.version ? this.version : '1.0.0'}</span>
           </Version>
-          <FormItem label="花名">
+          <FormItem key="花名" label="花名">
             <Input
               placeholder="请输入花名"
               defaultValue={this.state.name}
               onChange={e => this.handleChange(e.target.value, 'name')}
             />
           </FormItem>
-          <FormItem label="皮肤">
+          <FormItem key="皮肤" label="皮肤">
             <Switch
               checkedChildren="黑"
               unCheckedChildren="白"
@@ -117,12 +122,16 @@ class Setting extends Component {
               onChange={this.handleTheme}
             />
           </FormItem>
-        </div>
-        <Group
-          style={{
-            background: this.props.theme === 'black' ? '#222' : '#fff',
-          }}
-        >
+          <FormItem key="交互画板标题" label="交互画板标题">
+            <Switch
+              checkedChildren="强"
+              unCheckedChildren="弱"
+              defaultChecked={this.props.title === 'strong'}
+              onChange={this.handleTitle}
+            />
+          </FormItem>
+        </QueueAnim>
+        <Group theme={this.props.theme}>
           <Button
             style={{ background: this.props.theme === 'black' ? '#333' : '#fff' }}
             onClick={this.handleClose}
@@ -143,6 +152,10 @@ class Setting extends Component {
 
   handleTheme = bool => {
     this.setState({ theme: bool ? 'black' : 'white' });
+  };
+
+  handleTitle = bool => {
+    this.setState({ title: bool ? 'strong' : 'low' });
   };
 
   handleClose = () => {

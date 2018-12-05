@@ -2,8 +2,6 @@ import sketch from 'sketch/dom';
 import UI from 'sketch/ui';
 import _ from 'lodash';
 import { GroupOrder, find } from './utils';
-import handleTitle from './handleTitle';
-import handleExport from './handleExport';
 
 const option = {
   marginX: 100,
@@ -58,12 +56,6 @@ export default () => {
     layer.frame = rect;
     ArtboardsGroup[Y].children.push(layer);
   });
-
-  // 重新绘制标题和底板
-  const GroupTitle = find(page.layers, 'name', '@画板标题');
-  const GroupBg = find(page.layers, 'name', '@制版');
-  if (GroupTitle) handleTitle();
-  if (GroupBg) handleExport();
 
   GroupOrder(page);
   UI.message('对齐成功');

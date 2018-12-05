@@ -1,53 +1,18 @@
 import { Component } from 'react';
-import styled from 'styled-components';
 import { connect } from 'dva';
 import { Icon } from '../components';
-
-/// /////////////////////////////////////////////
-// styled
-/// /////////////////////////////////////////////
-
-const Title = styled.div`
-  width: 48px;
-  height: 48px;
-  display: flex;
-  font-size: 1.2rem;
-  align-items: center;
-  justify-content: center;
-  font-weight: bolder;
-  color: #333;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  margin-bottom: 0.5rem;
-`;
-
-const View = styled.div`
-  width: 48px;
-`;
-
-const Close = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 48px;
-  width: 48px;
-  height: 32px;
-  background-image: url('icon-close.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 32px;
-  opacity: 0.2;
-  transition: all 0.2s ease-out;
-  cursor: pointer;
-  &:hover {
-    opacity: 1;
-  }
-`;
+import { Title, View, Close } from './Line';
 
 /// /////////////////////////////////////////////
 // connect
 /// /////////////////////////////////////////////
 
 const State = state => {
-  return {};
+  return {
+    store: state.store,
+    ...state.store,
+    ...state.config,
+  };
 };
 
 const Dispatch = dispatch => ({
@@ -60,29 +25,40 @@ const Dispatch = dispatch => ({
 // component
 /// /////////////////////////////////////////////
 
-class Setting extends Component {
-  state = {
-    name: '',
-  };
-
+class Layer extends Component {
   render() {
     return [
-      <Title key="title">层</Title>,
-      <View key="panel">
+      <Title key="title" theme={this.props.theme}>
+        层
+      </Title>,
+      <View
+        key="panel"
+        duration={200}
+        interval={50}
+        animConfig={{ opacity: [0.6, 0], translateY: [0, 50] }}
+      >
         <Icon
-          type="icon-layout"
+          key="对齐"
           title="对齐"
+          type="icon-layout"
           onClick={() => window.postMessage('handleLayout', null)}
         />
         <Icon
-          type="icon-sort"
+          key="排序"
           title="排序"
+          type="icon-sort"
           onClick={() => window.postMessage('handleSort', null)}
         />
-        <Icon type="icon-top" title="置顶" onClick={() => window.postMessage('handleTop', null)} />
         <Icon
-          type="icon-bottom"
+          key="置顶"
+          title="置顶"
+          type="icon-top"
+          onClick={() => window.postMessage('handleTop', null)}
+        />
+        <Icon
+          key="置底"
           title="置底"
+          type="icon-bottom"
           onClick={() => window.postMessage('handleBottom', null)}
         />
         <Close onClick={this.handleClose} />
@@ -91,7 +67,7 @@ class Setting extends Component {
   }
 
   handleClose = () => {
-    this.props.setConfig({ note: false });
+    this.props.setConfig({ layer: false });
     window.postMessage('closePanel', null);
   };
 }
@@ -99,4 +75,4 @@ class Setting extends Component {
 export default connect(
   State,
   Dispatch
-)(Setting);
+)(Layer);

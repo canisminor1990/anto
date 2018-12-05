@@ -7,7 +7,10 @@ body,
 }
 
 body {
-  -webkit-app-region: drag
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
 *:focus {
@@ -23,3 +26,25 @@ div {
   position: relative;
 }
 
+::-webkit-scrollbar {
+  background: #f8f8f8;
+  height: 0.4rem;
+  width: 0;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 0;
+  box-shadow: none;
+  transition: background-color 0.5s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+   background-color: #000;
+}

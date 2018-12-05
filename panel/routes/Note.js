@@ -1,53 +1,18 @@
 import { Component } from 'react';
-import styled from 'styled-components';
 import { connect } from 'dva';
 import { Icon } from '../components';
-
-/// /////////////////////////////////////////////
-// styled
-/// /////////////////////////////////////////////
-
-const Title = styled.div`
-  width: 48px;
-  height: 48px;
-  display: flex;
-  font-size: 1.2rem;
-  align-items: center;
-  justify-content: center;
-  font-weight: bolder;
-  color: #333;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  margin-bottom: 0.5rem;
-`;
-
-const View = styled.div`
-  width: 48px;
-`;
-
-const Close = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 48px;
-  width: 48px;
-  height: 32px;
-  background-image: url('icon-close.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 32px;
-  opacity: 0.2;
-  transition: all 0.2s ease-out;
-  cursor: pointer;
-  &:hover {
-    opacity: 1;
-  }
-`;
+import { Title, View, Close } from './Line';
 
 /// /////////////////////////////////////////////
 // connect
 /// /////////////////////////////////////////////
 
 const State = state => {
-  return {};
+  return {
+    store: state.store,
+    ...state.store,
+    ...state.config,
+  };
 };
 
 const Dispatch = dispatch => ({
@@ -60,33 +25,64 @@ const Dispatch = dispatch => ({
 // component
 /// /////////////////////////////////////////////
 
-class Setting extends Component {
-  state = {
-    name: '',
-  };
-
+class Note extends Component {
   render() {
     return [
-      <Title key="title">注</Title>,
-      <View key="panel">
+      <Title key="title" theme={this.props.theme}>
+        注
+      </Title>,
+      <View
+        key="panel"
+        duration={200}
+        interval={50}
+        animConfig={{ opacity: [0.6, 0], translateY: [0, 50] }}
+      >
         <Icon
-          type="icon-header"
+          key="链路"
           title="链路"
+          type="icon-header"
           onClick={() => window.postMessage('setHeader', null)}
         />
-        <Icon type="icon-text" title="注释" onClick={() => window.postMessage('setText', null)} />
         <Icon
-          type="icon-block"
+          key="注释"
+          title="注释"
+          type="icon-text"
+          onClick={() => window.postMessage('setText', null)}
+        />
+        <Icon
+          key="注释块"
           title="注释块"
+          type="icon-block"
           onClick={() => window.postMessage('setBlock', null)}
         />
-        <Icon type="icon-list" title="注释列" onClick={() => window.postMessage('setList', null)} />
-        <Icon type="icon-ul" title="列表" onClick={() => window.postMessage('setUl', null)} />
-        <Icon type="icon-point" title="节点" onClick={() => window.postMessage('setPoint', null)} />
-        <Icon type="icon-if" title="判断" onClick={() => window.postMessage('setIf', null)} />
         <Icon
-          type="icon-changelog"
+          key="注释列"
+          title="注释列"
+          type="icon-list"
+          onClick={() => window.postMessage('setList', null)}
+        />
+        <Icon
+          key="列表"
+          title="列表"
+          type="icon-ul"
+          onClick={() => window.postMessage('setUl', null)}
+        />
+        <Icon
+          key="节点"
+          title="节点"
+          type="icon-point"
+          onClick={() => window.postMessage('setPoint', null)}
+        />
+        <Icon
+          key="判断"
+          title="判断"
+          type="icon-if"
+          onClick={() => window.postMessage('setIf', null)}
+        />
+        <Icon
+          key="变更"
           title="变更"
+          type="icon-changelog"
           onClick={() => window.postMessage('setChangelog', null)}
         />
         <Close onClick={this.handleClose} />
@@ -103,4 +99,4 @@ class Setting extends Component {
 export default connect(
   State,
   Dispatch
-)(Setting);
+)(Note);

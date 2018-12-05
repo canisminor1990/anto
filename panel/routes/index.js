@@ -2,6 +2,8 @@ import { Component } from 'react';
 import { connect } from 'dva';
 import styled from 'styled-components';
 import { Icon } from '../components';
+import QueueAnim from 'rc-queue-anim';
+import Symbol from './Symbol';
 import Line from './Line';
 import Note from './Note';
 import Layer from './Layer';
@@ -13,16 +15,19 @@ import Setting from './Setting';
 
 const View = styled.div`
   display: flex;
+  background: ${props => (props.theme === 'black' ? '#222' : '#fff')};
 `;
 
 const SideBar = styled.div`
+  background: ${props => (props.theme === 'black' ? '#222' : '#fff')};
   width: 48px;
   height: 100vh;
   overflow: hidden;
   position: fixed;
   top: 0;
   left: 0;
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: ${props =>
+    props.theme === 'black' ? '1px solid rgba(0, 0, 0, 0.1)' : '1px solid #f5f5f5'};
   z-index: 999;
 `;
 
@@ -41,7 +46,8 @@ const Logo = styled.div`
   background-repeat: no-repeat;
   background-size: 28px auto;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: ${props =>
+    props.theme === 'black' ? '0 4px 12px rgba(0, 0, 0, 0.2)' : '0 4px 8px rgba(0, 0, 0, 0.05)'};
   margin-bottom: 0.5rem;
 `;
 
@@ -56,10 +62,13 @@ const Mode = styled.div`
   opacity: 0.4;
   transition: all 0.2s ease-out;
   cursor: pointer;
-  border: 0.3rem solid #222;
+  border: ${props => (props.theme === 'black' ? '0.3rem solid #222' : '0.3rem solid #fff')};
   border-radius: 1.5rem;
   &:hover {
     opacity: 1;
+  }
+  &:active {
+    transform: scale(0.9);
   }
 `;
 
@@ -77,6 +86,9 @@ const Config = styled.div`
   cursor: pointer;
   &:hover {
     opacity: 1;
+  }
+  &:active {
+    transform: scale(0.9);
   }
 `;
 
@@ -108,27 +120,34 @@ class WebView extends Component {
   componentDidMount() {}
 
   SideBar = () => (
-    <SideBar style={{ background: this.props.theme === 'black' ? '#222' : '#fff' }}>
-      <Logo />
-      <Icon type="icon-line" title="连线" onClick={this.openLine} />
-      <Icon type="icon-layer" title="图层" onClick={this.openLayer} />
-      <Icon type="icon-note" title="标注" onClick={this.openNote} />
-      <Icon
-        type="icon-title"
-        title="制标"
-        onClick={() => window.postMessage('handleTitle', null)}
-      />
-      <Icon
-        type="icon-export"
-        title="制版"
-        onClick={() => window.postMessage('handleExport', null)}
-      />
+    <SideBar theme={this.props.theme}>
+      <Logo theme={this.props.theme} />
+      <QueueAnim
+        duration={200}
+        interval={50}
+        animConfig={{ opacity: [0.6, 0], translateY: [0, 50] }}
+      >
+        <Icon key="组件" title="组件" type="icon-components" onClick={this.openSymbol} />
+        <Icon key="连线" title="连线" type="icon-line" onClick={this.openLine} />
+        <Icon key="图层" title="图层" type="icon-layer" onClick={this.openLayer} />
+        <Icon key="标注" title="标注" type="icon-note" onClick={this.openNote} />
+        <Icon
+          key="制标"
+          title="制标"
+          type="icon-title"
+          onClick={() => window.postMessage('handleTitle', null)}
+        />
+        <Icon
+          key="制版"
+          title="制版"
+          type="icon-export"
+          onClick={() => window.postMessage('handleExport', null)}
+        />
+      </QueueAnim>
       <Mode
         onClick={this.handleChangeMode}
-        style={{
-          background: this.props.mode === '视觉' ? '#666' : '#2A72FF',
-          borderColor: this.props.theme === 'black' ? '#222' : '#fff',
-        }}
+        theme={this.props.theme}
+        style={{ background: this.props.mode === '视觉' ? '#666' : '#2A72FF' }}
       >
         {this.props.mode}
       </Mode>
@@ -138,9 +157,10 @@ class WebView extends Component {
 
   render() {
     return (
-      <View style={{ background: this.props.theme === 'black' ? '#222' : '#fff' }}>
+      <View theme={this.props.theme}>
         <this.SideBar />
         <Panel>
+          {this.props.symbol ? <Symbol /> : null}
           {this.props.line ? <Line /> : null}
           {this.props.note ? <Note /> : null}
           {this.props.layer ? <Layer /> : null}
@@ -155,6 +175,11 @@ class WebView extends Component {
     const mode = preMode === '视觉' ? '交互' : '视觉';
     this.props.setStore({ mode });
     window.postMessage('changeMode', mode);
+  };
+
+  openSymbol = () => {
+    window.postMessage('openSymbol', null);
+    this.props.setConfig({ symbol: true });
   };
 
   openSetting = () => {

@@ -99,6 +99,11 @@ export const onRun = context => {
   webContents.on('openSetting', () => {
     browserWindow.setSize(width + 250, height);
   });
+  webContents.on('openSymbol', () => {
+    browserWindow.setSize(width + 640, height);
+  });
+
+  // Setting
   webContents.on('closeSetting', e => {
     browserWindow.setSize(width, height, true);
     if (e) {

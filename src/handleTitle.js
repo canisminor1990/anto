@@ -29,7 +29,16 @@ export default () => {
 
   // 找到Symbol
   const symbolReferences = library.getImportableSymbolReferencesForDocument(document);
-  const master = find(symbolReferences, 'name', `${mode} / 标题`);
+  let symbolName;
+  if (mode === '视觉') {
+    symbolName = '视觉 / 标题';
+  } else {
+    const titleStyle = Settings.settingForKey('config-title');
+    symbolName = titleStyle === 'strong' ? '交互 / 标题-强' : '交互 / 标题';
+  }
+
+  const master = find(symbolReferences, 'name', symbolName);
+
   if (!master) return UI.message('请检查Symbol是否存在');
 
   // 导入
