@@ -33,7 +33,7 @@
 		"start": "concurrently \"yarn start:panel\" \"yarn start:plugin\"",
 		"start:plugin": "yarn dev && cross-env NODE_ENV=development skpm-build --watch",
 		"start:panel": "cross-env ESLINT=none roadhog dev",
-		"build": "yarn build:panel && yarn build:plugin",
+		"build": "rm -r AfuxTools.sketchplugin && yarn build:panel && yarn build:plugin",
 		"build:plugin": "cross-env NODE_ENV=production skpm-build",
 		"build:panel": "cross-env ESLINT=none roadhog build",
 		"publish": "skpm publish",

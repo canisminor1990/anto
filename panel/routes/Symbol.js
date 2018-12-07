@@ -25,7 +25,8 @@ export const Title = styled.div`
 
 export const View = styled.div`
   width: 640px;
-  height: 100%;
+  height: calc(100vh - 50px);
+  overflow: hidden;
 `;
 
 export const Close = styled.div`
@@ -51,6 +52,7 @@ export const Close = styled.div`
 
 const CellsGroup = styled(QueueAnim)`
   display: flex;
+  overflow: hidden;
   height: 100%;
 `;
 
@@ -62,7 +64,7 @@ const Cells = styled.div`
 `;
 
 const Cell = styled.div`
-  padding: 0.2rem 1rem;
+  padding: 0.2rem 0.8rem;
   margin: 0.5rem;
   border-radius: 2rem;
   opacity: ${props => (props.active ? '1' : '.6')};
@@ -76,30 +78,44 @@ const Cell = styled.div`
 `;
 
 const Library = styled.div`
-  -webkit-overflow-scrolling: touch;
   flex: 1;
+  overflow: hidden;
   overflow-y: auto;
   padding: 1rem;
-  padding-bottom: 6rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+`;
+
+const ImgTitle = styled.div`
+  transition: all 0.2s ease-out;
+  margin-bottom: 0.5rem;
+  width: 100%;
 `;
 
 const Img = styled.div`
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   cursor: pointer;
-
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   img {
     transition: all 0.2s ease-out;
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.05);
     zoom: 0.5;
-    &:hover {
+  }
+
+  &:hover {
+    ${ImgTitle} {
+      color: #2b79ff;
+    }
+    img {
       transform: scale(1.02);
       box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
     }
-    &:active {
+  }
+
+  &:active {
+    img {
       transform: scale(0.95);
     }
   }
@@ -145,6 +161,7 @@ class Symbol extends Component {
     const List = [];
     const ListGroup = [];
     const ListSymbol = [];
+
     _.forEach(Data, (value, key) =>
       List.push(
         <Cell key={key} onClick={() => this.handleRoot(key)} active={this.state.activeRoot === key}>
@@ -152,6 +169,7 @@ class Symbol extends Component {
         </Cell>
       )
     );
+
     _.forEach(Data[this.state.activeRoot], (value, key) =>
       ListGroup.push(
         <Cell
@@ -163,9 +181,19 @@ class Symbol extends Component {
         </Cell>
       )
     );
-    _.forEach(Data[this.state.activeRoot][this.state.activeGroup], (value, key) =>
+
+    let SymbolData = Data[this.state.activeRoot][this.state.activeGroup];
+
+    try {
+      SymbolData = SymbolData.sort(
+        (a, b) => parseInt(a.name.split('-')[0]) - parseInt(b.name.split('-')[0])
+      );
+    } catch (e) {}
+
+    _.forEach(SymbolData, (value, key) =>
       ListSymbol.push(
         <Img key={key}>
+          <ImgTitle>{value.name.split('-')[1]}</ImgTitle>
           <img src={value.png} />
         </Img>
       )

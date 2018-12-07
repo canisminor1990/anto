@@ -36928,25 +36928,30 @@ var option = {
   var page = document.selectedPage;
 
   var Artboards = lodash__WEBPACK_IMPORTED_MODULE_2___default.a.filter(page.layers, function (l) {
-    return l.type && l.type === 'Artboard';
+    return l.type && l.type === "Artboard";
   });
 
-  var sortedArtboards = lodash__WEBPACK_IMPORTED_MODULE_2___default.a.sortBy(Artboards, ['frame.y', 'frame.x']);
+  var sortedArtboards = lodash__WEBPACK_IMPORTED_MODULE_2___default.a.sortBy(Artboards, ["frame.y", "frame.x"]);
 
-  var ArtboardsGroup = {};
   var X = sortedArtboards[0].frame.x;
-  var Y = sortedArtboards[0].frame.y;
-  var oldX = sortedArtboards[0].frame.x;
-  var oldY = sortedArtboards[0].frame.y;
 
-  lodash__WEBPACK_IMPORTED_MODULE_2___default.a.forEach(sortedArtboards, function (layer) {
+  lodash__WEBPACK_IMPORTED_MODULE_2___default.a.forEach(sortedArtboards, function (layer, i) {
     layer.moveToBack();
-    layer.frame.x = X;
-    layer.frame.y = Y;
+    if (i === 0) return;
+    var preLayer = sortedArtboards[i - 1];
+    var minY = Math.abs(layer.frame.y - preLayer.frame.y);
+
+    if (minY < preLayer.frame.height / 3 || minY < layer.frame.height / 3) {
+      layer.frame.y = preLayer.frame.y;
+      layer.frame.x = preLayer.frame.x + preLayer.frame.width + option.marginX;
+    } else {
+      layer.frame.x = X;
+      layer.frame.y = preLayer.frame.y + preLayer.frame.height + option.marginY;
+    }
   });
 
   Object(_utils__WEBPACK_IMPORTED_MODULE_3__["GroupOrder"])(page);
-  sketch_ui__WEBPACK_IMPORTED_MODULE_1___default.a.message('对齐成功');
+  sketch_ui__WEBPACK_IMPORTED_MODULE_1___default.a.message("对齐成功");
 });
 
 /***/ }),
@@ -37146,21 +37151,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = (function (type) {
-  console.log("[Start]", "handleNote");
+  console.log('[Start]', 'handleNote');
   var document = sketch_dom__WEBPACK_IMPORTED_MODULE_0___default.a.getSelectedDocument();
   var selection = document.selectedLayers;
-  var mode = sketch_settings__WEBPACK_IMPORTED_MODULE_2___default.a.settingForKey("panel-mode");
-  if (selection.isEmpty) return sketch_ui__WEBPACK_IMPORTED_MODULE_1___default.a.message("请选择文本");
+  var mode = sketch_settings__WEBPACK_IMPORTED_MODULE_2___default.a.settingForKey('panel-mode');
+  if (selection.isEmpty) return sketch_ui__WEBPACK_IMPORTED_MODULE_1___default.a.message('请选择文本');
 
   var texts = lodash__WEBPACK_IMPORTED_MODULE_4___default.a.filter(selection.layers, function (l) {
-    return l.type === "Text" || l.type === "SymbolInstance";
+    return l.type === 'Text' || l.type === 'SymbolInstance';
   });
 
-  if (texts.length === 0) return sketch_ui__WEBPACK_IMPORTED_MODULE_1___default.a.message("请选择文本"); // 找到Library
+  if (texts.length === 0) return sketch_ui__WEBPACK_IMPORTED_MODULE_1___default.a.message('请选择文本'); // 找到Library
 
   var libraries = sketch_dom__WEBPACK_IMPORTED_MODULE_0___default.a.Library.getLibraries();
-  var library = Object(_utils__WEBPACK_IMPORTED_MODULE_5__["find"])(libraries, "name", "AFUX 输出组件");
-  if (!library) return sketch_ui__WEBPACK_IMPORTED_MODULE_1___default.a.message("请检查Library是否存在"); // 找到Symbol
+  var library = Object(_utils__WEBPACK_IMPORTED_MODULE_5__["find"])(libraries, 'name', 'AFUX 输出组件');
+  if (!library) return sketch_ui__WEBPACK_IMPORTED_MODULE_1___default.a.message('请检查Library是否存在'); // 找到Symbol
 
   var Name = {
     header: {
@@ -37189,50 +37194,52 @@ __webpack_require__.r(__webpack_exports__);
     },
     changelog: {
       name: "".concat(mode, " / \u63CF\u8FF0-\u53D8\u66F4\u8BB0\u5F55"),
-      replace2: "日期"
+      replace2: '日期'
     }
   };
   var master;
 
-  if (type !== "text") {
+  if (type !== 'text') {
     var symbolReferences = library.getImportableSymbolReferencesForDocument(document);
-    master = Object(_utils__WEBPACK_IMPORTED_MODULE_5__["find"])(symbolReferences, "name", Name[type].name);
-    if (!master) return sketch_ui__WEBPACK_IMPORTED_MODULE_1___default.a.message("请检查Symbol是否存在");
+    master = Object(_utils__WEBPACK_IMPORTED_MODULE_5__["find"])(symbolReferences, 'name', Name[type].name);
+    if (!master) return sketch_ui__WEBPACK_IMPORTED_MODULE_1___default.a.message('请检查Symbol是否存在');
   }
 
   selection.clear();
 
   lodash__WEBPACK_IMPORTED_MODULE_4___default.a.forEach(texts, function (text) {
-    if (!text.type) return sketch_ui__WEBPACK_IMPORTED_MODULE_1___default.a.message("请选择文本");
+    if (!text.type) return sketch_ui__WEBPACK_IMPORTED_MODULE_1___default.a.message('请选择文本');
 
-    if (type === "text") {
+    if (type === 'text') {
       var style = {
         opacity: 1,
         borders: [],
         shadows: [],
         fills: [{
-          color: mode === "交互" ? "#333" : "#ffffff",
+          color: mode === '交互' ? '#333' : '#ffffff',
           fill: sketch_dom__WEBPACK_IMPORTED_MODULE_0___default.a.Style.FillType.Color
         }]
       };
 
-      if (text.type === "Text") {
+      if (text.type === 'Text') {
         text.systemFontSize = 32;
         text.frame.width = 750;
         text.style = style;
+        text.selected = true;
       } else {
         var newText = new sketch_dom__WEBPACK_IMPORTED_MODULE_0___default.a.Text({
+          name: text.name,
           frame: text.frame,
           parent: text.parent,
-          style: style,
           systemFontSize: 32,
           selected: true
         });
 
         lodash__WEBPACK_IMPORTED_MODULE_4___default.a.forEach(text.overrides, function (o) {
-          if (!o.isDefault && o.property === "stringValue") newText.value = o.value;
+          if (!o.isDefault && o.property === 'stringValue') newText.value = o.value;
         });
 
+        newText.style = style;
         text.remove();
       }
     } else {
@@ -37244,20 +37251,20 @@ __webpack_require__.r(__webpack_exports__);
       instance.frame.y = text.frame.y;
       instance.selected = true; // 设置override
 
-      if (text.type === "Text") {
-        Object(_utils__WEBPACK_IMPORTED_MODULE_5__["setByValue"])(instance, "文字", text.text);
+      if (text.type === 'Text') {
+        Object(_utils__WEBPACK_IMPORTED_MODULE_5__["setByValue"])(instance, '文字', text.text);
       } else {
         lodash__WEBPACK_IMPORTED_MODULE_4___default.a.forEach(text.overrides, function (o) {
-          if (!o.isDefault && o.property === "stringValue") Object(_utils__WEBPACK_IMPORTED_MODULE_5__["setByValue"])(instance, "文字", o.value);
+          if (!o.isDefault && o.property === 'stringValue') Object(_utils__WEBPACK_IMPORTED_MODULE_5__["setByValue"])(instance, '文字', o.value);
         });
       }
 
-      if (type === "changelog") Object(_utils__WEBPACK_IMPORTED_MODULE_5__["setByValue"])(instance, Name.changelog.replace, moment__WEBPACK_IMPORTED_MODULE_3___default()().format("MMDD"));
+      if (type === 'changelog') Object(_utils__WEBPACK_IMPORTED_MODULE_5__["setByValue"])(instance, Name.changelog.replace, moment__WEBPACK_IMPORTED_MODULE_3___default()().format('MMDD'));
       text.remove();
     }
   });
 
-  sketch_ui__WEBPACK_IMPORTED_MODULE_1___default.a.message("生成成功");
+  sketch_ui__WEBPACK_IMPORTED_MODULE_1___default.a.message('生成成功');
 });
 
 /***/ }),

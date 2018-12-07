@@ -23,8 +23,7 @@ _.forEach(rootDirs, rootDir => {
       const png   = path.join("components", rootDir, dirPath, img);
       const layer = [rootDir, dirPath, name].join(" / ");
       const type  = [rootDir, dirPath].join(" / ");
-      const group = name.split("-");
-      imgTree.push({ png, layer, type, group: group.length > 1 ? group[0] : "default" });
+      imgTree.push({ name, png, layer, type });
     });
 
     Tree[rootDir][dirPath] = imgTree;
@@ -32,4 +31,5 @@ _.forEach(rootDirs, rootDir => {
 });
 
 fs.writeFileSync("panel/data.json", JSON.stringify(Tree));
+console.log(JSON.stringify(Tree))
 

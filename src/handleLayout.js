@@ -1,7 +1,7 @@
 import sketch from 'sketch/dom';
 import UI from 'sketch/ui';
 import _ from 'lodash';
-import { GroupOrder, find } from './utils';
+import { GroupOrder } from './utils';
 
 const option = {
   marginX: 100,
@@ -14,18 +14,21 @@ export default () => {
 
   const Artboards = _.filter(page.layers, l => l.type && l.type === 'Artboard');
   const sortedArtboards = _.sortBy(Artboards, ['frame.y', 'frame.x']);
-  let ArtboardsGroup = {};
 
   let X = sortedArtboards[0].frame.x;
-  let Y = sortedArtboards[0].frame.y;
 
-  let oldX = sortedArtboards[0].frame.x;
-  let oldY = sortedArtboards[0].frame.y;
-
-  _.forEach(sortedArtboards, layer => {
+  _.forEach(sortedArtboards, (layer, i) => {
     layer.moveToBack();
-    layer.frame.x = X;
-    layer.frame.y = Y;
+    if (i === 0) return;
+    const preLayer = sortedArtboards[i - 1];
+    const minY = Math.abs(layer.frame.y - preLayer.frame.y);
+    if (minY < preLayer.frame.height / 3 || minY < layer.frame.height / 3) {
+      layer.frame.y = preLayer.frame.y;
+      layer.frame.x = preLayer.frame.x + preLayer.frame.width + option.marginX;
+    } else {
+      layer.frame.x = X;
+      layer.frame.y = preLayer.frame.y + preLayer.frame.height + option.marginY;
+    }
   });
 
   GroupOrder(page);

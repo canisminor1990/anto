@@ -79,17 +79,19 @@ export default type => {
         text.systemFontSize = 32;
         text.frame.width = 750;
         text.style = style;
+        text.selected = true;
       } else {
         const newText = new sketch.Text({
+          name: text.name,
           frame: text.frame,
           parent: text.parent,
-          style: style,
           systemFontSize: 32,
           selected: true,
         });
         _.forEach(text.overrides, o => {
           if (!o.isDefault && o.property === 'stringValue') newText.value = o.value;
         });
+        newText.style = style;
         text.remove();
       }
     } else {
