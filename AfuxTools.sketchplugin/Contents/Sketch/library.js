@@ -17287,7 +17287,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var addLibrary = function addLibrary(context) {
   var Library = sketch_dom__WEBPACK_IMPORTED_MODULE_0___default.a.Library;
-  var libraryFiles = ["AFUX 输出组件.sketch", "AFUX 交互组件.sketch"];
+  var libraryFiles = ['AFUX 输出组件.sketch', 'AFUX 交互组件.sketch'];
   var libraries = Library.getLibraries();
 
   lodash__WEBPACK_IMPORTED_MODULE_2___default.a.forEach(libraries, function (l) {
@@ -17295,13 +17295,13 @@ var addLibrary = function addLibrary(context) {
   });
 
   libraryFiles.forEach(function (fileName) {
-    var libraryUrl = context.plugin.urlForResourceNamed(Object(path__WEBPACK_IMPORTED_MODULE_1__["join"])("sketch", fileName));
+    var libraryUrl = context.plugin.urlForResourceNamed(Object(path__WEBPACK_IMPORTED_MODULE_1__["join"])('sketch', fileName));
 
     if (libraryUrl) {
       var libraryPath = String(libraryUrl.path());
       var library = Library.getLibraryForDocumentAtPath(libraryPath);
       AppController.sharedInstance().checkForAssetLibraryUpdates();
-      if (context.action === "Shutdown") library.remove();
+      if (context.action === 'Shutdown') library.remove();
     }
   });
 };

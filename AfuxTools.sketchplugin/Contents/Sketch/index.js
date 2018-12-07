@@ -36928,10 +36928,10 @@ var option = {
   var page = document.selectedPage;
 
   var Artboards = lodash__WEBPACK_IMPORTED_MODULE_2___default.a.filter(page.layers, function (l) {
-    return l.type && l.type === "Artboard";
+    return l.type && l.type === 'Artboard';
   });
 
-  var sortedArtboards = lodash__WEBPACK_IMPORTED_MODULE_2___default.a.sortBy(Artboards, ["frame.y", "frame.x"]);
+  var sortedArtboards = lodash__WEBPACK_IMPORTED_MODULE_2___default.a.sortBy(Artboards, ['frame.y', 'frame.x']);
 
   var X = sortedArtboards[0].frame.x;
 
@@ -36951,7 +36951,7 @@ var option = {
   });
 
   Object(_utils__WEBPACK_IMPORTED_MODULE_3__["GroupOrder"])(page);
-  sketch_ui__WEBPACK_IMPORTED_MODULE_1___default.a.message("对齐成功");
+  sketch_ui__WEBPACK_IMPORTED_MODULE_1___default.a.message('对齐成功');
 });
 
 /***/ }),
