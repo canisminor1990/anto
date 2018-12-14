@@ -192,7 +192,7 @@ class Symbol extends Component {
 
     _.forEach(SymbolData, (value, key) =>
       ListSymbol.push(
-        <Img key={key}>
+        <Img key={key} onClick={() => window.postMessage('handleSymbol', JSON.stringify(value))}>
           <ImgTitle>{value.name.split('-')[1]}</ImgTitle>
           <img src={value.png} />
         </Img>

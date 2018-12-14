@@ -4,13 +4,11 @@ import _ from 'lodash';
 
 export const addLibrary = context => {
   const Library = sketch.Library;
-  const libraryFiles = ['AFUX 输出组件.sketch', 'AFUX 交互组件.sketch'];
-
-  const libraries = Library.getLibraries();
-
-  _.forEach(libraries, l => {
-    if (_.include(l.name, libraryFiles)) l.remove();
-  });
+  const libraryFiles = [
+    'AFUX 输出组件.sketch',
+    'AFUX 交互组件.sketch',
+    'AFUX 交互组件 Demo.sketch',
+  ];
 
   libraryFiles.forEach(fileName => {
     const libraryUrl = context.plugin.urlForResourceNamed(join('sketch', fileName));

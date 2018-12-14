@@ -13,6 +13,7 @@ import handleExport from './handleExport';
 import handleNote from './handleNote';
 import handleSort from './handleSort';
 import handleLayout from './handleLayout';
+import handleSymbol from './handleSymbol';
 
 const isDev = process.env.NODE_ENV === 'development';
 const Panel = isDev ? 'http://localhost:8000' : 'index.html';
@@ -40,6 +41,7 @@ export const onRun = context => {
   };
 
   const browserWindow = new BrowserWindow(options);
+  browserWindow.setSize(width, height);
 
   // 加载完成后现实
   browserWindow.once('ready-to-show', () => {
@@ -59,6 +61,7 @@ export const onRun = context => {
 
   // Webview数据交互
   const webContents = browserWindow.webContents;
+  webContents.on('handleSymbol', e => handleSymbol(e));
   webContents.on('handleTitle', () => handleTitle());
   webContents.on('handleExport', () => handleExport());
   webContents.on('changeMode', e => {
