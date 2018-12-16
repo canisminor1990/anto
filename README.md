@@ -16,7 +16,7 @@ Anto 依赖 Anima 部分布局功能，请按顺安装
 
 - 点击下方按钮下载 `AfuxTools.sketchplugin`：
 
-[<img src="https://raw.githubusercontent.com/canisminor1990/anto/master/docs/button.png" width="300"/>](https://github.com/canisminor1990/anto/releases)
+[<img src="https://raw.githubusercontent.com/canisminor1990/anto/master/docs/button-anto.png" width="300"/>](https://github.com/canisminor1990/anto/releases)
 
 ## Contact
 
