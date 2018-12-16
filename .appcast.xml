@@ -2,28 +2,28 @@
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
   <channel>
     <item>
-      <enclosure url="https://github.com/canisminor1990/sketch-afux-tools/releases/download/v1.0.9/AfuxTools.sketchplugin.zip" sparkle:version="1.0.9"/>
+      <enclosure url="https://github.com/canisminor1990/anto/releases/download/v1.0.9/AfuxTools.sketchplugin.zip" sparkle:version="1.0.9"/>
     </item>
     <item>
-      <enclosure url="https://github.com/canisminor1990/sketch-afux-tools/releases/download/v1.0.8/AfuxTools.sketchplugin.zip" sparkle:version="1.0.8"/>
+      <enclosure url="https://github.com/canisminor1990/anto/releases/download/v1.0.8/AfuxTools.sketchplugin.zip" sparkle:version="1.0.8"/>
     </item>
     <item>
-      <enclosure url="https://github.com/canisminor1990/sketch-afux-tools/releases/download/v1.0.7/AfuxTools.sketchplugin.zip" sparkle:version="1.0.7"/>
+      <enclosure url="https://github.com/canisminor1990/anto/releases/download/v1.0.7/AfuxTools.sketchplugin.zip" sparkle:version="1.0.7"/>
     </item>
     <item>
-      <enclosure url="https://github.com/canisminor1990/sketch-afux-tools/releases/download/v1.0.6/AfuxTools.sketchplugin.zip" sparkle:version="1.0.6"/>
+      <enclosure url="https://github.com/canisminor1990/anto/releases/download/v1.0.6/AfuxTools.sketchplugin.zip" sparkle:version="1.0.6"/>
     </item>
     <item>
-      <enclosure url="https://github.com/canisminor1990/sketch-afux-tools/releases/download/v1.0.5/AfuxTools.sketchplugin.zip" sparkle:version="1.0.5"/>
+      <enclosure url="https://github.com/canisminor1990/anto/releases/download/v1.0.5/AfuxTools.sketchplugin.zip" sparkle:version="1.0.5"/>
     </item>
     <item>
-      <enclosure url="https://github.com/canisminor1990/sketch-afux-tools/releases/download/v1.0.4/AfuxTools.sketchplugin.zip" sparkle:version="1.0.4"/>
+      <enclosure url="https://github.com/canisminor1990/anto/releases/download/v1.0.4/AfuxTools.sketchplugin.zip" sparkle:version="1.0.4"/>
     </item>
     <item>
-      <enclosure url="https://github.com/canisminor1990/sketch-afux-tools/releases/download/v1.0.3/AfuxTools.sketchplugin.zip" sparkle:version="1.0.3"/>
+      <enclosure url="https://github.com/canisminor1990/anto/releases/download/v1.0.3/AfuxTools.sketchplugin.zip" sparkle:version="1.0.3"/>
     </item>
     <item>
-      <enclosure url="https://github.com/canisminor1990/sketch-afux-tools/releases/download/v1.0.2/AfuxTools.sketchplugin.zip" sparkle:version="1.0.2"/>
+      <enclosure url="https://github.com/canisminor1990/anto/releases/download/v1.0.2/AfuxTools.sketchplugin.zip" sparkle:version="1.0.2"/>
     </item>
   </channel>
 </rss>
