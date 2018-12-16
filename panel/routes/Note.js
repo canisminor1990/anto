@@ -1,3 +1,4 @@
+import QueueAnim from 'rc-queue-anim';
 import { Component } from 'react';
 import { connect } from 'dva';
 import { Icon } from '../components';
@@ -31,12 +32,7 @@ class Note extends Component {
       <Title key="title" theme={this.props.theme}>
         注
       </Title>,
-      <View
-        key="panel"
-        duration={200}
-        interval={50}
-        animConfig={{ opacity: [0.6, 0], translateY: [0, 50] }}
-      >
+      <View key="panel" duration={200} interval={50} type="bottom">
         <Icon
           key="大标题"
           title="大标题"

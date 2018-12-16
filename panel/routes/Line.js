@@ -75,12 +75,7 @@ class Line extends Component {
       <Title key="title" theme={this.props.theme}>
         线
       </Title>,
-      <View
-        key="panel"
-        duration={200}
-        interval={50}
-        animConfig={{ opacity: [0.6, 0], translateY: [0, 50] }}
-      >
+      <View key="panel" duration={200} interval={50} type="bottom">
         <Icon
           key="连线"
           title="连线"

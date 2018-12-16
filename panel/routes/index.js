@@ -15,11 +15,11 @@ import Setting from './Setting';
 
 const View = styled.div`
   display: flex;
-  background: ${props => (props.theme === 'black' ? '#222' : '#fff')};
+  background: ${props => (props.theme === 'black' ? '#222' : '#f5f5f5')};
 `;
 
 const SideBar = styled.div`
-  background: ${props => (props.theme === 'black' ? '#222' : '#fff')};
+  background: ${props => (props.theme === 'black' ? '#222' : '#f5f5f5')};
   width: 48px;
   height: 100vh;
   overflow: hidden;
@@ -27,7 +27,7 @@ const SideBar = styled.div`
   top: 0;
   left: 0;
   border-right: ${props =>
-    props.theme === 'black' ? '1px solid rgba(0, 0, 0, 0.1)' : '1px solid #f5f5f5'};
+    props.theme === 'black' ? '1px solid rgba(0, 0, 0, 0.1)' : '1px solid #eee'};
   z-index: 999;
 `;
 
@@ -122,11 +122,7 @@ class WebView extends Component {
   SideBar = () => (
     <SideBar theme={this.props.theme}>
       <Logo theme={this.props.theme} />
-      <QueueAnim
-        duration={200}
-        interval={50}
-        animConfig={{ opacity: [0.6, 0], translateY: [0, 50] }}
-      >
+      <QueueAnim duration={200} interval={50} type="bottom">
         <Icon key="组件" title="组件" type="icon-components" onClick={this.openSymbol} />
         <Icon key="连线" title="连线" type="icon-line" onClick={this.openLine} />
         <Icon key="图层" title="图层" type="icon-layer" onClick={this.openLayer} />

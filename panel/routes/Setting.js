@@ -44,7 +44,7 @@ const Version = styled.div`
 `;
 
 const Group = styled.div`
-  background: ${props => (props.theme === 'black' ? '#222' : '#fff')};
+  background: ${props => (props.theme === 'black' ? '#222' : '#f5f5f5')};
   position: fixed;
   padding: 1rem;
   bottom: 0;
@@ -105,7 +105,7 @@ class Setting extends Component {
       <View key="panel">
         <QueueAnim type="bottom">
           <Version key="title">
-            AFUX Tools <span>ver{this.version ? this.version : '1.0.0'}</span>
+            ANTO <span>ver{this.version ? this.version : '1.0.0'}</span>
           </Version>
           <FormItem key="花名" label="花名">
             <Input

@@ -1,10 +1,10 @@
 {
-	"name": "sketch-afux-tools",
+	"name": "Anto",
 	"version": "1.0.9",
 	"description": "Sketch tools for AFUX",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/canisminor1990/sketch-afux-tools.git"
+		"url": "git+https://github.com/canisminor1990/anto.git"
 	},
 	"author": {
 		"name": "CanisMinor",
@@ -13,29 +13,30 @@
 	},
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/canisminor1990/sketch-afux-tools/issues"
+		"url": "https://github.com/canisminor1990/anto/issues"
 	},
-	"homepage": "https://github.com/canisminor1990/sketch-afux-tools",
-	"main": "AfuxTools.sketchplugin",
+	"homepage": "https://github.com/canisminor1990/anto",
+	"main": "Anto.sketchplugin",
 	"engines": {
-		"sketch": ">=49.0"
+		"sketch": ">=50.0"
 	},
 	"skpm": {
-		"name": "sketch-afux-tools",
+		"name": "Anto",
 		"manifest": "src/manifest.json",
-		"main": "AfuxTools.sketchplugin",
+		"main": "Anto.sketchplugin",
 		"assets": [
 			"dist/**/*"
 		]
 	},
-	"appcast": "https://raw.githubusercontent.com/canisminor1990/sketch-afux-tools/master/.appcast.xml",
+	"appcast": "https://raw.githubusercontent.com/canisminor1990/anto/master/.appcast.xml",
 	"scripts": {
-		"start": "concurrently \"yarn start:panel\" \"yarn start:plugin\"",
+		"start": "yarn build:panel && concurrently \"yarn start:panel\" \"yarn start:plugin\"",
 		"start:plugin": "yarn dev && cross-env NODE_ENV=development skpm-build --watch",
 		"start:panel": "cross-env ESLINT=none roadhog dev",
 		"build": "rm -r AfuxTools.sketchplugin && yarn build:panel && yarn build:plugin",
 		"build:plugin": "cross-env NODE_ENV=production skpm-build",
 		"build:panel": "cross-env ESLINT=none roadhog build",
+		"build:symbol": "node ./scripts/index.js",
 		"publish": "skpm publish",
 		"link": "skpm-link",
 		"dev": "defaults write ~/Library/Preferences/com.bohemiancoding.sketch3.plist AlwaysReloadScript -bool YES",
@@ -105,6 +106,7 @@
 		"lint-staged": "^4.2.3",
 		"moment": "^2.22.2",
 		"path": "^0.12.7",
+		"polished": "^2.3.1",
 		"pre-commit": "^1.2.2",
 		"prettier": "^1.14.3",
 		"rc-queue-anim": "^1.6.8",

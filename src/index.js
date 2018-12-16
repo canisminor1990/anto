@@ -25,7 +25,7 @@ export const onRun = context => {
   if (!mode) Settings.setSettingForKey('panel-mode', '交互');
 
   const options = {
-    identifier: 'afux.tools',
+    identifier: 'anto.tools',
     width: width,
     height: height,
     alwaysOnTop: true,
@@ -36,7 +36,7 @@ export const onRun = context => {
     fullscreenable: false,
     title: null,
     show: false,
-    hasShadow: false,
+
     backgroundColor: '#222222',
   };
 
@@ -104,7 +104,7 @@ export const onRun = context => {
     browserWindow.setSize(width + 250, height);
   });
   webContents.on('openSymbol', () => {
-    browserWindow.setSize(width + 640, height);
+    browserWindow.setSize(width + 368, height);
   });
 
   // Setting

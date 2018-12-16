@@ -1,22 +1,26 @@
 import sketch from 'sketch/dom';
 import { join } from 'path';
 import _ from 'lodash';
+import { find } from './utils';
+
+const libraryFiles = ['AFUX 输出组件.sketch', 'AFUX 交互组件.sketch'];
+
+export const removeLibrary = () => {
+  const Librarys = sketch.Library.getLibraries();
+  _.forEach(libraryFiles, fileName => {
+    const Library = find(Librarys, 'name', fileName);
+    Library.remove();
+  });
+};
 
 export const addLibrary = context => {
   const Library = sketch.Library;
-  const libraryFiles = [
-    'AFUX 输出组件.sketch',
-    'AFUX 交互组件.sketch',
-    'AFUX 交互组件 Demo.sketch',
-  ];
-
-  libraryFiles.forEach(fileName => {
+  _.forEach(libraryFiles, fileName => {
     const libraryUrl = context.plugin.urlForResourceNamed(join('sketch', fileName));
     if (libraryUrl) {
       const libraryPath = String(libraryUrl.path());
       const library = Library.getLibraryForDocumentAtPath(libraryPath);
       AppController.sharedInstance().checkForAssetLibraryUpdates();
-      if (context.action === 'Shutdown') library.remove();
     }
   });
 };

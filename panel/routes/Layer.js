@@ -1,3 +1,4 @@
+import QueueAnim from 'rc-queue-anim';
 import { Component } from 'react';
 import { connect } from 'dva';
 import { Icon } from '../components';
@@ -31,12 +32,7 @@ class Layer extends Component {
       <Title key="title" theme={this.props.theme}>
         层
       </Title>,
-      <View
-        key="panel"
-        duration={200}
-        interval={50}
-        animConfig={{ opacity: [0.6, 0], translateY: [0, 50] }}
-      >
+      <View key="panel" duration={200} interval={50} type="bottom">
         <Icon
           key="对齐"
           title="对齐"

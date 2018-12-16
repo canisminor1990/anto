@@ -11,7 +11,6 @@ const Img = styled.div`
 `;
 const Title = styled.div`
   text-align: center;
-  color: #999;
   margin-top: -0.5rem;
   font-size: 0.7rem;
   font-weight: 500;
@@ -23,12 +22,7 @@ const View = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  opacity: 0.6;
-
   cursor: pointer;
-  &:hover {
-    opacity: 1 !important;
-  }
   &:active {
     ${Img} {
       transform: scale(0.9);

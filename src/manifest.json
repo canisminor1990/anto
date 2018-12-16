@@ -1,6 +1,6 @@
 {
-	"name"             : "AFUX Tools",
-	"identifier"       : "sketch.afux.tools",
+	"name"             : "Anto",
+	"identifier"       : "sketch.plugin.anto",
 	"compatibleVersion": 3,
 	"bundleVersion"    : 1,
 	"icon"             : "icon.png",
@@ -10,15 +10,14 @@
 			"handlers": {
 				"actions": {
 					"Startup"     : "addLibrary",
-					"Shutdown"    : "addLibrary",
-					"OpenDocument": "addLibrary"
+					"Shutdown"    : "removeLibrary"
 				}
 			}
 		},
 		{
-			"name"      : "💰 AFUX Tools",
+			"name"      : "🧿 Anto",
 			"icon"      : "minicon.png",
-			"identifier": "afux-tools",
+			"identifier": "AntoPanel",
 			"script"    : "index.js",
 			"handlers"  : {
 				"actions": {
@@ -29,10 +28,10 @@
 		}
 	],
 	"menu"             : {
-		"title" : "AFUX Tools",
+		"title" : "Anto",
 		"isRoot": true,
 		"items" : [
-			"afux-tools"
+			"AntoPanel"
 		]
 	}
 }

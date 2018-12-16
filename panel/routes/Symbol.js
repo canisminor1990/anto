@@ -1,5 +1,6 @@
 import { Component } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { rgba } from 'polished';
 import { connect } from 'dva';
 import QueueAnim from 'rc-queue-anim';
 import Data from '../data.json';
@@ -10,7 +11,7 @@ import _ from 'lodash';
 /// /////////////////////////////////////////////
 
 export const Title = styled.div`
-  width: 640px;
+  width: 368px;
   height: 48px;
   display: flex;
   font-size: 1.2rem;
@@ -24,7 +25,7 @@ export const Title = styled.div`
 `;
 
 export const View = styled.div`
-  width: 640px;
+  width: 368px;
   height: calc(100vh - 50px);
   overflow: hidden;
 `;
@@ -32,9 +33,9 @@ export const View = styled.div`
 export const Close = styled.div`
   position: fixed;
   bottom: 0;
-  left: 48px;
-  width: 120px;
-  height: 32px;
+  right: 0;
+  width: 2rem;
+  height: 2rem;
   background-image: url('icon-close.png');
   background-position: center;
   background-repeat: no-repeat;
@@ -57,19 +58,51 @@ const CellsGroup = styled(QueueAnim)`
 `;
 
 const Cells = styled.div`
-  width: 120px;
-  height: 100%;
+  padding: 0.5rem;
+  width: 9rem;
+  overflow: hidden;
+  overflow-y: auto;
   border-right: ${props =>
-    props.theme === 'black' ? '1px solid rgba(0, 0, 0, 0.1)' : '1px solid #f5f5f5'};
+    props.theme === 'black' ? '1px solid rgba(0, 0, 0, 0.1)' : '1px solid #eee'};
+`;
+
+const CellHeader = styled.div`
+  width: 100%;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: rgba(100, 100, 100, 0.4);
+`;
+
+const CellGroup = styled.div`
+  margin-bottom: 1rem;
+`;
+
+const CellIcon = styled.img`
+  width: 2rem;
+  height: 2rem;
+  margin-right: 0.25rem;
+`;
+
+const CellTitle = styled.div`
+  padding: 0.2rem 0.75rem;
+  border-radius: 1rem;
+  flex: 1;
+  ${props =>
+    props.active
+      ? css`
+          color: #fff;
+          background: #2a72ff;
+          font-weight: 600;
+        `
+      : null};
 `;
 
 const Cell = styled.div`
-  padding: 0.2rem 0.8rem;
-  margin: 0.5rem;
-  border-radius: 2rem;
-  opacity: ${props => (props.active ? '1' : '.6')};
-  background: ${props => (props.active ? '#2B79FF' : 'transparent')};
-  ${props => (props.active ? 'color:#fff;' : null)};
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+  border-radius: 0.2rem;
   cursor: pointer;
   transition: all 0.2s ease-out;
   &:active {
@@ -81,13 +114,15 @@ const Library = styled.div`
   flex: 1;
   overflow: hidden;
   overflow-y: auto;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
 `;
 
 const ImgTitle = styled.div`
   transition: all 0.2s ease-out;
   margin-bottom: 0.5rem;
   width: 100%;
+  font-size: 0.75rem;
+  font-weight: 600;
 `;
 
 const Img = styled.div`
@@ -100,8 +135,7 @@ const Img = styled.div`
   align-items: center;
   img {
     transition: all 0.2s ease-out;
-    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.05);
-    zoom: 0.5;
+    zoom: 0.25;
   }
 
   &:hover {
@@ -109,8 +143,7 @@ const Img = styled.div`
       color: #2b79ff;
     }
     img {
-      transform: scale(1.02);
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+      transform: scale(1.05);
     }
   }
 
@@ -148,75 +181,65 @@ class Symbol extends Component {
     activeGroup: '状态栏',
   };
 
-  handleRoot = e => {
-    this.setState({ activeRoot: e });
-  };
-
-  handleGroup = e => {
-    this.setState({ activeGroup: e });
-  };
-
-  render() {
-    console.log(this.state);
+  Cell = ({ data, name }) => {
     const List = [];
-    const ListGroup = [];
-    const ListSymbol = [];
-
-    _.forEach(Data, (value, key) =>
+    _.forEach(data, (value, key) =>
       List.push(
-        <Cell key={key} onClick={() => this.handleRoot(key)} active={this.state.activeRoot === key}>
-          {key}
+        <Cell key={key} onClick={() => this.handleGroup(name, key)}>
+          <CellIcon src={`symbol/icon-${key}.png`} />
+          <CellTitle active={this.state.activeGroup === key}>{key}</CellTitle>
         </Cell>
       )
     );
+    return <CellGroup>{List}</CellGroup>;
+  };
 
-    _.forEach(Data[this.state.activeRoot], (value, key) =>
-      ListGroup.push(
-        <Cell
-          key={key}
-          onClick={() => this.handleGroup(key)}
-          active={this.state.activeGroup === key}
-        >
-          {key}
-        </Cell>
+  Cells = ({ data }) => {
+    const List = [];
+    _.forEach(data, (value, key) =>
+      List.push(
+        <div key={key}>
+          <CellHeader>{key}</CellHeader>
+          <this.Cell data={data[key]} name={key} />
+        </div>
       )
     );
+    return <Cells theme={this.props.theme}>{List}</Cells>;
+  };
 
-    let SymbolData = Data[this.state.activeRoot][this.state.activeGroup];
-
-    try {
-      SymbolData = SymbolData.sort(
-        (a, b) => parseInt(a.name.split('-')[0]) - parseInt(b.name.split('-')[0])
-      );
-    } catch (e) {}
-
-    _.forEach(SymbolData, (value, key) =>
-      ListSymbol.push(
-        <Img key={key} onClick={() => window.postMessage('handleSymbol', JSON.stringify(value))}>
+  Library = ({ data }) => {
+    const List = [];
+    const SymbolData = data[this.state.activeRoot][this.state.activeGroup];
+    const sortSymbol = (a, b) => parseInt(a.name.split('-')[0]) - parseInt(b.name.split('-')[0]);
+    _.forEach(SymbolData.sort(sortSymbol), (value, key) =>
+      List.push(
+        <Img key={key} onDragEnd={() => window.postMessage('handleSymbol', JSON.stringify(value))}>
           <ImgTitle>{value.name.split('-')[1]}</ImgTitle>
           <img src={value.png} />
         </Img>
       )
     );
+    return <Library>{List}</Library>;
+  };
 
+  render() {
     return [
       <Title key="title" theme={this.props.theme}>
         组件库
       </Title>,
       <View key="panel">
         <CellsGroup type="bottom">
-          <Cells key="a" theme={this.props.theme}>
-            {List}
-          </Cells>
-          <Cells key="b" theme={this.props.theme}>
-            {ListGroup}
-          </Cells>
-          <Library key="c">{ListSymbol}</Library>
+          <this.Cells key="cells" data={Data} />
+          <this.Library key="library" data={Data} />
         </CellsGroup>
         <Close onClick={this.handleClose} />
       </View>,
     ];
   }
+
+  handleGroup = (activeRoot, activeGroup) => {
+    this.setState({ activeRoot, activeGroup });
+  };
 
   handleClose = () => {
     this.props.setConfig({ symbol: false });

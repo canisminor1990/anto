@@ -1,0 +1,44 @@
+{
+  "name": "Anto",
+  "identifier": "sketch.plugin.anto",
+  "compatibleVersion": 3,
+  "bundleVersion": 1,
+  "icon": "icon.png",
+  "commands": [
+    {
+      "script": "library.js",
+      "handlers": {
+        "actions": {
+          "Startup": "addLibrary",
+          "Shutdown": "removeLibrary"
+        }
+      }
+    },
+    {
+      "name": "🧿 Anto",
+      "icon": "minicon.png",
+      "identifier": "AntoPanel",
+      "script": "index.js",
+      "handlers": {
+        "actions": {
+          "run": "onRun",
+          "OpenDocument": "onRun"
+        }
+      }
+    }
+  ],
+  "menu": {
+    "title": "Anto",
+    "isRoot": true,
+    "items": [
+      "AntoPanel"
+    ]
+  },
+  "version": "1.0.9",
+  "description": "Sketch tools for AFUX",
+  "homepage": "https://github.com/canisminor1990/anto",
+  "disableCocoaScriptPreprocessor": true,
+  "appcast": "https://raw.githubusercontent.com/canisminor1990/anto/master/.appcast.xml",
+  "author": "CanisMinor",
+  "authorEmail": "i@canisminor.cc"
+}

@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/canisminor1990/sketch-afux-tools/master/icon.png" width="24"> AFUX Tools
+# <img src="https://raw.githubusercontent.com/canisminor1990/sketch-afux-tools/master/icon.png" width="24"> Anto
 
 [![GitHub release](https://img.shields.io/github/release/canisminor1990/sketch-afux-tools.svg)](https://github.com/canisminor1990/sketch-afux-tools/releases)
 [![GitHub release](https://img.shields.io/badge/Works%20with-Sketch%20Runner-blue.svg?colorB=308ADF)](http://bit.ly/SketchRunnerWebsite)
@@ -8,7 +8,7 @@ Sketch Tools for AFUX
 
 ## Download
 
-AFUX Tools 依赖 Anima 部分布局功能，请按顺安装
+Anto 依赖 Anima 部分布局功能，请按顺安装
 
 - 点击下方按钮下载 `AnimaToolkitPlugin`：
 
