@@ -34,7 +34,7 @@
       "AntoPanel"
     ]
   },
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "Sketch tools for AFUX",
   "homepage": "https://github.com/canisminor1990/anto",
   "disableCocoaScriptPreprocessor": true,
