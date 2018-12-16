@@ -22,5 +22,5 @@ Anto 依赖 Anima 部分布局功能，请按顺安装
 
 <div style="display:flex">
 <img src="https://raw.githubusercontent.com/canisminor1990/anto/master/public/qrcode-canisminor.jpg" width="310"/>
-<img src="https://raw.githubusercontent.com/canisminor1990/anto/master/public/qrcode.jpg" width="310"/>
+<img src="https://raw.githubusercontent.com/canisminor1990/anto/master/public/qrcode-anto.jpg" width="310"/>
 </div>
