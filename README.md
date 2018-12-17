@@ -4,7 +4,7 @@
 
 [![GitHub release](https://img.shields.io/github/release/canisminor1990/anto.svg)](https://github.com/canisminor1990/anto/releases) [![GitHub release](https://img.shields.io/badge/Works%20with-Sketch%20Runner-blue.svg?colorB=308ADF)](http://bit.ly/SketchRunnerWebsite) [![](https://img.shields.io/github/downloads/canisminor1990/anto/total.svg)](https://github.com/canisminor1990/anto/releases)
 
-一款为 AFUX 设计师提升工作效率的 Sketch 工具集
+一款为 AFUX 设计师提升工作效率的 Sketch 工具集，[🔗 内部云雀](https://yuque.antfin-inc.com/afux-design/anto/readme)
 
 <br />
 
