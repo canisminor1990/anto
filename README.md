@@ -50,7 +50,7 @@
 - ✨ [使用指南-图层](https://www.yuque.com/canisminor/anto/layers)
 - ✨ [使用指南-标注](https://www.yuque.com/canisminor/anto/note)
 - ✨ [使用指南-制标&制版](https://www.yuque.com/canisminor/anto/publish)
-- ✨ [使用指南-其他](https://www.yuque.com/canisminor/anto/feedback)
+- ✨ [使用指南-其他](https://www.yuque.com/canisminor/anto/others)
 
 <br />
 
