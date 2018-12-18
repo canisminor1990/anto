@@ -43,7 +43,11 @@ export default e => {
   const group = instance.detach();
   const inner = group.name[0] !== '✱' ? group.duplicate() : group.layers[0];
   group.remove();
-  const image = _.filter(document.getLayersNamed(data.name), l => l.type === 'Image')[0];
+  let image = _.filter(document.getLayersNamed(data.name), l => l.type === 'Image')[0];
+  if (!image) {
+    const selection = document.selectedLayers;
+    image = _.filter(selection.layers, l => l.type === 'Image')[0];
+  }
   if (image) {
     inner.parent = image.parent;
     inner.frame.x = image.frame.x;
@@ -54,6 +58,7 @@ export default e => {
     inner.frame.x = group.frame.x;
     inner.frame.y = group.frame.y;
   }
+  inner.selected = true;
   if (inner.layers) {
     _.forEach(inner.layers, l => {
       if (l.name === '@Bg') {
@@ -64,6 +69,7 @@ export default e => {
       const innerChild = inner.layers[0];
       innerChild.parent = inner.parent;
       innerChild.frame = innerChild.frame.changeBasis({ from: inner, to: inner.parent });
+      innerChild.selected = true;
       inner.remove();
     }
   }
