@@ -4,7 +4,14 @@
 
 [![GitHub release](https://img.shields.io/github/release/canisminor1990/anto.svg)](https://github.com/canisminor1990/anto/releases) [![GitHub release](https://img.shields.io/badge/Works%20with-Sketch%20Runner-blue.svg?colorB=308ADF)](http://bit.ly/SketchRunnerWebsite) [![](https://img.shields.io/github/downloads/canisminor1990/anto/total.svg)](https://github.com/canisminor1990/anto/releases)
 
-一款为 AFUX 设计师提升工作效率的 Sketch 工具集，[🔗 内部云雀](https://yuque.antfin-inc.com/afux-design/anto/readme)
+一款为AFUX设计师提升工作效率的 Sketch 工具集。
+
+**Anto** 取自 **Ant** + **Auto**, 期待成为大家设计生活中必不可缺的自动化生产力工具。
+
+## 插件文档
+
+- 📘[公共语雀](https://www.yuque.com/canisminor/anto/readme)
+- 📘[内部语雀](https://yuque.antfin-inc.com/afux-design/anto/readme)
 
 <br />
 
@@ -34,6 +41,19 @@
 
 <br />
 
+## 使用指南
+
+![doc-2.png](https://cdn.nlark.com/yuque/0/2018/png/131809/1545131451098-7f868f3e-bce5-4465-ab82-e1654ac36714-image7.png) 
+
+- ✨ [使用指南-组件](https://www.yuque.com/canisminor/anto/symbol)
+- ✨ [使用指南-连线](https://www.yuque.com/canisminor/anto/lines)
+- ✨ [使用指南-图层](https://www.yuque.com/canisminor/anto/layers)
+- ✨ [使用指南-标注](https://www.yuque.com/canisminor/anto/note)
+- ✨ [使用指南-制标&制版](https://www.yuque.com/canisminor/anto/publish)
+- ✨ [使用指南-其他](https://www.yuque.com/canisminor/anto/feedback)
+
+<br />
+
 ## Q&A
 
 #### 1.安装后有重复的插件
@@ -55,7 +75,7 @@
 
 ## 反馈&帮助
 
-若帮助文档不能解决你的问题，可以钉钉扫码加入 Anto 交流群：更多意想不到的新版体验和其他福利都在这里，还可以反馈问题和意见哦！
+若帮助文档不能解决你的问题，可以钉钉扫码加入 Anto 交流群：新版体验和激情讨论都在这里，赶快来反馈问题和意见吧~🤘😘！
 
 <div style="display:flex">
 <img src="https://raw.githubusercontent.com/canisminor1990/anto/master/docs/qrcode-canisminor.png" width="310"/>
