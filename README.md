@@ -4,7 +4,7 @@
 
 [![GitHub release](https://img.shields.io/github/release/canisminor1990/anto.svg)](https://github.com/canisminor1990/anto/releases) [![GitHub release](https://img.shields.io/badge/Works%20with-Sketch%20Runner-blue.svg?colorB=308ADF)](http://bit.ly/SketchRunnerWebsite) [![](https://img.shields.io/github/downloads/canisminor1990/anto/total.svg)](https://github.com/canisminor1990/anto/releases)
 
-一款为AFUX设计师提升工作效率的 Sketch 工具集。
+一款为 AFUX 设计师提升工作效率的 Sketch 工具集。
 
 **Anto** 取自 **Ant** + **Auto**, 期待成为大家设计生活中必不可缺的自动化生产力工具。
 
@@ -43,7 +43,7 @@
 
 ## 使用指南
 
-![](https://raw.githubusercontent.com/canisminor1990/anto/master/docs/doc-2.png) 
+![](https://raw.githubusercontent.com/canisminor1990/anto/master/docs/doc-2.png)
 
 - ✨ [使用指南-组件](https://www.yuque.com/canisminor/anto/symbol)
 - ✨ [使用指南-连线](https://www.yuque.com/canisminor/anto/lines)
@@ -78,6 +78,6 @@
 若帮助文档不能解决你的问题，可以钉钉扫码加入 Anto 交流群：新版体验和激情讨论都在这里，赶快来反馈问题和意见吧~🤘😘！
 
 <div style="display:flex">
-<img src="https://raw.githubusercontent.com/canisminor1990/anto/master/docs/qrcode-canisminor.png" width="310"/>
+<img src="https://raw.githubusercontent.com/canisminor1990/anto/master/docs/qrcode-public.png" width="310"/>
 <img src="https://raw.githubusercontent.com/canisminor1990/anto/master/docs/qrcode-anto.png" width="310"/>
 </div>
