@@ -43,7 +43,7 @@
 
 ## 使用指南
 
-![doc-2.png](https://cdn.nlark.com/yuque/0/2018/png/131809/1545131451098-7f868f3e-bce5-4465-ab82-e1654ac36714-image7.png) 
+![](https://raw.githubusercontent.com/canisminor1990/anto/master/docs/doc-2.png) 
 
 - ✨ [使用指南-组件](https://www.yuque.com/canisminor/anto/symbol)
 - ✨ [使用指南-连线](https://www.yuque.com/canisminor/anto/lines)
@@ -65,7 +65,7 @@
 - 点击 Preferences -- Libraries
 - Remove "AFUX 输出组件" & "AFUX 交互组件" 删除 Library
 
-![doc-1.png](https://raw.githubusercontent.com/canisminor1990/anto/master/docs/doc-1.png)
+![](https://raw.githubusercontent.com/canisminor1990/anto/master/docs/doc-1.png)
 
 #### 2. 更新插件不生效
 
