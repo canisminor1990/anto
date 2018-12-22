@@ -50,7 +50,7 @@ export default type => {
     },
     changelog: {
       name: `${mode} / 描述-变更记录`,
-      replace2: '日期',
+      replace: '日期',
     },
   };
 

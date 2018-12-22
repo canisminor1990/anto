@@ -57,6 +57,12 @@ class Layer extends Component {
           type="icon-bottom"
           onClick={() => window.postMessage('handleBottom', null)}
         />
+        <Icon
+          key="调高"
+          title="调高"
+          type="icon-height"
+          onClick={() => window.postMessage('handleHeight', null)}
+        />
         <Close onClick={this.handleClose} />
       </View>,
     ];

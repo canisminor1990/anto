@@ -14,6 +14,7 @@ import handleNote from './handleNote';
 import handleSort from './handleSort';
 import handleLayout from './handleLayout';
 import handleSymbol from './handleSymbol';
+import handleHeight from './handleHeight';
 
 const isDev = process.env.NODE_ENV === 'development';
 const Panel = isDev ? 'http://localhost:8000' : 'index.html';
@@ -79,6 +80,7 @@ export const onRun = context => {
   webContents.on('handleBottom', () => handleBottom());
   webContents.on('handleSort', () => handleSort());
   webContents.on('handleLayout', () => handleLayout());
+  webContents.on('handleHeight', () => handleHeight());
 
   // 注释
   webContents.on('setHeader', () => handleNote('header'));

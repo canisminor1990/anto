@@ -114,6 +114,7 @@ export default () => {
   ShadowGroup.locked = true;
   Group.locked = true;
   GroupOrder(page);
+  selection.clear();
 
   // 原生切片
   const sliceLayer = MSSliceLayer.new();

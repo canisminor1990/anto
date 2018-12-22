@@ -4,6 +4,7 @@ import { rgba } from 'polished';
 import { connect } from 'dva';
 import QueueAnim from 'rc-queue-anim';
 import Data from '../data.json';
+import Toc from '../toc.json';
 import _ from 'lodash';
 
 /// /////////////////////////////////////////////
@@ -181,26 +182,26 @@ class Symbol extends Component {
     activeGroup: '状态栏',
   };
 
-  Cell = ({ data, name }) => {
+  Cell = ({ toc, name }) => {
     const List = [];
-    _.forEach(data, (value, key) =>
+    _.forEach(toc, value =>
       List.push(
-        <Cell key={key} onClick={() => this.handleGroup(name, key)}>
-          <CellIcon src={`symbol/icon-${key}.png`} />
-          <CellTitle active={this.state.activeGroup === key}>{key}</CellTitle>
+        <Cell key={value} onClick={() => this.handleGroup(name, value)}>
+          <CellIcon src={`symbol/icon-${value}.png`} />
+          <CellTitle active={this.state.activeGroup === value}>{value}</CellTitle>
         </Cell>
       )
     );
     return <CellGroup>{List}</CellGroup>;
   };
 
-  Cells = ({ data }) => {
+  Cells = ({ toc }) => {
     const List = [];
-    _.forEach(data, (value, key) =>
+    _.forEach(toc, (value, key) =>
       List.push(
         <div key={key}>
           <CellHeader>{key}</CellHeader>
-          <this.Cell data={data[key]} name={key} />
+          <this.Cell toc={value} name={key} />
         </div>
       )
     );
@@ -229,7 +230,7 @@ class Symbol extends Component {
       </Title>,
       <View key="panel">
         <CellsGroup type="bottom">
-          <this.Cells key="cells" data={Data} />
+          <this.Cells key="cells" toc={Toc} />
           <this.Library key="library" data={Data} />
         </CellsGroup>
         <Close onClick={this.handleClose} />
