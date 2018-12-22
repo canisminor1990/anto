@@ -31,6 +31,8 @@
 
 ### 3.安装 Anto
 
+提供三种 Anto 的下载方式
+
 #### 直接下载
 
 
@@ -43,13 +45,13 @@
 
 #### 使用 Sketchpacks 安装
 
-<a href="https://sketchpacks.com/canisminor1990/anto/install"><img src="https://sketchpacks-com.s3.amazonaws.com/assets/badges/sketchpacks-badge-install.png" width="300"></a>
+<a href="https://sketchpacks.com/canisminor1990/anto/install"><img src="https://sketchpacks-com.s3.amazonaws.com/assets/badges/sketchpacks-badge-install.png" width="150"></a>
 
 <br />
 
 #### 使用 Runner 安装
 
-<a href="http://sketchrunner.com/"><img src="http://bit.ly/RunnerBadgeBlue" width="300"></a>
+<a href="http://sketchrunner.com/"><img src="http://bit.ly/RunnerBadgeBlue" width="150"></a>
 
 1.  <kbd>⌘</kbd> + <kbd>'</kbd> 打开 **Runner**;
 2.  切换至 **install** 标签;
