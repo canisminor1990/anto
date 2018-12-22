@@ -35,7 +35,26 @@
 
 [<img src="https://raw.githubusercontent.com/canisminor1990/anto/master/docs/button-anto.png" width="300"/>](https://github.com/canisminor1990/anto/releases)
 
-> To install: download this file, unzip and double click on the .sketchplugin
+#### 直接下载
+
+1. 点击下方按钮下载 `Anto` ：
+
+[<img src="https://raw.githubusercontent.com/canisminor1990/anto/master/docs/button-anto.png" width="300"/>](https://github.com/canisminor1990/anto/releases)
+
+2. 打开 **Anto.sketchplugin** 即可自动安装
+
+#### 使用 Sketchpacks 安装
+
+<a href="https://sketchpacks.com/canisminor1990/anto/install"><img src="https://sketchpacks-com.s3.amazonaws.com/assets/badges/sketchpacks-badge-install.png" width="160"></a>
+
+#### 使用 Runner 安装
+
+1.  <kbd>⌘</kbd> + <kbd>'</kbd> 打开 **Runner**;
+2.  切换至 **install** 标签;
+3.  输入 **Anto**;
+4.  选择  **Anto** 并 <kbd>回车</kbd>.
+
+<a href="http://sketchrunner.com/"><img src="http://bit.ly/RunnerBadgeBlue" width="160"></a>
 
 ### 4.重启 💎Sketch
 
