@@ -8,6 +8,8 @@
 
 **Anto** 取自 **Ant** + **Auto**, 期待成为大家设计生活中必不可缺的自动化生产力工具。
 
+> 目前工具各项功能都基于 2x，1x 支持已添加到 🐜ToDoList
+
 ## 插件文档
 
 - 📘[公共语雀](https://www.yuque.com/canisminor/anto/readme)
@@ -31,11 +33,33 @@
 
 ### 3.安装 Anto
 
-点击下方按钮下载 `Anto` ：
+提供三种 Anto 的下载方式
+
+#### 直接下载
 
 [<img src="https://raw.githubusercontent.com/canisminor1990/anto/master/docs/button-anto.png" width="300"/>](https://github.com/canisminor1990/anto/releases)
 
-> To install: download this file, unzip and double click on the .sketchplugin
+1. 点击上方按钮下载 `Anto` ：
+2. 打开 **Anto.sketchplugin** 即可自动安装
+
+<br />
+
+#### 使用 Sketchpacks 安装
+
+<a href="https://sketchpacks.com/canisminor1990/anto/install"><img src="https://sketchpacks-com.s3.amazonaws.com/assets/badges/sketchpacks-badge-install.png" width="150"></a>
+
+<br />
+
+#### 使用 Runner 安装
+
+<a href="http://sketchrunner.com/"><img src="http://bit.ly/RunnerBadgeBlue" width="150"></a>
+
+1.  <kbd>⌘</kbd> + <kbd>'</kbd> 打开 **Runner**;
+2.  切换至 **install** 标签;
+3.  输入 **Anto**;
+4.  选择  **Anto** 并 <kbd>回车</kbd>.
+
+<br />
 
 ### 4.重启 💎Sketch
 
