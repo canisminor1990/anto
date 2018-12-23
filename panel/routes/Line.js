@@ -24,6 +24,7 @@ export const Title = styled.div`
 
 export const View = styled(QueueAnim)`
   width: 48px;
+  height: 100%;
 `;
 
 export const Close = styled.div`

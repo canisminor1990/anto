@@ -22,21 +22,25 @@ module.exports = {
     }
   },
   globals      : {
-    "window"          : true,
-    "location"        : true,
-    "document"        : true,
-    "navigator"       : true,
-    "localStorage"    : true,
-    "$isDev"          : true,
-    "define"          : true,
-    "AppController"   : true,
-    "MSSliceLayer"    : true,
-    "MSLayerMovement" : true,
-    "NSBezierPath"    : true,
-    "NSMakePoint"     : true,
-    "MSShapePathLayer": true,
-    "MSPath"          : true,
+    "window"              : true,
+    "location"            : true,
+    "document"            : true,
+    "navigator"           : true,
+    "localStorage"        : true,
+    "$isDev"              : true,
+    "define"              : true,
+    "AppController"       : true,
+    "MSSliceLayer"        : true,
+    "MSLayerMovement"     : true,
+    "NSBezierPath"        : true,
+    "NSMakePoint"         : true,
+    "MSShapePathLayer"    : true,
+    "MSPath"              : true,
     "NSDocumentController": true,
+    "NSWorkspace"         : true,
+    "NSURL"               : true,
+    "NSSavePanel"         : true,
+    "NSString"            : true
   },
   env          : {
     "es6" : true,
@@ -58,6 +62,7 @@ module.exports = {
     "react/no-children-prop"     : 0,
     "react/no-string-refs"       : 0,
     "react/no-unescaped-entities": 0,
-    "handle-callback-err"        : 1
+    "handle-callback-err"        : 1,
+    "new-cap"                    : 0
   }
 };

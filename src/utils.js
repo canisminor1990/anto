@@ -25,8 +25,12 @@ export const removeLayer = (page, name) => {
 
 // 全局删除指定图层
 export const globalRemoveLayer = (document, name) => {
-  const layers = document.getLayersNamed(name);
-  if (layers.length > 0) _.forEach(layers, layer => layer.remove());
+  try {
+    const layers = document.getLayersNamed(name);
+    if (layers.length > 0) _.forEach(layers, layer => layer.remove());
+  } catch (e) {
+    console.log('globalRemoveLayer', e);
+  }
 };
 
 // 设置Symbol的Override

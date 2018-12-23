@@ -136,8 +136,20 @@ class WebView extends Component {
         <Icon
           key="制版"
           title="制版"
+          type="icon-plate"
+          onClick={() => window.postMessage('handlePlate', null)}
+        />
+        <Icon
+          key="导出"
+          title="导出"
           type="icon-export"
           onClick={() => window.postMessage('handleExport', null)}
+        />
+        <Icon
+          key="说明"
+          title="说明"
+          type="icon-yuque"
+          onClick={() => window.postMessage('handleYuque', null)}
         />
       </QueueAnim>
       <Mode

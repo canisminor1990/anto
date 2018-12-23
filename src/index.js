@@ -3,18 +3,18 @@ import UI from 'sketch/ui';
 import Settings from 'sketch/settings';
 import BrowserWindow from 'sketch-module-web-view';
 import _ from 'lodash';
-import handleLine from './handleLine';
-import handleDash from './handleDash';
-import handleChange from './handleChange';
-import handleTop from './handleTop';
-import handleBottom from './handleBottom';
-import handleTitle from './handleTitle';
+import handleLine from './models/handleLine';
+import handleDash from './models/handleDash';
+import handleChange from './models/handleChange';
+import handleFrontBack from './models/handleFrontBack';
+import handleTitle from './models/handleTitle';
+import handlePlate from './handlePlate';
 import handleExport from './handleExport';
 import handleNote from './handleNote';
 import handleSort from './handleSort';
 import handleLayout from './handleLayout';
-import handleSymbol from './handleSymbol';
-import handleHeight from './handleHeight';
+import handleSymbol from './models/handleSymbol';
+import handleHeight from './models/handleHeight';
 
 const isDev = process.env.NODE_ENV === 'development';
 const Panel = isDev ? 'http://localhost:8000' : 'index.html';
@@ -44,7 +44,7 @@ export const onRun = context => {
   const browserWindow = new BrowserWindow(options);
   browserWindow.setSize(width, height);
 
-  // 加载完成后现实
+  // 加载完成后显示
   browserWindow.once('ready-to-show', () => {
     const Positon = Settings.settingForKey('panel-position');
     if (_.isArray(Positon)) browserWindow.setPosition(Positon[0], browserWindow.getPosition()[1]);
@@ -60,27 +60,47 @@ export const onRun = context => {
     Settings.setSettingForKey('panel-position', [Positon[0], Positon[1]]);
   });
 
+  /// //////////////////////////////////////////////////////////////////////////
   // Webview数据交互
+  /// //////////////////////////////////////////////////////////////////////////
+
   const webContents = browserWindow.webContents;
-  webContents.on('handleSymbol', e => handleSymbol(e));
-  webContents.on('handleTitle', () => handleTitle());
+
+  // 组件
+  webContents.on('handleSymbol', e => handleSymbol.start(e));
+
+  // 制标
+  webContents.on('handleTitle', () => handleTitle.start());
+
+  // 制版
+  webContents.on('handlePlate', () => handlePlate());
+
+  // 导出
   webContents.on('handleExport', () => handleExport());
+
+  // 语雀
+  webContents.on('handleYuque', () => {
+    const url = 'https://www.yuque.com/canisminor/anto/readme';
+    NSWorkspace.sharedWorkspace().openURL(NSURL.URLWithString(url));
+  });
+
+  // 变更模式
   webContents.on('changeMode', e => {
     Settings.setSettingForKey('panel-mode', e);
     UI.message(`切换到「${e}模式」`);
   });
 
   // 连线
-  webContents.on('handleLine', () => handleLine());
-  webContents.on('handleChange', () => handleChange());
-  webContents.on('handleDash', () => handleDash());
+  webContents.on('handleLine', () => handleLine.start());
+  webContents.on('handleChange', () => handleChange.start());
+  webContents.on('handleDash', () => handleDash.start());
 
   // 图层
-  webContents.on('handleTop', () => handleTop());
-  webContents.on('handleBottom', () => handleBottom());
+  webContents.on('handleTop', () => handleFrontBack.start('置顶'));
+  webContents.on('handleBottom', () => handleFrontBack.start('置底'));
   webContents.on('handleSort', () => handleSort());
   webContents.on('handleLayout', () => handleLayout());
-  webContents.on('handleHeight', () => handleHeight());
+  webContents.on('handleHeight', () => handleHeight.start());
 
   // 注释
   webContents.on('setHeader', () => handleNote('header'));
@@ -94,30 +114,18 @@ export const onRun = context => {
   webContents.on('setIf', () => handleNote('if'));
   webContents.on('setChangelog', () => handleNote('changelog'));
 
-  // Panel
-  webContents.on('openPanel', () => {
-    browserWindow.setSize(width * 2, height);
-  });
-  webContents.on('closePanel', () => {
-    browserWindow.setSize(width, height, true);
-  });
+  // 工具栏大小
+  webContents.on('openSetting', () => browserWindow.setSize(width + 250, height));
+  webContents.on('openSymbol', () => browserWindow.setSize(width + 368, height));
+  webContents.on('openPanel', () => browserWindow.setSize(width * 2, height));
+  webContents.on('closePanel', () => browserWindow.setSize(width, height, true));
 
-  webContents.on('openSetting', () => {
-    browserWindow.setSize(width + 250, height);
-  });
-  webContents.on('openSymbol', () => {
-    browserWindow.setSize(width + 368, height);
-  });
-
-  // Setting
+  // 设置
   webContents.on('closeSetting', e => {
     browserWindow.setSize(width, height, true);
-    if (e) {
-      console.log(e);
-      _.forEach(e, (value, key) => {
-        Settings.setSettingForKey(`config-${key}`, value);
-      });
-    }
+    if (!e) return;
+    console.log('[setting]', e);
+    _.forEach(e, (value, key) => Settings.setSettingForKey(`config-${key}`, value));
   });
 
   // 开始
