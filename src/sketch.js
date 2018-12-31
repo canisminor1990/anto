@@ -6,6 +6,7 @@ import SketchCreate from './api/create';
 import sketchUI from './api/ui';
 import SketchSetting from './api/setting';
 import SketchLibrary from './api/library';
+import SketchNative from './api/native';
 
 export default class Sketch {
   constructor() {
@@ -77,6 +78,10 @@ export default class Sketch {
     return this.document.selectedPage;
   }
 
+  get artboards() {
+    return _.filter(this.page.layers, l => l.type && l.type === 'Artboard');
+  }
+
   // selection
 
   get selection() {
@@ -100,15 +105,15 @@ export default class Sketch {
     return NSDocumentController.sharedDocumentController();
   }
 
-  get nativeDocument() {
-    return this.context.currentDocument();
-  }
-
-  get nativePage() {
-    return this.nativeDocument.currentPage();
+  get native() {
+    return new SketchNative();
   }
 
   // utils
+
+  changeBasis(layer, option = {}) {
+    layer.frame = layer.frame.changeBasis(option);
+  }
 
   setGroup(group, layers) {
     _.forEach(layers, l => {

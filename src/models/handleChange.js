@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import Sketch from '../sketch';
 
-class handleChange extends Sketch {
+export default class handleChange extends Sketch {
   constructor() {
     super();
     this.namespace = '变向|handleChange';
@@ -19,5 +19,3 @@ class handleChange extends Sketch {
     this.ui.success('变向成功');
   }
 }
-
-export default new handleChange();

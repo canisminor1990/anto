@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import Sketch from '../sketch';
 
-class handleFrontBack extends Sketch {
+export default class handleFrontBack extends Sketch {
   constructor() {
     super();
     this.namespace = '置顶置底|handleFrontBack';
@@ -28,5 +28,3 @@ class handleFrontBack extends Sketch {
     this.ui.success(`所选图层已${name}`);
   }
 }
-
-export default new handleFrontBack();

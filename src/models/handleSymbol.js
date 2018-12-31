@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import Sketch from '../sketch';
 
-class handlSymbol extends Sketch {
+export default class handlSymbol extends Sketch {
   constructor() {
     super();
     this.namespace = '组件|handlSymbol';
@@ -75,12 +75,10 @@ class handlSymbol extends Sketch {
       if (inner.layers.length === 1) {
         const innerChild = inner.layers[0];
         innerChild.parent = inner.parent;
-        innerChild.frame = innerChild.frame.changeBasis({ from: inner, to: inner.parent });
+        this.changeBasis(innerChild, { from: inner, to: inner.parent });
         innerChild.selected = true;
         inner.remove();
       }
     }
   }
 }
-
-export default new handlSymbol();

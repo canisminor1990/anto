@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import Sketch from '../sketch';
 
-class handleHeight extends Sketch {
+export default class handleHeight extends Sketch {
   constructor() {
     super();
     this.namespace = '调高|handleHeight';
@@ -29,5 +29,3 @@ class handleHeight extends Sketch {
     this.ui.success('高度已适配');
   }
 }
-
-export default new handleHeight();

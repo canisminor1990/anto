@@ -3,7 +3,7 @@ import Sketch from '../sketch';
 
 const GroupName = '@交互连线';
 
-class handleLine extends Sketch {
+export default class handleLine extends Sketch {
   constructor() {
     super();
     this.namespace = '变向|handleChange';
@@ -74,7 +74,7 @@ class handleLine extends Sketch {
     const lineSh = MSShapePathLayer.layerWithPath(MSPath.pathWithBezierPath(linePath));
     const tempName = '@tempLine' + Math.random();
     lineSh.setName(tempName);
-    this.nativePage.addLayers([lineSh]);
+    this.native.page.addLayers([lineSh]);
 
     this.selectionClear();
 
@@ -87,7 +87,7 @@ class handleLine extends Sketch {
     Line.selected = true;
     Line.name = newName;
     Line.style = this.lineStyle;
-    Line.frame = Line.frame.changeBasis({ from: this.page, to: Group });
+    this.changeBasis(Line, { from: this.page, to: Group });
     Line.parent = Group;
     this.setLine(aId, bId, Line.id);
 
@@ -145,5 +145,3 @@ class handleLine extends Sketch {
     return [pointS, point2, point3, pointE];
   }
 }
-
-export default new handleLine();

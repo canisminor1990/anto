@@ -8,11 +8,11 @@ import handleDash from './models/handleDash';
 import handleChange from './models/handleChange';
 import handleFrontBack from './models/handleFrontBack';
 import handleTitle from './models/handleTitle';
-import handlePlate from './handlePlate';
-import handleExport from './handleExport';
-import handleNote from './handleNote';
-import handleSort from './handleSort';
-import handleLayout from './handleLayout';
+import handlePlate from './models/handlePlate';
+import handleExport from './models/handleExport';
+import handleNote from './models/handleNote';
+import handleSort from './models/handleSort';
+import handleLayout from './models/handleLayout';
 import handleSymbol from './models/handleSymbol';
 import handleHeight from './models/handleHeight';
 
@@ -67,16 +67,16 @@ export const onRun = context => {
   const webContents = browserWindow.webContents;
 
   // 组件
-  webContents.on('handleSymbol', e => handleSymbol.start(e));
+  webContents.on('handleSymbol', e => new handleSymbol().start(e));
 
   // 制标
-  webContents.on('handleTitle', () => handleTitle.start());
+  webContents.on('handleTitle', () => new handleTitle().start());
 
   // 制版
-  webContents.on('handlePlate', () => handlePlate());
+  webContents.on('handlePlate', () => new handlePlate().start());
 
   // 导出
-  webContents.on('handleExport', () => handleExport());
+  webContents.on('handleExport', () => new handleExport().start());
 
   // 语雀
   webContents.on('handleYuque', () => {
@@ -91,28 +91,28 @@ export const onRun = context => {
   });
 
   // 连线
-  webContents.on('handleLine', () => handleLine.start());
-  webContents.on('handleChange', () => handleChange.start());
-  webContents.on('handleDash', () => handleDash.start());
+  webContents.on('handleLine', () => new handleLine().start());
+  webContents.on('handleChange', () => new handleChange().start());
+  webContents.on('handleDash', () => new handleDash().start());
 
   // 图层
-  webContents.on('handleTop', () => handleFrontBack.start('置顶'));
-  webContents.on('handleBottom', () => handleFrontBack.start('置底'));
-  webContents.on('handleSort', () => handleSort());
-  webContents.on('handleLayout', () => handleLayout());
-  webContents.on('handleHeight', () => handleHeight.start());
+  webContents.on('handleTop', () => new handleFrontBack().start('置顶'));
+  webContents.on('handleBottom', () => new handleFrontBack().start('置底'));
+  webContents.on('handleSort', () => new handleSort().start());
+  webContents.on('handleLayout', () => new handleLayout().start());
+  webContents.on('handleHeight', () => new handleHeight().start());
 
   // 注释
-  webContents.on('setHeader', () => handleNote('header'));
-  webContents.on('setSubHeader', () => handleNote('subheader'));
-  webContents.on('setText', () => handleNote('text'));
-  webContents.on('setBlock', () => handleNote('block'));
-  webContents.on('setList', () => handleNote('list'));
-  webContents.on('setUl', () => handleNote('ul'));
-  webContents.on('setPoint', () => handleNote('point'));
-  webContents.on('setRound', () => handleNote('round'));
-  webContents.on('setIf', () => handleNote('if'));
-  webContents.on('setChangelog', () => handleNote('changelog'));
+  webContents.on('setHeader', () => new handleNote().start('header'));
+  webContents.on('setSubHeader', () => new handleNote().start('subheader'));
+  webContents.on('setText', () => new handleNote().start('text'));
+  webContents.on('setBlock', () => new handleNote().start('block'));
+  webContents.on('setList', () => new handleNote().start('list'));
+  webContents.on('setUl', () => new handleNote().start('ul'));
+  webContents.on('setPoint', () => new handleNote().start('point'));
+  webContents.on('setRound', () => new handleNote().start('round'));
+  webContents.on('setIf', () => new handleNote().start('if'));
+  webContents.on('setChangelog', () => new handleNote().start('changelog'));
 
   // 工具栏大小
   webContents.on('openSetting', () => browserWindow.setSize(width + 250, height));

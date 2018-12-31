@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import Sketch from '../sketch';
 
-class handleDash extends Sketch {
+export default class handleDash extends Sketch {
   constructor() {
     super();
     this.namespace = '虚实|handleDash';
@@ -22,5 +22,3 @@ class handleDash extends Sketch {
     });
   }
 }
-
-export default new handleDash();

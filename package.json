@@ -63,7 +63,15 @@
 			"eslint --fix",
 			"git add"
 		],
+		"preivew/**/*.js": [
+			"eslint --fix",
+			"git add"
+		],
 		"panel/**/*.scss": [
+			"prettier --trailing-comma all --single-quote --write",
+			"git add"
+		],
+		"preview/**/*.scss": [
 			"prettier --trailing-comma all --single-quote --write",
 			"git add"
 		]

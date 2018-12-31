@@ -17365,7 +17365,7 @@ var globalRemoveLayer = function globalRemoveLayer(document, name) {
       return layer.remove();
     });
   } catch (e) {
-    console.log("globalRemoveLayer", e);
+    console.log('globalRemoveLayer', e);
   }
 }; // 设置Symbol的Override
 
@@ -17387,12 +17387,12 @@ var setByValue = function setByValue(instance, _setByValue, value) {
 }; // 排序
 
 var GroupOrder = function GroupOrder(page) {
-  var GorupTop = find(page.layers, "name", "@置顶");
-  var GroupLine = find(page.layers, "name", "@交互连线");
-  var GroupTitle = find(page.layers, "name", "@画板标题");
-  var GroupShadow = find(page.layers, "name", "@画板投影");
-  var GorupBottom = find(page.layers, "name", "@置底");
-  var GroupBg = find(page.layers, "name", "@制版");
+  var GorupTop = find(page.layers, 'name', '@置顶');
+  var GroupLine = find(page.layers, 'name', '@交互连线');
+  var GroupTitle = find(page.layers, 'name', '@画板标题');
+  var GroupShadow = find(page.layers, 'name', '@画板投影');
+  var GorupBottom = find(page.layers, 'name', '@置底');
+  var GroupBg = find(page.layers, 'name', '@制版');
   if (GroupTitle) GroupTitle.moveToFront();
   if (GroupLine) GroupLine.moveToFront();
   if (GorupTop) GorupTop.moveToFront();

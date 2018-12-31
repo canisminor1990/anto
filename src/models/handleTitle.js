@@ -3,21 +3,18 @@ import Sketch from '../sketch';
 
 const GroupName = '@画板标题';
 
-class handleTitle extends Sketch {
+export default class handleTitle extends Sketch {
   constructor() {
     super();
     this.namespace = '制标|handleTitle';
   }
+
   run() {
     const Artboards = _.filter(
-      this.page.layers,
-      layer =>
-        layer.type === 'Artboard' &&
-        layer.name[0] !== '@' &&
-        layer.frame.width >= 750 / 3 &&
-        layer.frame.width <= 750 * 3
+      this.artboards,
+      layer => layer.name[0] !== '@' && layer.frame.width >= 750 / 3 && layer.frame.width <= 750 * 3
     );
-    if (Artboards.length === 0) return this.ui.message('找不到可用画板');
+    if (Artboards.length === 0) return this.ui.warn('找不到可用画板');
 
     // 找到Symbol
     let symbolName;
@@ -29,7 +26,7 @@ class handleTitle extends Sketch {
     }
 
     const master = this.library.getSymbol(this.library.afuxExport, symbolName);
-    if (!master) return this.ui.message('请检查Symbol是否存在');
+    if (!master) return this.ui.warn('请检查Symbol是否存在');
 
     // 导入
     this.layer.deepRemove(this.page, GroupName);
@@ -46,7 +43,7 @@ class handleTitle extends Sketch {
       instance.frame.x = Artboard.frame.x;
       instance.frame.y = Artboard.frame.y - 150;
       instance.frame.width = Artboard.frame.width;
-      instance.frame = instance.frame.changeBasis({ from: this.page, to: Group });
+      this.changeBasis(instance, { from: this.page, to: Group });
       // 设置override
       const titleId = '标题';
       this.setByValue(instance, titleId, Artboard.name);
@@ -58,5 +55,3 @@ class handleTitle extends Sketch {
     this.ui.success('制标成功');
   }
 }
-
-export default new handleTitle();

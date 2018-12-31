@@ -42,4 +42,8 @@ export default class SketchCreate {
   instance(master) {
     return master.createNewInstance();
   }
+
+  slice() {
+    return MSSliceLayer.new();
+  }
 }
