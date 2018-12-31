@@ -1,4 +1,3 @@
-import sketch from 'sketch/dom';
 import UI from 'sketch/ui';
 import Settings from 'sketch/settings';
 import BrowserWindow from 'sketch-module-web-view';

@@ -36,12 +36,13 @@
 		"build": "rm -r Anto.sketchplugin && yarn build:panel && yarn build:plugin",
 		"build:plugin": "cross-env NODE_ENV=production skpm-build",
 		"build:panel": "cross-env ESLINT=none roadhog build",
-		"build:symbol": "node ./scripts/index.js",
+		"build:symbol": "node ./scripts/symbol.js",
+		"build:preview": "cd preview && yarn build && cd ../ && node ./scripts/preview.js",
 		"publish": "skpm publish",
 		"link": "skpm-link",
 		"dev": "defaults write ~/Library/Preferences/com.bohemiancoding.sketch3.plist AlwaysReloadScript -bool YES",
 		"lint": "lint-staged",
-		"lint:es": "eslint --fix --ext .js src && eslint --fix --ext .js panel"
+		"lint:es": "eslint --fix --ext .js src && eslint --fix --ext .js panel && eslint --fix --ext .js preview"
 	},
 	"pre-commit": [
 		"lint"

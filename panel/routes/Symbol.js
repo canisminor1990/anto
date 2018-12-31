@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import styled, { css } from 'styled-components';
-import { rgba } from 'polished';
 import { connect } from 'dva';
 import QueueAnim from 'rc-queue-anim';
 import Data from '../data.json';

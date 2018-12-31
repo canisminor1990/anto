@@ -8,3 +8,5 @@ const js      = fs.readFileSync(path.join(rootDir, "index.js"), "utf-8");
 
 const Data = { css, html, js };
 fs.writeFileSync("src/preview.json", JSON.stringify(Data));
+
+console.log(JSON.stringify(Data))

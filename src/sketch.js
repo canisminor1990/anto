@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import sketch from 'sketch/dom';
-import Settings from 'sketch/settings';
 import SketchLayer from './api/layer';
 import SketchCreate from './api/create';
 import sketchUI from './api/ui';

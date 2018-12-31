@@ -1,4 +1,3 @@
-import QueueAnim from 'rc-queue-anim';
 import { Component } from 'react';
 import { connect } from 'dva';
 import { Icon } from '../components';

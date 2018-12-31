@@ -19,7 +19,7 @@ export const addLibrary = context => {
     const libraryUrl = context.plugin.urlForResourceNamed(join('sketch', fileName));
     if (libraryUrl) {
       const libraryPath = String(libraryUrl.path());
-      const library = Library.getLibraryForDocumentAtPath(libraryPath);
+      Library.getLibraryForDocumentAtPath(libraryPath);
       AppController.sharedInstance().checkForAssetLibraryUpdates();
     }
   });
