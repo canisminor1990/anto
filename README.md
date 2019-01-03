@@ -108,4 +108,4 @@
 
 ## License (许可)
 
-[Apache 2.0](https://github.com/canisminor1990/anto/blob/master/README.md)
+[Apache 2.0](https://github.com/canisminor1990/anto/blob/master/LICENSE)
