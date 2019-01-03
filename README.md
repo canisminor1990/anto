@@ -105,3 +105,7 @@
 <img src="https://raw.githubusercontent.com/canisminor1990/anto/master/docs/qrcode-public.png" width="310"/>
 <img src="https://raw.githubusercontent.com/canisminor1990/anto/master/docs/qrcode-anto.png" width="310"/>
 </div>
+
+## License (许可)
+
+[Apache 2.0](https://github.com/canisminor1990/anto/blob/master/README.md)
