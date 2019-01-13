@@ -38160,7 +38160,7 @@ function (_Sketch) {
     _classCallCheck(this, handleLayout);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(handleLayout).call(this));
-    _this.namespace = "对齐|handleLayout";
+    _this.namespace = '对齐|handleLayout';
     _this.option = {
       marginX: 100,
       marginY: 300
@@ -38173,7 +38173,7 @@ function (_Sketch) {
     value: function run() {
       var _this2 = this;
 
-      var sortedArtboards = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.sortBy(this.artboards, ["frame.y", "frame.x"]);
+      var sortedArtboards = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.sortBy(this.artboards, ['frame.y', 'frame.x']);
 
       var snapDistance = sortedArtboards.reduce(function (initial, artboard) {
         initial += artboard.frame.height;
@@ -38194,10 +38194,10 @@ function (_Sketch) {
         var tallestArtboard = 0;
         var artboardX = baseFrame.x;
         var artboardsInRow = sortedArtboards.filter(function (artboard) {
-          return artboard.frame.y == rowValue;
+          return artboard.frame.y === rowValue;
         });
 
-        lodash__WEBPACK_IMPORTED_MODULE_0___default.a.sortBy(artboardsInRow, "frame.x").forEach(function (artboard) {
+        lodash__WEBPACK_IMPORTED_MODULE_0___default.a.sortBy(artboardsInRow, 'frame.x').forEach(function (artboard) {
           artboard.frame.x = artboardX;
           artboard.frame.y = artboardY;
           artboardX += artboard.frame.width + _this2.option.marginX;
@@ -38209,7 +38209,7 @@ function (_Sketch) {
       });
 
       this.sortOrder();
-      this.ui.success("对齐成功");
+      this.ui.success('对齐成功');
     }
   }, {
     key: "snapValueToGrid",
