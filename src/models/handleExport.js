@@ -4,6 +4,7 @@ import moment from 'moment';
 import { join } from 'path';
 import preivew from '../preview.json';
 import fs from '@skpm/fs';
+import dialog from '@skpm/dialog';
 
 export default class handleExport extends Sketch {
   constructor() {
@@ -20,7 +21,7 @@ export default class handleExport extends Sketch {
     };
 
     // 获取路径
-    const RootPath = this.getPath();
+    const RootPath = dialog.showSaveDialog();
 
     _.forEach(this.native.pages, page => {
       _.forEach(page.layers(), layer => {
@@ -56,18 +57,6 @@ export default class handleExport extends Sketch {
     fs.writeFileSync(join(RootPath, 'index.html'), preivew.html);
     fs.writeFileSync(join(RootPath, 'index.js'), preivew.js);
     this.ui.success(`导出至：${RootPath}`);
-  }
-
-  getPath() {
-    const filePath = this.native.document.fileURL()
-      ? this.native.document
-          .fileURL()
-          .path()
-          .stringByDeletingLastPathComponent()
-      : '~';
-
-    const fileName = this.native.document.displayName().stringByDeletingPathExtension();
-    return join(String(filePath), String(fileName));
   }
 
   exportSlice(slice, path) {

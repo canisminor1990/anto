@@ -33,6 +33,21 @@ export default class Sketch {
     return new SketchSetting();
   }
 
+  get fileName() {
+    const fileName = this.native.document.displayName().stringByDeletingPathExtension();
+    return String(fileName);
+  }
+
+  get filePath() {
+    const filePath = this.native.document.fileURL()
+      ? this.native.document
+          .fileURL()
+          .path()
+          .stringByDeletingLastPathComponent()
+      : '~';
+    return String(filePath);
+  }
+
   // Setting
   get line() {
     return this.setting.getDocument(this.document, 'anto-line');

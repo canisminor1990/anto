@@ -155,6 +155,612 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./node_modules/@skpm/dialog/lib/index.js":
+/*!************************************************!*\
+  !*** ./node_modules/@skpm/dialog/lib/index.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* let's try to match the API from Electron's Dialog
+(https://github.com/electron/electron/blob/master/docs/api/dialog.md) */
+
+module.exports = {
+  showOpenDialog: __webpack_require__(/*! ./open-dialog */ "./node_modules/@skpm/dialog/lib/open-dialog.js"),
+  showSaveDialog: __webpack_require__(/*! ./save-dialog */ "./node_modules/@skpm/dialog/lib/save-dialog.js"),
+  showMessageBox: __webpack_require__(/*! ./message-box */ "./node_modules/@skpm/dialog/lib/message-box.js"),
+  // showErrorBox: require('./error-box'),
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@skpm/dialog/lib/message-box.js":
+/*!******************************************************!*\
+  !*** ./node_modules/@skpm/dialog/lib/message-box.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* eslint-disable no-not-accumulator-reassign/no-not-accumulator-reassign */
+var RunDelegate = __webpack_require__(/*! ./run-delegate */ "./node_modules/@skpm/dialog/lib/run-delegate.js")
+
+// https://github.com/electron/electron/blob/master/docs/api/dialog.md#dialogshowmessageboxbrowserwindow-options-callback
+var typeMap = {
+  none: 0,
+  info: 1,
+  error: 2,
+  question: 1,
+  warning: 2,
+}
+module.exports = function messageBox(document, options, callback) {
+  if (!document ||
+    (typeof document.class !== 'function' && !document.sketchObject)
+  ) {
+    callback = options
+    options = document
+    document = undefined
+  } else if (document.sketchObject) {
+    document = document.sketchObject
+  }
+  if (!options) {
+    options = {}
+  }
+
+  var response
+
+  var dialog = NSAlert.alloc().init()
+
+  if (options.type) {
+    dialog.alertStyle = typeMap[options.type] || 0
+  }
+
+  if (options.buttons && options.buttons.length) {
+    options.buttons.forEach(function addButton(button) {
+      dialog.addButtonWithTitle(
+        options.normalizeAccessKeys ? button.replace(/&/g, '') : button
+      )
+      // TODO: add keyboard shortcut if options.normalizeAccessKeys
+    })
+  }
+
+  if (typeof options.defaultId !== 'undefined') {
+    var buttons = dialog.buttons()
+    if (options.defaultId < buttons.length) {
+      // Focus the button at defaultId if the user opted to do so.
+      // The first button added gets set as the default selected.
+      // So remove that default, and make the requested button the default.
+      buttons[0].setKeyEquivalent('')
+      buttons[options.defaultId].setKeyEquivalent('\r')
+    }
+  }
+
+  if (options.title) {
+    // not shown on macOS
+  }
+
+  if (options.message) {
+    dialog.messageText = options.message
+  }
+
+  if (options.detail) {
+    dialog.informativeText = options.detail
+  }
+
+  if (options.checkboxLabel) {
+    dialog.showsSuppressionButton = true
+    dialog.suppressionButton().title = options.checkboxLabel
+
+    if (typeof options.checkboxChecked !== 'undefined') {
+      dialog.suppressionButton().state = options.checkboxChecked ?
+        NSOnState :
+        NSOffState
+    }
+  }
+
+  if (options.icon) {
+    if (typeof options.icon === 'string') {
+      options.icon = NSImage.alloc().initWithContentsOfFile(options.icon)
+    }
+    dialog.icon = options.icon
+  } else if (
+    typeof __command !== 'undefined' &&
+    __command.pluginBundle() &&
+    __command.pluginBundle().icon()
+  ) {
+    dialog.icon = __command.pluginBundle().icon()
+  } else {
+    var icon = NSImage.imageNamed('plugins')
+    if (icon) {
+      dialog.icon = icon
+    }
+  }
+
+  if (!document) {
+    response = Number(dialog.runModal()) - 1000
+    if (callback) {
+      var checkboxChecked = false
+      if (options.checkboxLabel) {
+        checkboxChecked = dialog.suppressionButton().state() == NSOnState
+      }
+      callback({
+        response: response,
+        checkboxChecked: checkboxChecked,
+      })
+      return undefined
+    }
+    return response
+  }
+
+  var delegate = RunDelegate.new()
+
+  dialog.buttons().forEach(function hookButton(button, i) {
+    button.setTarget(delegate)
+    button.setAction(NSSelectorFromString('buttonClicked:'))
+    button.setTag(i)
+  })
+
+  var fiber
+  if (callback) {
+    if (coscript.createFiber) {
+      fiber = coscript.createFiber()
+    } else {
+      coscript.shouldKeepAround = true
+    }
+  }
+
+  delegate.options = NSDictionary.dictionaryWithDictionary({
+    onClicked: function handleEnd(returnCode) {
+      if (callback) {
+        callback({
+          response: Number(returnCode),
+          checkboxChecked: dialog.suppressionButton().state() == NSOnState,
+        })
+        NSApp.endSheet(dialog.window())
+        if (fiber) {
+          fiber.cleanup()
+        } else {
+          coscript.shouldKeepAround = false
+        }
+      } else {
+        NSApp.stopModalWithCode(Number(returnCode))
+      }
+    },
+  })
+
+  var window = (document.sketchObject || document).documentWindow()
+  dialog.beginSheetModalForWindow_modalDelegate_didEndSelector_contextInfo(
+    window,
+    null,
+    null,
+    null
+  )
+
+  if (!callback) {
+    response = Number(NSApp.runModalForWindow(window))
+    NSApp.endSheet(dialog.window())
+    return response
+  }
+
+  return undefined
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@skpm/dialog/lib/open-dialog.js":
+/*!******************************************************!*\
+  !*** ./node_modules/@skpm/dialog/lib/open-dialog.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* eslint-disable no-not-accumulator-reassign/no-not-accumulator-reassign */
+var RunDelegate = __webpack_require__(/*! ./run-delegate */ "./node_modules/@skpm/dialog/lib/run-delegate.js")
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/@skpm/dialog/lib/utils.js")
+
+// https://github.com/electron/electron/blob/master/docs/api/dialog.md#dialogshowopendialogbrowserwindow-options-callback
+module.exports = function openDialog(document, options, callback) {
+  if (!document || typeof document.class !== 'function') {
+    callback = options
+    options = document
+    document = undefined
+  }
+  if (!options) {
+    options = {}
+  }
+
+  var dialog = NSOpenPanel.openPanel()
+
+  if (options.title) {
+    dialog.title = options.title
+  }
+
+  if (options.defaultPath) {
+    dialog.setDirectoryURL(utils.getURL(options.defaultPath))
+  }
+
+  if (options.buttonLabel) {
+    dialog.prompt = options.buttonLabel
+  }
+
+  if (options.filters && options.filters.length) {
+    var exts = []
+    options.filters.forEach(function setFilter(filter) {
+      filter.extensions.forEach(function setExtension(ext) {
+        exts.push(ext)
+      })
+    })
+
+    dialog.allowedFileTypes = exts
+  }
+
+  if (options.properties && options.properties.length) {
+    options.properties.forEach(function setProperty(p) {
+      if (p === 'openFile') {
+        dialog.canChooseFiles = true
+      } else if (p === 'openDirectory') {
+        dialog.canChooseDirectories = true
+      } else if (p === 'multiSelections') {
+        dialog.allowsMultipleSelection = true
+      } else if (p === 'showHiddenFiles') {
+        dialog.showsHiddenFiles = true
+      } else if (p === 'createDirectory') {
+        dialog.createDirectory = true
+      } else if (p === 'noResolveAliases') {
+        dialog.resolvesAliases = false
+      } else if (p === 'treatPackageAsDirectory') {
+        dialog.treatsFilePackagesAsDirectories = true
+      }
+    })
+  }
+
+  if (options.message) {
+    dialog.message = options.message
+  }
+
+  var buttonClicked
+
+  function getURLs() {
+    var result = []
+    var urls = dialog.URLs()
+    for (var k = 0; k < urls.length; k += 1) {
+      result.push(String(urls[k].path()))
+    }
+
+    return result
+  }
+
+  if (!document) {
+    buttonClicked = dialog.runModal()
+    if (buttonClicked == NSOKButton) {
+      if (callback) {
+        callback(getURLs())
+        return undefined
+      }
+      return getURLs()
+    }
+
+    return []
+  }
+
+  var nsButtonClass = NSButton.class()
+
+  function findButtonWithTitleInView(title, view) {
+    if (!view || !view.subviews || !view.subviews()) {
+      return undefined
+    }
+    var subviews = view.subviews()
+    for (var i = 0; i < subviews.length; i += 1) {
+      var subview = subviews[i]
+      if (
+        subview.isKindOfClass(nsButtonClass) &&
+        String(subview.title()) == title
+      ) {
+        return subview
+      }
+      var foundButton = findButtonWithTitleInView(title, subview)
+      if (foundButton) {
+        return foundButton
+      }
+    }
+    return undefined
+  }
+
+  var cancelButton = findButtonWithTitleInView('Cancel', dialog.contentView())
+  var okButton = findButtonWithTitleInView(
+    options.buttonLabel || 'Open',
+    dialog.contentView()
+  )
+
+  var delegate = RunDelegate.new()
+
+  cancelButton.setTarget(delegate)
+  cancelButton.setAction(NSSelectorFromString('button1Clicked:'))
+  okButton.setTarget(delegate)
+  okButton.setAction(NSSelectorFromString('button0Clicked:'))
+
+  var fiber
+  if (callback) {
+    if (coscript.createFiber) {
+      fiber = coscript.createFiber()
+    } else {
+      coscript.shouldKeepAround = true
+    }
+  }
+
+  delegate.options = NSDictionary.dictionaryWithDictionary({
+    onClicked: function handleEnd(returnCode) {
+      if (callback) {
+        callback(returnCode == 0 ? getURLs() : undefined)
+        NSApp.endSheet(dialog)
+        if (fiber) {
+          fiber.cleanup()
+        } else {
+          coscript.shouldKeepAround = false
+        }
+      } else {
+        NSApp.stopModalWithCode(returnCode)
+      }
+    },
+  })
+
+  var window = (document.sketchObject || document).documentWindow()
+  dialog.beginSheetForDirectory_file_modalForWindow_modalDelegate_didEndSelector_contextInfo(
+    null,
+    null,
+    window,
+    null,
+    null,
+    null
+  )
+
+  if (!callback) {
+    buttonClicked = NSApp.runModalForWindow(window)
+    NSApp.endSheet(dialog)
+    if (buttonClicked == 0) {
+      return getURLs()
+    }
+    return undefined
+  }
+
+  return undefined
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@skpm/dialog/lib/run-delegate.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@skpm/dialog/lib/run-delegate.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ObjCClass = __webpack_require__(/*! cocoascript-class */ "./node_modules/cocoascript-class/lib/index.js").default
+
+module.exports = new ObjCClass({
+  options: null,
+
+  'buttonClicked:': function handleButtonClicked(sender) {
+    if (this.options.onClicked) {
+      this.options.onClicked(sender.tag())
+    }
+    this.release()
+  },
+
+  'button0Clicked:': function handleButtonClicked() {
+    if (this.options.onClicked) {
+      this.options.onClicked(0)
+    }
+    this.release()
+  },
+
+  'button1Clicked:': function handleButtonClicked() {
+    if (this.options.onClicked) {
+      this.options.onClicked(1)
+    }
+    this.release()
+  },
+})
+
+
+/***/ }),
+
+/***/ "./node_modules/@skpm/dialog/lib/save-dialog.js":
+/*!******************************************************!*\
+  !*** ./node_modules/@skpm/dialog/lib/save-dialog.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* eslint-disable no-not-accumulator-reassign/no-not-accumulator-reassign */
+var RunDelegate = __webpack_require__(/*! ./run-delegate */ "./node_modules/@skpm/dialog/lib/run-delegate.js")
+var utils = __webpack_require__(/*! ./utils */ "./node_modules/@skpm/dialog/lib/utils.js")
+
+// https://github.com/electron/electron/blob/master/docs/api/dialog.md#dialogshowsavedialogbrowserwindow-options-callback
+module.exports = function saveDialog(document, options, callback) {
+  if (!document || typeof document.class !== 'function') {
+    callback = options
+    options = document
+    document = undefined
+  }
+  if (!options) {
+    options = {}
+  }
+
+  var buttonClicked
+  var url
+
+  var dialog = NSSavePanel.savePanel()
+
+  if (options.title) {
+    dialog.title = options.title
+  }
+
+  if (options.defaultPath) {
+    // that's a path
+    dialog.setDirectoryURL(utils.getURL(options.defaultPath))
+
+    if (
+      options.defaultPath[0] === '.' ||
+      options.defaultPath[0] === '~' ||
+      options.defaultPath[0] === '/'
+    ) {
+      var parts = options.defaultPath.split('/')
+      if (parts.length > 1 && parts[parts.length - 1]) {
+        dialog.setNameFieldStringValue(parts[parts.length - 1])
+      }
+    } else {
+      dialog.setNameFieldStringValue(options.defaultPath)
+    }
+  }
+
+  if (options.buttonLabel) {
+    dialog.prompt = options.buttonLabel
+  }
+
+  if (options.filters && options.filters.length) {
+    var exts = []
+    options.filters.forEach(function setFilter(filter) {
+      filter.extensions.forEach(function setExtension(ext) {
+        exts.push(ext)
+      })
+    })
+
+    dialog.allowedFileTypes = exts
+  }
+
+  if (options.message) {
+    dialog.message = options.message
+  }
+
+  if (options.nameFieldLabel) {
+    dialog.nameFieldLabel = options.nameFieldLabel
+  }
+
+  if (options.showsTagField) {
+    dialog.showsTagField = options.showsTagField
+  }
+
+  if (!document) {
+    buttonClicked = dialog.runModal()
+    if (buttonClicked == NSOKButton) {
+      url = String(dialog.URL().path())
+
+      if (callback) {
+        callback(url)
+        return undefined
+      }
+      return url
+    }
+    return undefined
+  }
+
+  var nsButtonClass = NSButton.class()
+
+  function findButtonWithTitleInView(title, view) {
+    if (!view || !view.subviews || !view.subviews()) {
+      return undefined
+    }
+    var subviews = view.subviews()
+    for (var i = 0; i < subviews.length; i += 1) {
+      var subview = subviews[i]
+      if (
+        subview.isKindOfClass(nsButtonClass) &&
+        String(subview.title()) == title
+      ) {
+        return subview
+      }
+      var foundButton = findButtonWithTitleInView(title, subview)
+      if (foundButton) {
+        return foundButton
+      }
+    }
+    return undefined
+  }
+
+  var cancelButton = findButtonWithTitleInView('Cancel', dialog.contentView())
+  var okButton = findButtonWithTitleInView(
+    options.buttonLabel || 'Save',
+    dialog.contentView()
+  )
+
+  var delegate = RunDelegate.new()
+
+  cancelButton.setTarget(delegate)
+  cancelButton.setAction(NSSelectorFromString('button1Clicked:'))
+  okButton.setTarget(delegate)
+  okButton.setAction(NSSelectorFromString('button0Clicked:'))
+
+  var fiber
+  if (callback) {
+    if (coscript.createFiber) {
+      fiber = coscript.createFiber()
+    } else {
+      coscript.shouldKeepAround = true
+    }
+  }
+
+  delegate.options = NSDictionary.dictionaryWithDictionary({
+    onClicked: function handleEnd(returnCode) {
+      if (callback) {
+        callback(returnCode == 0 ? String(dialog.URL().path()) : undefined)
+        NSApp.endSheet(dialog)
+        if (fiber) {
+          fiber.cleanup()
+        } else {
+          coscript.shouldKeepAround = false
+        }
+      } else {
+        NSApp.stopModalWithCode(returnCode)
+      }
+    },
+  })
+
+  var window = (document.sketchObject || document).documentWindow()
+  dialog.beginSheetForDirectory_file_modalForWindow_modalDelegate_didEndSelector_contextInfo(
+    null,
+    null,
+    window,
+    null,
+    null,
+    null
+  )
+
+  if (!callback) {
+    buttonClicked = NSApp.runModalForWindow(window)
+    NSApp.endSheet(dialog)
+    if (buttonClicked == 0) {
+      return String(dialog.URL().path())
+    }
+    return undefined
+  }
+
+  return undefined
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@skpm/dialog/lib/utils.js":
+/*!************************************************!*\
+  !*** ./node_modules/@skpm/dialog/lib/utils.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports.getURL = function getURL(path) {
+  return NSURL.URLWithString(
+    String(
+      NSString.stringWithString(path).stringByExpandingTildeInPath()
+    ).replace(/ /g, '%20')
+  )
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/@skpm/fs/index.js":
 /*!****************************************!*\
   !*** ./node_modules/@skpm/fs/index.js ***!
@@ -37839,6 +38445,8 @@ __webpack_require__.r(__webpack_exports__);
 var _preview_json__WEBPACK_IMPORTED_MODULE_4___namespace = /*#__PURE__*/__webpack_require__.t(/*! ../preview.json */ "./src/preview.json", 1);
 /* harmony import */ var _skpm_fs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @skpm/fs */ "./node_modules/@skpm/fs/index.js");
 /* harmony import */ var _skpm_fs__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_skpm_fs__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _skpm_dialog__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @skpm/dialog */ "./node_modules/@skpm/dialog/lib/index.js");
+/* harmony import */ var _skpm_dialog__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_skpm_dialog__WEBPACK_IMPORTED_MODULE_6__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37856,6 +38464,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -37891,7 +38500,7 @@ function (_Sketch) {
         pages: []
       }; // 获取路径
 
-      var RootPath = this.getPath();
+      var RootPath = _skpm_dialog__WEBPACK_IMPORTED_MODULE_6___default.a.showSaveDialog();
 
       lodash__WEBPACK_IMPORTED_MODULE_0___default.a.forEach(this.native.pages, function (page) {
         lodash__WEBPACK_IMPORTED_MODULE_0___default.a.forEach(page.layers(), function (layer) {
@@ -37931,13 +38540,6 @@ function (_Sketch) {
       _skpm_fs__WEBPACK_IMPORTED_MODULE_5___default.a.writeFileSync(Object(path__WEBPACK_IMPORTED_MODULE_3__["join"])(RootPath, 'index.html'), _preview_json__WEBPACK_IMPORTED_MODULE_4__.html);
       _skpm_fs__WEBPACK_IMPORTED_MODULE_5___default.a.writeFileSync(Object(path__WEBPACK_IMPORTED_MODULE_3__["join"])(RootPath, 'index.js'), _preview_json__WEBPACK_IMPORTED_MODULE_4__.js);
       this.ui.success("\u5BFC\u51FA\u81F3\uFF1A".concat(RootPath));
-    }
-  }, {
-    key: "getPath",
-    value: function getPath() {
-      var filePath = this.native.document.fileURL() ? this.native.document.fileURL().path().stringByDeletingLastPathComponent() : '~';
-      var fileName = this.native.document.displayName().stringByDeletingPathExtension();
-      return Object(path__WEBPACK_IMPORTED_MODULE_3__["join"])(String(filePath), String(fileName));
     }
   }, {
     key: "exportSlice",
@@ -39363,6 +39965,18 @@ function () {
     key: "setting",
     get: function get() {
       return new _api_setting__WEBPACK_IMPORTED_MODULE_5__["default"]();
+    }
+  }, {
+    key: "fileName",
+    get: function get() {
+      var fileName = this.native.document.displayName().stringByDeletingPathExtension();
+      return String(fileName);
+    }
+  }, {
+    key: "filePath",
+    get: function get() {
+      var filePath = this.native.document.fileURL() ? this.native.document.fileURL().path().stringByDeletingLastPathComponent() : '~';
+      return String(filePath);
     } // Setting
 
   }, {
