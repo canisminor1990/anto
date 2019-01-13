@@ -186,7 +186,7 @@ export default class Sketch {
       console.log('[End]', this.namespace);
     } catch (e) {
       console.log('[Error]', this.namespace, e);
-      this.ui.alert(`Error-${this.namespace}`, String(e));
+      this.ui.alert(`🔵😥 ${this.namespace}`, String(e));
     }
   }
 }

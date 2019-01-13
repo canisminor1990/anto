@@ -3,6 +3,7 @@ import Sketch from '../sketch';
 import moment from 'moment';
 import { join } from 'path';
 import preivew from '../preview.json';
+import fs from '@skpm/fs';
 
 export default class handleExport extends Sketch {
   constructor() {
@@ -47,14 +48,13 @@ export default class handleExport extends Sketch {
     });
 
     // 导出文件
-    this.writeFile(
-      ` localStorage.setItem('preview', '${JSON.stringify(Data)}');`,
-      RootPath,
-      'data.js'
+    fs.writeFileSync(
+      join(RootPath, 'data.js'),
+      ` localStorage.setItem('preview', '${JSON.stringify(Data)}');`
     );
-    this.writeFile(preivew.css, RootPath, 'index.css');
-    this.writeFile(preivew.html, RootPath, 'index.html');
-    this.writeFile(preivew.js, RootPath, 'index.js');
+    fs.writeFileSync(join(RootPath, 'index.css'), preivew.css);
+    fs.writeFileSync(join(RootPath, 'index.html'), preivew.html);
+    fs.writeFileSync(join(RootPath, 'index.js'), preivew.js);
     this.ui.success(`导出至：${RootPath}`);
   }
 
@@ -75,10 +75,5 @@ export default class handleExport extends Sketch {
       slice,
       join(path, 'preview', String(slice.name()) + '.png')
     );
-  }
-
-  writeFile(data, path, name) {
-    const content = NSString.stringWithString(data);
-    content.writeToFile_atomically_encoding_error(join(path, name), false, 4, null);
   }
 }
