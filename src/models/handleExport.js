@@ -5,6 +5,7 @@ import { join } from 'path';
 import preivew from '../preview.json';
 import fs from '@skpm/fs';
 import dialog from '@skpm/dialog';
+// import jsZip from "jszip";
 
 export default class handleExport extends Sketch {
   constructor() {
@@ -14,6 +15,7 @@ export default class handleExport extends Sketch {
   }
 
   run() {
+    // const zip  = new jsZip();
     const Data = {
       date: moment().format('YYYY-MM-DD'),
       author: this.setting.get('config-name'),
@@ -56,6 +58,15 @@ export default class handleExport extends Sketch {
     fs.writeFileSync(join(RootPath, 'index.css'), preivew.css);
     fs.writeFileSync(join(RootPath, 'index.html'), preivew.html);
     fs.writeFileSync(join(RootPath, 'index.js'), preivew.js);
+    // zip.file("data.js", ` localStorage.setItem('preview', '${JSON.stringify(Data)}');`);
+    // zip.file("index.css", preivew.css);
+    // zip.file("index.html", preivew.html);
+    // zip.file("index.js", preivew.js);
+    //
+    // zip.generateAsync({ type: "base64" }).then(data => {
+    //   fs.writeFileSync(RootPath + ".zip", "data:application/zip;base64," + data);
+    // });
+
     this.ui.success(`导出至：${RootPath}`);
   }
 

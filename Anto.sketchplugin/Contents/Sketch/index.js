@@ -38471,7 +38471,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
+ // import jsZip from "jszip";
 
 var handleExport =
 /*#__PURE__*/
@@ -38484,7 +38484,7 @@ function (_Sketch) {
     _classCallCheck(this, handleExport);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(handleExport).call(this));
-    _this.namespace = '导出|handleExport';
+    _this.namespace = "导出|handleExport";
     _this.height = 400;
     return _this;
   }
@@ -38494,9 +38494,10 @@ function (_Sketch) {
     value: function run() {
       var _this2 = this;
 
+      // const zip  = new jsZip();
       var Data = {
-        date: moment__WEBPACK_IMPORTED_MODULE_2___default()().format('YYYY-MM-DD'),
-        author: this.setting.get('config-name'),
+        date: moment__WEBPACK_IMPORTED_MODULE_2___default()().format("YYYY-MM-DD"),
+        author: this.setting.get("config-name"),
         pages: []
       }; // 获取路径
 
@@ -38504,15 +38505,15 @@ function (_Sketch) {
 
       lodash__WEBPACK_IMPORTED_MODULE_0___default.a.forEach(this.native.pages, function (page) {
         lodash__WEBPACK_IMPORTED_MODULE_0___default.a.forEach(page.layers(), function (layer) {
-          if (String(layer.name()) === '@制版') {
+          if (String(layer.name()) === "@制版") {
             var sliceLayer = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.filter(layer.layers(), function (l) {
-              return String(l.class()) === 'MSSliceLayer';
+              return String(l.class()) === "MSSliceLayer";
             })[0];
 
             var name = String(sliceLayer.name());
-            var info = name.split(' (')[1].split(') ');
+            var info = name.split(" (")[1].split(") ");
             Data.pages.push({
-              path: Object(path__WEBPACK_IMPORTED_MODULE_3__["join"])('preview', String(sliceLayer.name()) + '.png'),
+              path: Object(path__WEBPACK_IMPORTED_MODULE_3__["join"])("preview", String(sliceLayer.name()) + ".png"),
               name: String(page.name()),
               mode: info[0],
               date: info[1],
@@ -38535,16 +38536,24 @@ function (_Sketch) {
       }); // 导出文件
 
 
-      _skpm_fs__WEBPACK_IMPORTED_MODULE_5___default.a.writeFileSync(Object(path__WEBPACK_IMPORTED_MODULE_3__["join"])(RootPath, 'data.js'), " localStorage.setItem('preview', '".concat(JSON.stringify(Data), "');"));
-      _skpm_fs__WEBPACK_IMPORTED_MODULE_5___default.a.writeFileSync(Object(path__WEBPACK_IMPORTED_MODULE_3__["join"])(RootPath, 'index.css'), _preview_json__WEBPACK_IMPORTED_MODULE_4__.css);
-      _skpm_fs__WEBPACK_IMPORTED_MODULE_5___default.a.writeFileSync(Object(path__WEBPACK_IMPORTED_MODULE_3__["join"])(RootPath, 'index.html'), _preview_json__WEBPACK_IMPORTED_MODULE_4__.html);
-      _skpm_fs__WEBPACK_IMPORTED_MODULE_5___default.a.writeFileSync(Object(path__WEBPACK_IMPORTED_MODULE_3__["join"])(RootPath, 'index.js'), _preview_json__WEBPACK_IMPORTED_MODULE_4__.js);
+      _skpm_fs__WEBPACK_IMPORTED_MODULE_5___default.a.writeFileSync(Object(path__WEBPACK_IMPORTED_MODULE_3__["join"])(RootPath, "data.js"), " localStorage.setItem('preview', '".concat(JSON.stringify(Data), "');"));
+      _skpm_fs__WEBPACK_IMPORTED_MODULE_5___default.a.writeFileSync(Object(path__WEBPACK_IMPORTED_MODULE_3__["join"])(RootPath, "index.css"), _preview_json__WEBPACK_IMPORTED_MODULE_4__.css);
+      _skpm_fs__WEBPACK_IMPORTED_MODULE_5___default.a.writeFileSync(Object(path__WEBPACK_IMPORTED_MODULE_3__["join"])(RootPath, "index.html"), _preview_json__WEBPACK_IMPORTED_MODULE_4__.html);
+      _skpm_fs__WEBPACK_IMPORTED_MODULE_5___default.a.writeFileSync(Object(path__WEBPACK_IMPORTED_MODULE_3__["join"])(RootPath, "index.js"), _preview_json__WEBPACK_IMPORTED_MODULE_4__.js); // zip.file("data.js", ` localStorage.setItem('preview', '${JSON.stringify(Data)}');`);
+      // zip.file("index.css", preivew.css);
+      // zip.file("index.html", preivew.html);
+      // zip.file("index.js", preivew.js);
+      //
+      // zip.generateAsync({ type: "base64" }).then(data => {
+      //   fs.writeFileSync(RootPath + ".zip", "data:application/zip;base64," + data);
+      // });
+
       this.ui.success("\u5BFC\u51FA\u81F3\uFF1A".concat(RootPath));
     }
   }, {
     key: "exportSlice",
     value: function exportSlice(slice, path) {
-      this.native.document.saveArtboardOrSlice_toFile(slice, Object(path__WEBPACK_IMPORTED_MODULE_3__["join"])(path, 'preview', String(slice.name()) + '.png'));
+      this.native.document.saveArtboardOrSlice_toFile(slice, Object(path__WEBPACK_IMPORTED_MODULE_3__["join"])(path, "preview", String(slice.name()) + ".png"));
     }
   }]);
 
