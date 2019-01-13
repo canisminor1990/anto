@@ -17876,7 +17876,7 @@ var removeLibrary = function removeLibrary() {
   });
 };
 var addLibrary = function addLibrary(context) {
-  console.log(1, _skpm_path__WEBPACK_IMPORTED_MODULE_4___default.a.resourcePath("sketch"));
+  console.log(1, _skpm_path__WEBPACK_IMPORTED_MODULE_4___default.a.resourcePath('sketch'));
   var Library = sketch_dom__WEBPACK_IMPORTED_MODULE_0___default.a.Library;
 
   lodash__WEBPACK_IMPORTED_MODULE_2___default.a.forEach(libraryFiles, function (fileName) {

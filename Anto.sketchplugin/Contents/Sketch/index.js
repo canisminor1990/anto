@@ -38160,7 +38160,7 @@ function (_Sketch) {
     _classCallCheck(this, handleLayout);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(handleLayout).call(this));
-    _this.namespace = '对齐|handleLayout';
+    _this.namespace = "对齐|handleLayout";
     _this.option = {
       marginX: 100,
       marginY: 300
@@ -38173,27 +38173,55 @@ function (_Sketch) {
     value: function run() {
       var _this2 = this;
 
-      var sortedArtboards = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.sortBy(this.artboards, ['frame.y', 'frame.x']);
+      var sortedArtboards = lodash__WEBPACK_IMPORTED_MODULE_0___default.a.sortBy(this.artboards, ["frame.y", "frame.x"]);
 
-      var X = sortedArtboards[0].frame.x;
+      var snapDistance = sortedArtboards.reduce(function (initial, artboard) {
+        initial += artboard.frame.height;
+        return initial;
+      }, 0) / sortedArtboards.length;
+      sortedArtboards.forEach(function (artboard) {
+        artboard.frame.y = _this2.snapValueToGrid(artboard.frame.y, snapDistance);
+      });
+      var artboardRows = sortedArtboards.reduce(function (initial, artboard) {
+        initial.push(artboard.frame.y);
+        return initial;
+      }, []);
+      var baseFrame = sortedArtboards[0].frame;
+      var artboardY = baseFrame.y;
+      var currentRow = 0;
 
-      lodash__WEBPACK_IMPORTED_MODULE_0___default.a.forEach(sortedArtboards, function (layer, i) {
-        layer.moveToBack();
-        if (i === 0) return;
-        var preLayer = sortedArtboards[i - 1];
-        var minY = Math.abs(layer.frame.y - preLayer.frame.y);
+      lodash__WEBPACK_IMPORTED_MODULE_0___default.a.uniq(artboardRows).forEach(function (rowValue) {
+        var tallestArtboard = 0;
+        var artboardX = baseFrame.x;
+        var artboardsInRow = sortedArtboards.filter(function (artboard) {
+          return artboard.frame.y == rowValue;
+        });
 
-        if (minY < preLayer.frame.height / 3 * 2 || minY < layer.frame.height / 3 * 2) {
-          layer.frame.y = preLayer.frame.y;
-          layer.frame.x = preLayer.frame.x + preLayer.frame.width + _this2.option.marginX;
-        } else {
-          layer.frame.x = X;
-          layer.frame.y = preLayer.frame.y + preLayer.frame.height + _this2.option.marginY;
-        }
+        lodash__WEBPACK_IMPORTED_MODULE_0___default.a.sortBy(artboardsInRow, "frame.x").forEach(function (artboard) {
+          artboard.frame.x = artboardX;
+          artboard.frame.y = artboardY;
+          artboardX += artboard.frame.width + _this2.option.marginX;
+          if (artboard.frame.height > tallestArtboard) tallestArtboard = artboard.frame.height;
+        });
+
+        artboardY += tallestArtboard + _this2.option.marginY;
+        currentRow++;
       });
 
       this.sortOrder();
-      this.ui.success('对齐成功');
+      this.ui.success("对齐成功");
+    }
+  }, {
+    key: "snapValueToGrid",
+    value: function snapValueToGrid(value, grid) {
+      var div = value / grid;
+      var rest = div - Math.floor(div);
+
+      if (rest > 0.8) {
+        div += 1;
+      }
+
+      return Math.floor(Math.floor(div) * grid);
     }
   }]);
 
