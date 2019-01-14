@@ -114,9 +114,9 @@ export const onRun = context => {
   webContents.on('setChangelog', () => new handleNote().start('changelog'));
 
   // 工具栏大小
-  webContents.on('openSetting', () => browserWindow.setSize(width + 250, height));
-  webContents.on('openSymbol', () => browserWindow.setSize(width + 368, height));
-  webContents.on('openPanel', () => browserWindow.setSize(width * 2, height));
+  webContents.on('openPanel', e => {
+    browserWindow.setSize(e ? width + e : width * 2, height);
+  });
   webContents.on('closePanel', () => browserWindow.setSize(width, height, true));
 
   // 设置

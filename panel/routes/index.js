@@ -186,12 +186,12 @@ class WebView extends Component {
   };
 
   openSymbol = () => {
-    window.postMessage('openSymbol', null);
+    window.postMessage('openPanel', 368);
     this.props.setConfig({ symbol: true });
   };
 
   openSetting = () => {
-    window.postMessage('openSetting', null);
+    window.postMessage('openPanel', 250);
     this.props.setConfig({ setting: true });
   };
 

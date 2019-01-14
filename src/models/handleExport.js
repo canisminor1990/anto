@@ -5,7 +5,7 @@ import { join } from 'path';
 import preivew from '../preview.json';
 import fs from '@skpm/fs';
 import dialog from '@skpm/dialog';
-// import jsZip from "jszip";
+import jsZip from 'jszip';
 
 export default class handleExport extends Sketch {
   constructor() {
@@ -15,7 +15,7 @@ export default class handleExport extends Sketch {
   }
 
   run() {
-    // const zip  = new jsZip();
+    const zip = new jsZip();
     const Data = {
       date: moment().format('YYYY-MM-DD'),
       author: this.setting.get('config-name'),
@@ -23,7 +23,12 @@ export default class handleExport extends Sketch {
     };
 
     // 获取路径
-    const RootPath = dialog.showSaveDialog();
+    const RootPath = dialog.showSaveDialog({
+      title: 'Export Zip to',
+      defaultPath: [this.fileName, moment().format('MMDD')].join(' '),
+    });
+
+    if (_.isUndefined(RootPath)) return;
 
     _.forEach(this.native.pages, page => {
       _.forEach(page.layers(), layer => {
@@ -31,8 +36,9 @@ export default class handleExport extends Sketch {
           const sliceLayer = _.filter(layer.layers(), l => String(l.class()) === 'MSSliceLayer')[0];
           const name = String(sliceLayer.name());
           const info = name.split(' (')[1].split(') ');
+          const path = join('preview', name + '.png');
           Data.pages.push({
-            path: join('preview', String(sliceLayer.name()) + '.png'),
+            path: path,
             name: String(page.name()),
             mode: info[0],
             date: info[1],
@@ -43,37 +49,31 @@ export default class handleExport extends Sketch {
           this.native.setHeight(sliceLayer, sliceLayer.frame().height() - this.height);
 
           // 导出切图
-          this.exportSlice(sliceLayer, RootPath);
+          this.native.exportSlice(sliceLayer, join(RootPath, 'preview'));
           this.native.setY(sliceLayer, sliceLayer.frame().y() - this.height);
           this.native.setHeight(sliceLayer, sliceLayer.frame().height() + this.height);
+          zip.file(path, fs.readFileSync(join(RootPath, path)));
         }
       });
     });
 
     // 导出文件
-    fs.writeFileSync(
-      join(RootPath, 'data.js'),
-      ` localStorage.setItem('preview', '${JSON.stringify(Data)}');`
-    );
-    fs.writeFileSync(join(RootPath, 'index.css'), preivew.css);
-    fs.writeFileSync(join(RootPath, 'index.html'), preivew.html);
-    fs.writeFileSync(join(RootPath, 'index.js'), preivew.js);
-    // zip.file("data.js", ` localStorage.setItem('preview', '${JSON.stringify(Data)}');`);
-    // zip.file("index.css", preivew.css);
-    // zip.file("index.html", preivew.html);
-    // zip.file("index.js", preivew.js);
-    //
-    // zip.generateAsync({ type: "base64" }).then(data => {
-    //   fs.writeFileSync(RootPath + ".zip", "data:application/zip;base64," + data);
-    // });
+    zip.file('data.js', ` localStorage.setItem('preview', '${JSON.stringify(Data)}');`);
+    zip.file('index.css', preivew.css);
+    zip.file('index.html', preivew.html);
+    zip.file('index.js', preivew.js);
 
-    this.ui.success(`导出至：${RootPath}`);
-  }
+    // 删除缓存图片
+    fs.unlinkSync(RootPath);
 
-  exportSlice(slice, path) {
-    this.native.document.saveArtboardOrSlice_toFile(
-      slice,
-      join(path, 'preview', String(slice.name()) + '.png')
-    );
+    // 创建压缩包
+    this.ui.message(`⏲ 开始生产压缩文件，请稍后...`);
+    zip.generateAsync({ type: 'base64' }).then(data => {
+      const file = Buffer.from(data, 'base64');
+      const filePath = RootPath + '.zip';
+      fs.writeFileSync(filePath, file);
+      this.ui.alert('✅ 导出成功', `导出至：${filePath}`);
+      this.openPath(join(filePath, '..'));
+    });
   }
 }

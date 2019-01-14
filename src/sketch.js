@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { join } from 'path';
 import sketch from 'sketch/dom';
 import SketchLayer from './api/layer';
 import SketchCreate from './api/create';
@@ -121,6 +122,18 @@ export default class Sketch {
 
   get native() {
     return new SketchNative();
+  }
+
+  // open
+
+  openUrl(url) {
+    url = NSURL.URLWithPath(url);
+    NSWorkspace.sharedWorkspace().openURL(url);
+  }
+
+  openPath(path) {
+    path = NSURL.fileURLWithPath(path);
+    NSWorkspace.sharedWorkspace().openURL(path);
   }
 
   // utils

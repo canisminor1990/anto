@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { join } from 'path';
 
 export default class SketchNative {
   get context() {
@@ -72,5 +73,9 @@ export default class SketchNative {
     size.setFileFormat('png');
     size.setNamingScheme(0);
     size.setScale(scale);
+  }
+
+  exportSlice(slice, path) {
+    this.document.saveArtboardOrSlice_toFile(slice, join(path, String(slice.name()) + '.png'));
   }
 }
