@@ -48,14 +48,6 @@ const BuildData = () => {
       } else {
         const Setting = {
           gradientType: "Linear",
-          from        : {
-            x: 0,
-            y: 0
-          },
-          to          : {
-            x: 50,
-            y: 50
-          },
           stops       : []
         };
         _.forEach(Fill.gradient.stops, stop => {
@@ -72,6 +64,7 @@ const BuildData = () => {
     Data.push(ArtboardData);
   });
   fs.writeFileSync("panel/color.json", JSON.stringify(Data));
+  console.log(Data)
 };
 
-parseFile(path.resolve("docs", "AFUX 色彩库.sketch")).then(BuildData());
+parseFile(path.resolve("docs", "AFUX 色彩库.sketch")).then(() => BuildData());

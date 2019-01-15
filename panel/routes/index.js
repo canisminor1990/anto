@@ -123,7 +123,7 @@ class WebView extends Component {
 
   state = {
     symbol: 370,
-    color: 300,
+    color: 220,
     setting: 250,
   };
 

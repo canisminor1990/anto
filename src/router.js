@@ -36,10 +36,6 @@ export default class Router extends Sketch {
   }
 
   panel() {
-    this.webContents.on('changeMode', e => {
-      this.setting.set('panel-mode', e);
-      this.ui.message(`切换到「${e}模式」`);
-    });
     this.webContents.on('openPanel', e =>
       this.browserWindow.setSize(e ? this.width + e : this.width * 2, this.height)
     );
@@ -96,12 +92,18 @@ export default class Router extends Sketch {
     });
   }
 
-  setting() {
+  config() {
+    this.webContents.on('changeMode', e => {
+      this.setting.set('panel-mode', e);
+      this.ui.success(`切换到「${e}模式」`);
+    });
+
     this.webContents.on('closeSetting', e => {
       this.browserWindow.setSize(this.width, this.height, true);
       if (!e) return;
       console.log('[setting]', e);
       _.forEach(e, (value, key) => this.setting.set(`config-${key}`, value));
+      this.ui.success(`保存设置成功`);
     });
   }
 
@@ -114,6 +116,6 @@ export default class Router extends Sketch {
     this.layer();
     this.plate();
     this.yuque();
-    this.setting();
+    this.config();
   }
 }

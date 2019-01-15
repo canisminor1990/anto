@@ -17,7 +17,7 @@ const Panel = styled.div`
 `;
 
 const Icon = styled.div`
-  width: 5rem;
+  width: 2rem;
   height: 2rem;
   border-radius: 2px;
   background: #333;
@@ -96,7 +96,8 @@ class Color extends Component {
 
   handleClick = (name, color) => {
     this.setState({ activeColor: name });
-    window.postMessage('handleColor', { border: this.state.border, ...color });
+    const data = { border: this.state.border, ...color };
+    window.postMessage('handleColor', JSON.stringify(data));
   };
 
   render() {

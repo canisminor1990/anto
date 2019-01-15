@@ -56073,13 +56073,47 @@ function (_Sketch) {
     _classCallCheck(this, handleColor);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(handleColor).call(this));
-    _this.namespace = '色板|handleColor';
+    _this.namespace = "色板|handleColor";
     return _this;
   }
 
   _createClass(handleColor, [{
     key: "run",
-    value: function run() {}
+    value: function run(e) {
+      if (this.selection.isEmpty) return this.ui.warn("请选择图形");
+
+      var _JSON$parse = JSON.parse(e),
+          border = _JSON$parse.border,
+          type = _JSON$parse.type,
+          color = _JSON$parse.color,
+          name = _JSON$parse.name;
+
+      lodash__WEBPACK_IMPORTED_MODULE_0___default.a.forEach(this.selection.layers, function (layer) {
+        if (!layer.type) return;
+
+        if (layer.type === "ShapePath" || layer.type === "Text") {
+          if (type === "Gradient") {
+            color.from = {
+              x: 0,
+              y: 0
+            };
+            color.to = {
+              x: 1,
+              y: 1
+            };
+          }
+
+          layer.style[border ? "borders" : "fills"] = [{
+            fillType: type,
+            [type === "Color" ? "color" : "gradient"]: color
+          }];
+        }
+
+        if (layer.type === "Text" && type === "Color") {}
+      });
+
+      this.ui.success("".concat(border ? "描边" : "填充", "\u300C").concat(name, "\u300D"));
+    }
   }]);
 
   return handleColor;
@@ -57623,11 +57657,6 @@ function (_Sketch) {
     value: function panel() {
       var _this2 = this;
 
-      this.webContents.on('changeMode', function (e) {
-        _this2.setting.set('panel-mode', e);
-
-        _this2.ui.message("\u5207\u6362\u5230\u300C".concat(e, "\u6A21\u5F0F\u300D"));
-      });
       this.webContents.on('openPanel', function (e) {
         return _this2.browserWindow.setSize(e ? _this2.width + e : _this2.width * 2, _this2.height);
       });
@@ -57740,10 +57769,15 @@ function (_Sketch) {
       });
     }
   }, {
-    key: "setting",
-    value: function setting() {
+    key: "config",
+    value: function config() {
       var _this4 = this;
 
+      this.webContents.on('changeMode', function (e) {
+        _this4.setting.set('panel-mode', e);
+
+        _this4.ui.success("\u5207\u6362\u5230\u300C".concat(e, "\u6A21\u5F0F\u300D"));
+      });
       this.webContents.on('closeSetting', function (e) {
         _this4.browserWindow.setSize(_this4.width, _this4.height, true);
 
@@ -57753,6 +57787,8 @@ function (_Sketch) {
         lodash__WEBPACK_IMPORTED_MODULE_0___default.a.forEach(e, function (value, key) {
           return _this4.setting.set("config-".concat(key), value);
         });
+
+        _this4.ui.success("\u4FDD\u5B58\u8BBE\u7F6E\u6210\u529F");
       });
     }
   }, {
@@ -57766,7 +57802,7 @@ function (_Sketch) {
       this.layer();
       this.plate();
       this.yuque();
-      this.setting();
+      this.config();
     }
   }]);
 
