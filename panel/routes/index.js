@@ -3,7 +3,9 @@ import { connect } from 'dva';
 import styled from 'styled-components';
 import { Icon } from '../components';
 import QueueAnim from 'rc-queue-anim';
+// Panel
 import Symbol from './Symbol';
+import Color from './Color';
 import Line from './Line';
 import Note from './Note';
 import Layer from './Layer';
@@ -119,14 +121,31 @@ const Dispatch = dispatch => ({
 class WebView extends Component {
   componentDidMount() {}
 
+  state = {
+    symbol: 370,
+    color: 300,
+    setting: 250,
+  };
+
   SideBar = () => (
     <SideBar theme={this.props.theme}>
       <Logo theme={this.props.theme} />
       <QueueAnim duration={200} interval={50} type="bottom">
-        <Icon key="组件" title="组件" type="icon-components" onClick={this.openSymbol} />
-        <Icon key="连线" title="连线" type="icon-line" onClick={this.openLine} />
-        <Icon key="图层" title="图层" type="icon-layer" onClick={this.openLayer} />
-        <Icon key="标注" title="标注" type="icon-note" onClick={this.openNote} />
+        <Icon
+          key="组件"
+          title="组件"
+          type="icon-components"
+          onClick={() => this.openPanel('symbol', this.state.symbol)}
+        />
+        <Icon
+          key="色板"
+          title="色板"
+          type="icon-color"
+          onClick={() => this.openPanel('color', this.state.color)}
+        />
+        <Icon key="连线" title="连线" type="icon-line" onClick={() => this.openPanel('line')} />
+        <Icon key="图层" title="图层" type="icon-layer" onClick={() => this.openPanel('layer')} />
+        <Icon key="标注" title="标注" type="icon-note" onClick={() => this.openPanel('note')} />
         <Icon
           key="制标"
           title="制标"
@@ -159,7 +178,7 @@ class WebView extends Component {
       >
         {this.props.mode}
       </Mode>
-      <Config onClick={this.openSetting} />
+      <Config onClick={() => this.openPanel('setting', this.state.setting)} />
     </SideBar>
   );
 
@@ -168,11 +187,12 @@ class WebView extends Component {
       <View theme={this.props.theme}>
         <this.SideBar />
         <Panel>
-          {this.props.symbol ? <Symbol /> : null}
+          {this.props.symbol ? <Symbol width={this.state.symbol} /> : null}
+          {this.props.color ? <Color width={this.state.color} /> : null}
           {this.props.line ? <Line /> : null}
           {this.props.note ? <Note /> : null}
           {this.props.layer ? <Layer /> : null}
-          {this.props.setting ? <Setting /> : null}
+          {this.props.setting ? <Setting width={this.state.setting} /> : null}
         </Panel>
       </View>
     );
@@ -185,29 +205,9 @@ class WebView extends Component {
     window.postMessage('changeMode', mode);
   };
 
-  openSymbol = () => {
-    window.postMessage('openPanel', 368);
-    this.props.setConfig({ symbol: true });
-  };
-
-  openSetting = () => {
-    window.postMessage('openPanel', 250);
-    this.props.setConfig({ setting: true });
-  };
-
-  openNote = () => {
-    window.postMessage('openPanel', null);
-    this.props.setConfig({ note: true });
-  };
-
-  openLine = () => {
-    window.postMessage('openPanel', null);
-    this.props.setConfig({ line: true });
-  };
-
-  openLayer = () => {
-    window.postMessage('openPanel', null);
-    this.props.setConfig({ layer: true });
+  openPanel = (name, width = null) => {
+    window.postMessage('openPanel', width);
+    this.props.setConfig({ [name]: true });
   };
 }
 

@@ -1,0 +1,119 @@
+import _ from 'lodash';
+import Options from './options';
+import Sketch from './sketch';
+// 组件
+import handleSymbol from './models/handleSymbol';
+// 色板
+import handleColor from './models/handleColor';
+// 注释
+import handleNote from './models/handleNote';
+// 连线
+import handleLine from './models/handleLine';
+import handleDash from './models/handleDash';
+import handleChange from './models/handleChange';
+// 图层
+import handleFrontBack from './models/handleFrontBack';
+import handleSort from './models/handleSort';
+import handleLayout from './models/handleLayout';
+import handleHeight from './models/handleHeight';
+// 制版
+import handleTitle from './models/handleTitle';
+import handlePlate from './models/handlePlate';
+import handleExport from './models/handleExport';
+
+export default class Router extends Sketch {
+  constructor(browserWindow) {
+    super();
+    this.namespace = '路由|Router';
+    this.browserWindow = browserWindow;
+    this.webContents = browserWindow.webContents;
+    this.width = Options.width;
+    this.height = Options.height;
+  }
+
+  sendWebview(key, data) {
+    this.browserWindow.webContents.executeJavaScript(`localStorage.setItem("${key}","${data}")`);
+  }
+
+  panel() {
+    this.webContents.on('changeMode', e => {
+      this.setting.set('panel-mode', e);
+      this.ui.message(`切换到「${e}模式」`);
+    });
+    this.webContents.on('openPanel', e =>
+      this.browserWindow.setSize(e ? this.width + e : this.width * 2, this.height)
+    );
+    this.webContents.on('closePanel', () =>
+      this.browserWindow.setSize(this.width, this.height, true)
+    );
+  }
+
+  symbol() {
+    this.webContents.on('handleSymbol', e => new handleSymbol().start(e));
+  }
+
+  color() {
+    this.webContents.on('handleColor', e => new handleColor().start(e));
+  }
+
+  note() {
+    this.webContents.on('setHeader', () => new handleNote().start('header'));
+    this.webContents.on('setSubHeader', () => new handleNote().start('subheader'));
+    this.webContents.on('setText', () => new handleNote().start('text'));
+    this.webContents.on('setBlock', () => new handleNote().start('block'));
+    this.webContents.on('setList', () => new handleNote().start('list'));
+    this.webContents.on('setUl', () => new handleNote().start('ul'));
+    this.webContents.on('setPoint', () => new handleNote().start('point'));
+    this.webContents.on('setRound', () => new handleNote().start('round'));
+    this.webContents.on('setIf', () => new handleNote().start('if'));
+    this.webContents.on('setChangelog', () => new handleNote().start('changelog'));
+  }
+
+  line() {
+    this.webContents.on('handleLine', () => new handleLine().start());
+    this.webContents.on('handleChange', () => new handleChange().start());
+    this.webContents.on('handleDash', () => new handleDash().start());
+  }
+
+  layer() {
+    this.webContents.on('handleTop', () => new handleFrontBack().start('置顶'));
+    this.webContents.on('handleBottom', () => new handleFrontBack().start('置底'));
+    this.webContents.on('handleSort', () => new handleSort().start());
+    this.webContents.on('handleLayout', () => new handleLayout().start());
+    this.webContents.on('handleHeight', () => new handleHeight().start());
+  }
+
+  plate() {
+    this.webContents.on('handleTitle', () => new handleTitle().start());
+    this.webContents.on('handlePlate', () => new handlePlate().start());
+    this.webContents.on('handleExport', () => new handleExport().start());
+  }
+
+  yuque() {
+    this.webContents.on('handleYuque', () => {
+      const url = 'https://www.yuque.com/canisminor/anto/readme';
+      this.openUrl(url);
+    });
+  }
+
+  setting() {
+    this.webContents.on('closeSetting', e => {
+      this.browserWindow.setSize(this.width, this.height, true);
+      if (!e) return;
+      console.log('[setting]', e);
+      _.forEach(e, (value, key) => this.setting.set(`config-${key}`, value));
+    });
+  }
+
+  run() {
+    this.panel();
+    this.symbol();
+    this.color();
+    this.note();
+    this.line();
+    this.layer();
+    this.plate();
+    this.yuque();
+    this.setting();
+  }
+}

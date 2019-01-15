@@ -1,25 +1,5 @@
 import { Component } from 'react';
-import { connect } from 'dva';
-import { Icon } from '../components';
-import { Title, View, Close } from './Line';
-
-/// /////////////////////////////////////////////
-// connect
-/// /////////////////////////////////////////////
-
-const State = state => {
-  return {
-    store: state.store,
-    ...state.store,
-    ...state.config,
-  };
-};
-
-const Dispatch = dispatch => ({
-  setConfig(obj) {
-    dispatch({ type: `config/update`, payload: obj });
-  },
-});
+import { Icon, Title, Close, View } from '../components';
 
 /// /////////////////////////////////////////////
 // component
@@ -28,10 +8,8 @@ const Dispatch = dispatch => ({
 class Note extends Component {
   render() {
     return [
-      <Title key="title" theme={this.props.theme}>
-        注
-      </Title>,
-      <View key="panel" duration={200} interval={50} type="bottom">
+      <Title key="title">注</Title>,
+      <View key="panel">
         <Icon
           key="大标题"
           title="大标题"
@@ -80,18 +58,10 @@ class Note extends Component {
           type="icon-changelog"
           onClick={() => window.postMessage('setChangelog', null)}
         />
-        <Close onClick={this.handleClose} />
+        <Close name="note" single />
       </View>,
     ];
   }
-
-  handleClose = () => {
-    this.props.setConfig({ note: false });
-    window.postMessage('closePanel', null);
-  };
 }
 
-export default connect(
-  State,
-  Dispatch
-)(Note);
+export default Note;

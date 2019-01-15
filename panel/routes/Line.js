@@ -1,70 +1,5 @@
 import { Component } from 'react';
-import styled from 'styled-components';
-import { connect } from 'dva';
-import { Icon } from '../components';
-import QueueAnim from 'rc-queue-anim';
-
-/// /////////////////////////////////////////////
-// styled
-/// /////////////////////////////////////////////
-
-export const Title = styled.div`
-  width: 48px;
-  height: 48px;
-  display: flex;
-  font-size: 1.2rem;
-  align-items: center;
-  justify-content: center;
-  font-weight: bolder;
-  color: rgba(100, 100, 100, 0.4);
-  box-shadow: ${props =>
-    props.theme === 'black' ? '0 4px 12px rgba(0, 0, 0, 0.2)' : '0 4px 8px rgba(0, 0, 0, 0.05)'};
-  margin-bottom: 0.5rem;
-`;
-
-export const View = styled(QueueAnim)`
-  width: 48px;
-  height: 100%;
-`;
-
-export const Close = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 48px;
-  width: 48px;
-  height: 32px;
-  background-image: url('icon-close.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 32px;
-  opacity: 0.2;
-  transition: all 0.2s ease-out;
-  cursor: pointer;
-  &:hover {
-    opacity: 1;
-  }
-  &:active {
-    transform: scale(0.9);
-  }
-`;
-
-/// /////////////////////////////////////////////
-// connect
-/// /////////////////////////////////////////////
-
-const State = state => {
-  return {
-    store: state.store,
-    ...state.store,
-    ...state.config,
-  };
-};
-
-const Dispatch = dispatch => ({
-  setConfig(obj) {
-    dispatch({ type: `config/update`, payload: obj });
-  },
-});
+import { Icon, Title, Close, View } from '../components';
 
 /// /////////////////////////////////////////////
 // component
@@ -73,10 +8,8 @@ const Dispatch = dispatch => ({
 class Line extends Component {
   render() {
     return [
-      <Title key="title" theme={this.props.theme}>
-        线
-      </Title>,
-      <View key="panel" duration={200} interval={50} type="bottom">
+      <Title key="title">线</Title>,
+      <View key="panel">
         <Icon
           key="连线"
           title="连线"
@@ -107,18 +40,10 @@ class Line extends Component {
           type="icon-if"
           onClick={() => window.postMessage('setIf', null)}
         />
-        <Close onClick={this.handleClose} />
+        <Close name="line" single />
       </View>,
     ];
   }
-
-  handleClose = () => {
-    this.props.setConfig({ line: false });
-    window.postMessage('closePanel', null);
-  };
 }
 
-export default connect(
-  State,
-  Dispatch
-)(Line);
+export default Line;

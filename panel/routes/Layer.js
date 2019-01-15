@@ -1,25 +1,5 @@
 import { Component } from 'react';
-import { connect } from 'dva';
-import { Icon } from '../components';
-import { Title, View, Close } from './Line';
-
-/// /////////////////////////////////////////////
-// connect
-/// /////////////////////////////////////////////
-
-const State = state => {
-  return {
-    store: state.store,
-    ...state.store,
-    ...state.config,
-  };
-};
-
-const Dispatch = dispatch => ({
-  setConfig(obj) {
-    dispatch({ type: `config/update`, payload: obj });
-  },
-});
+import { Icon, Title, Close, View } from '../components';
 
 /// /////////////////////////////////////////////
 // component
@@ -28,10 +8,8 @@ const Dispatch = dispatch => ({
 class Layer extends Component {
   render() {
     return [
-      <Title key="title" theme={this.props.theme}>
-        层
-      </Title>,
-      <View key="panel" duration={200} interval={50} type="bottom">
+      <Title key="title">层</Title>,
+      <View key="panel">
         <Icon
           key="对齐"
           title="对齐"
@@ -62,18 +40,10 @@ class Layer extends Component {
           type="icon-height"
           onClick={() => window.postMessage('handleHeight', null)}
         />
-        <Close onClick={this.handleClose} />
+        <Close name="layer" single />
       </View>,
     ];
   }
-
-  handleClose = () => {
-    this.props.setConfig({ layer: false });
-    window.postMessage('closePanel', null);
-  };
 }
 
-export default connect(
-  State,
-  Dispatch
-)(Layer);
+export default Layer;

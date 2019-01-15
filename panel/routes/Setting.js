@@ -3,31 +3,13 @@ import styled from 'styled-components';
 import { Form, Input, Button, Switch } from 'antd';
 import { connect } from 'dva';
 import QueueAnim from 'rc-queue-anim';
+import { Title, View, ButtonGroup } from '../components';
 
 const FormItem = Form.Item;
 
 /// /////////////////////////////////////////////
 // styled
 /// /////////////////////////////////////////////
-
-const View = styled.div`
-  padding: 1rem;
-  width: 250px;
-`;
-
-const Title = styled.div`
-  font-size: 1.2rem;
-  color: rgba(100, 100, 100, 0.4);
-  width: 100%;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  padding: 0 1rem;
-  font-weight: 600;
-  box-shadow: ${props =>
-    props.theme === 'black' ? '0 4px 12px rgba(0, 0, 0, 0.2)' : '0 4px 8px rgba(0, 0, 0, 0.05)'};
-  margin-bottom: 0.5rem;
-`;
 
 const Version = styled.div`
   font-weight: 600;
@@ -41,22 +23,6 @@ const Version = styled.div`
     opacity: 0.5;
   }
   border-bottom: 1px solid rgba(100, 100, 100, 0.2);
-`;
-
-const Group = styled.div`
-  background: ${props => (props.theme === 'black' ? '#222' : '#f5f5f5')};
-  position: fixed;
-  padding: 1rem;
-  bottom: 0;
-  left: 48px;
-  display: flex;
-  width: 250px;
-  button {
-    flex: 1;
-  }
-  button + button {
-    margin-left: 0.5rem;
-  }
 `;
 
 /// /////////////////////////////////////////////
@@ -99,10 +65,8 @@ class Setting extends Component {
 
   render() {
     return [
-      <Title key="title" theme={this.props.theme}>
-        设置
-      </Title>,
-      <View key="panel">
+      <Title key="title">设置</Title>,
+      <View key="panel" width={this.props.width} padding>
         <QueueAnim type="bottom">
           <Version key="title">
             ANTO <span>ver{this.version ? this.version : '1.0.0'}</span>
@@ -131,7 +95,7 @@ class Setting extends Component {
             />
           </FormItem>
         </QueueAnim>
-        <Group theme={this.props.theme}>
+        <ButtonGroup>
           <Button
             style={{ background: this.props.theme === 'black' ? '#333' : '#fff' }}
             onClick={this.handleClose}
@@ -141,7 +105,7 @@ class Setting extends Component {
           <Button type="primary" onClick={this.handleSave}>
             保存
           </Button>
-        </Group>
+        </ButtonGroup>
       </View>,
     ];
   }

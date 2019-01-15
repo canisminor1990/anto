@@ -9,6 +9,7 @@ export default {
     layer: false,
     line: false,
     symbol: false,
+    color: false,
   },
 
   reducers: {
