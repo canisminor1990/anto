@@ -56073,14 +56073,14 @@ function (_Sketch) {
     _classCallCheck(this, handleColor);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(handleColor).call(this));
-    _this.namespace = "色板|handleColor";
+    _this.namespace = '色板|handleColor';
     return _this;
   }
 
   _createClass(handleColor, [{
     key: "run",
     value: function run(e) {
-      if (this.selection.isEmpty) return this.ui.warn("请选择图形");
+      if (this.selection.isEmpty) return this.ui.warn('请选择图形');
 
       var _JSON$parse = JSON.parse(e),
           border = _JSON$parse.border,
@@ -56091,8 +56091,8 @@ function (_Sketch) {
       lodash__WEBPACK_IMPORTED_MODULE_0___default.a.forEach(this.selection.layers, function (layer) {
         if (!layer.type) return;
 
-        if (layer.type === "ShapePath" || layer.type === "Text") {
-          if (type === "Gradient") {
+        if (layer.type === 'ShapePath' || layer.type === 'Text') {
+          if (type === 'Gradient') {
             color.from = {
               x: 0,
               y: 0
@@ -56103,16 +56103,16 @@ function (_Sketch) {
             };
           }
 
-          layer.style[border ? "borders" : "fills"] = [{
+          layer.style[border ? 'borders' : 'fills'] = [{
             fillType: type,
-            [type === "Color" ? "color" : "gradient"]: color
+            [type === 'Color' ? 'color' : 'gradient']: color
           }];
         }
 
-        if (layer.type === "Text" && type === "Color") {}
+        if (layer.type === 'Text' && type === 'Color') {}
       });
 
-      this.ui.success("".concat(border ? "描边" : "填充", "\u300C").concat(name, "\u300D"));
+      this.ui.success("".concat(border ? '描边' : '填充', "\u300C").concat(name, "\u300D"));
     }
   }]);
 
@@ -56400,7 +56400,7 @@ function (_Sketch) {
     _classCallCheck(this, handleFrontBack);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(handleFrontBack).call(this));
-    _this.namespace = '置顶置底|handleFrontBack';
+    _this.namespace = '大置顶大置底|handleFrontBack';
     return _this;
   }
 
@@ -56427,6 +56427,110 @@ function (_Sketch) {
   }]);
 
   return handleFrontBack;
+}(_sketch__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
+
+
+/***/ }),
+
+/***/ "./src/models/handleFrontBackLite.js":
+/*!*******************************************!*\
+  !*** ./src/models/handleFrontBackLite.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return handleFrontBackLite; });
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _sketch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../sketch */ "./src/sketch.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var handleFrontBackLite =
+/*#__PURE__*/
+function (_Sketch) {
+  _inherits(handleFrontBackLite, _Sketch);
+
+  function handleFrontBackLite() {
+    var _this;
+
+    _classCallCheck(this, handleFrontBackLite);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(handleFrontBackLite).call(this));
+    _this.namespace = '置顶置底|handleFrontBackLite';
+    return _this;
+  }
+
+  _createClass(handleFrontBackLite, [{
+    key: "run",
+    value: function run(name) {
+      var _this2 = this;
+
+      if (this.selection.isEmpty) return this.ui.warn('请选择图形');
+
+      lodash__WEBPACK_IMPORTED_MODULE_0___default.a.forEach(this.selection.layers, function (layer) {
+        if (name === '置顶') {
+          if (_this2.isTop(layer) && !_this2.needBreak(layer)) _this2.changeParent(layer);
+          layer.moveToFront();
+        } else {
+          if (_this2.isBottom(layer) && !_this2.needBreak(layer)) _this2.changeParent(layer);
+          layer.moveToBack();
+        }
+      });
+
+      this.sortOrder();
+      this.ui.success("\u6240\u9009\u56FE\u5C42\u5DF2".concat(name));
+    }
+  }, {
+    key: "needBreak",
+    value: function needBreak(layer) {
+      return layer.parent.type === 'Page' || layer.parent.type === 'Artboard';
+    }
+  }, {
+    key: "changeParent",
+    value: function changeParent(layer) {
+      this.changeBasis(layer, {
+        from: layer.parent,
+        to: layer.parent.parent
+      });
+      layer.parent = layer.parent.parent;
+    }
+  }, {
+    key: "isTop",
+    value: function isTop(layer) {
+      var Parent = layer.parent;
+      return layer.id === Parent.layers[Parent.layers.length - 1].id;
+    }
+  }, {
+    key: "isBottom",
+    value: function isBottom(layer) {
+      var Parent = layer.parent;
+      return layer.id === Parent.layers[0].id;
+    }
+  }]);
+
+  return handleFrontBackLite;
 }(_sketch__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 
@@ -56511,6 +56615,96 @@ function (_Sketch) {
   }]);
 
   return handleHeight;
+}(_sketch__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
+
+
+/***/ }),
+
+/***/ "./src/models/handleIgnore.js":
+/*!************************************!*\
+  !*** ./src/models/handleIgnore.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return handleIgnore; });
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _sketch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../sketch */ "./src/sketch.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var handleIgnore =
+/*#__PURE__*/
+function (_Sketch) {
+  _inherits(handleIgnore, _Sketch);
+
+  function handleIgnore() {
+    var _this;
+
+    _classCallCheck(this, handleIgnore);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(handleIgnore).call(this));
+    _this.namespace = '排除|handleIgnore';
+    return _this;
+  }
+
+  _createClass(handleIgnore, [{
+    key: "run",
+    value: function run() {
+      var _this2 = this;
+
+      if (this.selection.isEmpty) return this.ui.warn('请选择图形');
+      var GlobalStatus = this.isIgnore(this.selection.layers[0]);
+
+      lodash__WEBPACK_IMPORTED_MODULE_0___default.a.forEach(this.selection.layers, function (layer) {
+        if (!layer.name) return;
+        GlobalStatus ? _this2.setActive(layer) : _this2.setIgnore(layer);
+      });
+
+      this.ui.success(GlobalStatus ? '「激活」成功' : '「排除」成功');
+    }
+  }, {
+    key: "isIgnore",
+    value: function isIgnore(layer) {
+      return layer.name ? layer.name[0] === '@' : false;
+    }
+  }, {
+    key: "setActive",
+    value: function setActive(layer) {
+      layer.name = layer.name.replace(/^@/g, '');
+      if (this.isIgnore(layer)) this.setActive(layer);
+    }
+  }, {
+    key: "setIgnore",
+    value: function setIgnore(layer) {
+      this.setActive(layer);
+      layer.name = '@' + layer.name;
+    }
+  }]);
+
+  return handleIgnore;
 }(_sketch__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 
@@ -57580,13 +57774,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _models_handleLine__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./models/handleLine */ "./src/models/handleLine.js");
 /* harmony import */ var _models_handleDash__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./models/handleDash */ "./src/models/handleDash.js");
 /* harmony import */ var _models_handleChange__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./models/handleChange */ "./src/models/handleChange.js");
-/* harmony import */ var _models_handleFrontBack__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./models/handleFrontBack */ "./src/models/handleFrontBack.js");
-/* harmony import */ var _models_handleSort__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./models/handleSort */ "./src/models/handleSort.js");
-/* harmony import */ var _models_handleLayout__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./models/handleLayout */ "./src/models/handleLayout.js");
-/* harmony import */ var _models_handleHeight__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./models/handleHeight */ "./src/models/handleHeight.js");
-/* harmony import */ var _models_handleTitle__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./models/handleTitle */ "./src/models/handleTitle.js");
-/* harmony import */ var _models_handlePlate__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./models/handlePlate */ "./src/models/handlePlate.js");
-/* harmony import */ var _models_handleExport__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./models/handleExport */ "./src/models/handleExport.js");
+/* harmony import */ var _models_handleFrontBackLite__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./models/handleFrontBackLite */ "./src/models/handleFrontBackLite.js");
+/* harmony import */ var _models_handleFrontBack__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./models/handleFrontBack */ "./src/models/handleFrontBack.js");
+/* harmony import */ var _models_handleSort__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./models/handleSort */ "./src/models/handleSort.js");
+/* harmony import */ var _models_handleLayout__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./models/handleLayout */ "./src/models/handleLayout.js");
+/* harmony import */ var _models_handleHeight__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./models/handleHeight */ "./src/models/handleHeight.js");
+/* harmony import */ var _models_handleIgnore__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./models/handleIgnore */ "./src/models/handleIgnore.js");
+/* harmony import */ var _models_handleTitle__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./models/handleTitle */ "./src/models/handleTitle.js");
+/* harmony import */ var _models_handlePlate__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./models/handlePlate */ "./src/models/handlePlate.js");
+/* harmony import */ var _models_handleExport__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./models/handleExport */ "./src/models/handleExport.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -57622,7 +57818,9 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
  // 制版
+
 
 
 
@@ -57728,33 +57926,42 @@ function (_Sketch) {
   }, {
     key: "layer",
     value: function layer() {
+      this.webContents.on('handleTopLite', function () {
+        return new _models_handleFrontBackLite__WEBPACK_IMPORTED_MODULE_9__["default"]().start('置顶');
+      });
+      this.webContents.on('handleBottomLite', function () {
+        return new _models_handleFrontBackLite__WEBPACK_IMPORTED_MODULE_9__["default"]().start('置底');
+      });
       this.webContents.on('handleTop', function () {
-        return new _models_handleFrontBack__WEBPACK_IMPORTED_MODULE_9__["default"]().start('置顶');
+        return new _models_handleFrontBack__WEBPACK_IMPORTED_MODULE_10__["default"]().start('置顶');
       });
       this.webContents.on('handleBottom', function () {
-        return new _models_handleFrontBack__WEBPACK_IMPORTED_MODULE_9__["default"]().start('置底');
+        return new _models_handleFrontBack__WEBPACK_IMPORTED_MODULE_10__["default"]().start('置底');
       });
       this.webContents.on('handleSort', function () {
-        return new _models_handleSort__WEBPACK_IMPORTED_MODULE_10__["default"]().start();
+        return new _models_handleSort__WEBPACK_IMPORTED_MODULE_11__["default"]().start();
       });
       this.webContents.on('handleLayout', function () {
-        return new _models_handleLayout__WEBPACK_IMPORTED_MODULE_11__["default"]().start();
+        return new _models_handleLayout__WEBPACK_IMPORTED_MODULE_12__["default"]().start();
       });
       this.webContents.on('handleHeight', function () {
-        return new _models_handleHeight__WEBPACK_IMPORTED_MODULE_12__["default"]().start();
+        return new _models_handleHeight__WEBPACK_IMPORTED_MODULE_13__["default"]().start();
       });
     }
   }, {
     key: "plate",
     value: function plate() {
+      this.webContents.on('handleIgnore', function () {
+        return new _models_handleIgnore__WEBPACK_IMPORTED_MODULE_14__["default"]().start();
+      });
       this.webContents.on('handleTitle', function () {
-        return new _models_handleTitle__WEBPACK_IMPORTED_MODULE_13__["default"]().start();
+        return new _models_handleTitle__WEBPACK_IMPORTED_MODULE_15__["default"]().start();
       });
       this.webContents.on('handlePlate', function () {
-        return new _models_handlePlate__WEBPACK_IMPORTED_MODULE_14__["default"]().start();
+        return new _models_handlePlate__WEBPACK_IMPORTED_MODULE_16__["default"]().start();
       });
       this.webContents.on('handleExport', function () {
-        return new _models_handleExport__WEBPACK_IMPORTED_MODULE_15__["default"]().start();
+        return new _models_handleExport__WEBPACK_IMPORTED_MODULE_17__["default"]().start();
       });
     }
   }, {

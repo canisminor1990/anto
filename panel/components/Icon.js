@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Img = styled.div`
   width: 100%;
   height: 48px;
-  background-image: ${props => `url("${props.type}.png")`};
+  background-image: ${props => `url("icon/${props.type}.png")`};
   background-position: center;
   background-repeat: no-repeat;
   background-size: 32px;

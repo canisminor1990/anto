@@ -9,6 +9,7 @@ import Color from './Color';
 import Line from './Line';
 import Note from './Note';
 import Layer from './Layer';
+import Plate from './Plate';
 import Setting from './Setting';
 
 /// /////////////////////////////////////////////
@@ -79,7 +80,7 @@ const Config = styled.div`
   bottom: 0;
   width: 48px;
   height: 32px;
-  background-image: url('icon-setting.png');
+  background-image: url('icon/icon-setting.png');
   background-position: center;
   background-repeat: no-repeat;
   background-size: 32px;
@@ -146,24 +147,7 @@ class WebView extends Component {
         <Icon key="连线" title="连线" type="icon-line" onClick={() => this.openPanel('line')} />
         <Icon key="图层" title="图层" type="icon-layer" onClick={() => this.openPanel('layer')} />
         <Icon key="标注" title="标注" type="icon-note" onClick={() => this.openPanel('note')} />
-        <Icon
-          key="制标"
-          title="制标"
-          type="icon-title"
-          onClick={() => window.postMessage('handleTitle', null)}
-        />
-        <Icon
-          key="制版"
-          title="制版"
-          type="icon-plate"
-          onClick={() => window.postMessage('handlePlate', null)}
-        />
-        <Icon
-          key="导出"
-          title="导出"
-          type="icon-export"
-          onClick={() => window.postMessage('handleExport', null)}
-        />
+        <Icon key="制版" title="制版" type="icon-folder" onClick={() => this.openPanel('plate')} />
         <Icon
           key="说明"
           title="说明"
@@ -192,6 +176,7 @@ class WebView extends Component {
           {this.props.line ? <Line /> : null}
           {this.props.note ? <Note /> : null}
           {this.props.layer ? <Layer /> : null}
+          {this.props.plate ? <Plate /> : null}
           {this.props.setting ? <Setting width={this.state.setting} /> : null}
         </Panel>
       </View>

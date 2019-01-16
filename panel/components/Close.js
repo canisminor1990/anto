@@ -11,7 +11,7 @@ const Btn = styled.div`
   bottom: 0;
   width: 2rem;
   height: 2rem;
-  background-image: url('icon-close.png');
+  background-image: url('icon/icon-close.png');
   background-position: center;
   background-repeat: no-repeat;
   background-size: 32px;

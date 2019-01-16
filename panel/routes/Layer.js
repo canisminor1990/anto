@@ -25,12 +25,24 @@ class Layer extends Component {
         <Icon
           key="置顶"
           title="置顶"
-          type="icon-top"
-          onClick={() => window.postMessage('handleTop', null)}
+          type="icon-top-lite"
+          onClick={() => window.postMessage('handleTopLite', null)}
         />
         <Icon
           key="置底"
           title="置底"
+          type="icon-bottom-lite"
+          onClick={() => window.postMessage('handleBottomLite', null)}
+        />
+        <Icon
+          key="大置顶"
+          title="大置顶"
+          type="icon-top"
+          onClick={() => window.postMessage('handleTop', null)}
+        />
+        <Icon
+          key="大置底"
+          title="大置底"
           type="icon-bottom"
           onClick={() => window.postMessage('handleBottom', null)}
         />

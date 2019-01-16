@@ -4,7 +4,7 @@ import Sketch from '../sketch';
 export default class handleFrontBack extends Sketch {
   constructor() {
     super();
-    this.namespace = '置顶置底|handleFrontBack';
+    this.namespace = '大置顶大置底|handleFrontBack';
   }
 
   run(name) {

@@ -4,12 +4,13 @@ export default {
   namespace: 'config',
 
   state: {
-    setting: false,
-    note: false,
-    layer: false,
-    line: false,
     symbol: false,
     color: false,
+    line: false,
+    note: false,
+    layer: false,
+    plate: false,
+    setting: false,
   },
 
   reducers: {
