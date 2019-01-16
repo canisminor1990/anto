@@ -29,6 +29,7 @@ module.exports = {
     "localStorage"        : true,
     "$isDev"              : true,
     "define"              : true,
+    "fetch"              : true,
     "AppController"       : true,
     "MSSliceLayer"        : true,
     "MSLayerMovement"     : true,

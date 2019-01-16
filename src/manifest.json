@@ -6,6 +6,14 @@
 	"icon"             : "icon.png",
 	"commands"         : [
 		{
+			"script"  : "update.js",
+			"handlers": {
+				"actions": {
+					"Startup"     : "update"
+				}
+			}
+		},
+		{
 			"script"  : "library.js",
 			"handlers": {
 				"actions": {
