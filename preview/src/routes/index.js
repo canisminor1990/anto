@@ -81,13 +81,14 @@ const Content = styled.div`
 `;
 const Title = styled.div`
   display: flex;
-  font-size: 1rem;
+  font-size: .9rem;
   align-items: center;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   -webkit-line-clamp: 1;
   width: 14rem;
+  font-weight: 500;
 `;
 
 const Tag = styled.div`
@@ -210,13 +211,12 @@ class App extends Component {
         <Cover path={page.path} />
         <Content>
           <Title>
-            <Tag mode={page.mode}>{page.mode}</Tag>
             {page.name}
           </Title>
           <Date>
             <Icon type="clock-circle" /> {page.date[0]}
             {page.date[1]}-{page.date[2]}
-            {page.date[3]}
+            {page.date[3]} | {page.mode}
           </Date>
         </Content>
       </Cell>
