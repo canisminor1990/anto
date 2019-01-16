@@ -10,6 +10,7 @@ yarn.lock
 # other
 test
 dist
+Anto.sketchplugin
 .idea
 *.zip
 ./docs/AFUX 色彩库
