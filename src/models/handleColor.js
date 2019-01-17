@@ -24,15 +24,25 @@ export default class handleColor extends Sketch {
             y: 1,
           };
         }
-        layer.style[border ? 'borders' : 'fills'] = [
-          {
+        if (border) {
+          const borderStyle = {
             fillType: type,
             [type === 'Color' ? 'color' : 'gradient']: color,
-          },
-        ];
-      }
-
-      if (layer.type === 'Text' && type === 'Color') {
+          };
+          if (layer.style.borders.length > 0) {
+            const oldBorder = layer.style.borders[0];
+            borderStyle.thickness = oldBorder.thickness;
+            borderStyle.position = oldBorder.position;
+          }
+          layer.style.borders = [borderStyle];
+        } else {
+          layer.style.fills = [
+            {
+              fillType: type,
+              [type === 'Color' ? 'color' : 'gradient']: color,
+            },
+          ];
+        }
       }
     });
 

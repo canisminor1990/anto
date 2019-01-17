@@ -23,7 +23,7 @@ const BuildData = () => {
   _.forEach(RootDir, a => {
     if (a === "page.json") return;
     const Artboard     = JSON.parse(fs.readFileSync(path.join(RootPath, a, "artboard.json")));
-    const ArtboardName = Artboard.name.split("-");
+    const ArtboardName = Artboard.name.split("|");
     const ArtboardData = {
       key   : ArtboardName[0],
       name  : ArtboardName[1],
@@ -33,7 +33,7 @@ const BuildData = () => {
     _.forEach(Dir, s => {
       if (s === "artboard.json") return;
       const Shape     = JSON.parse(fs.readFileSync(path.join(RootPath, a, s)));
-      const ShapeName = Shape.name.split("-");
+      const ShapeName = Shape.name.split("|");
       if (!Shape.style.fills || Shape.style.fills.length === 0) return;
       const Fill = Shape.style.fills[0];
 
