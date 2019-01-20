@@ -86,7 +86,7 @@ class Color extends Component {
     return (
       <Cell onClick={() => this.handleClick(color.name, color)}>
         <Icon style={{ background: style }} />
-        <Cell.Title active={this.state.activeColor === color.name}>
+        <Cell.Title>
           {color.name}
           {desc}
         </Cell.Title>

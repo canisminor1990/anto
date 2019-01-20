@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Icon, Title, Close, View } from '../components';
+import { Iconfont, Title, Close, View } from '../components';
 
 /// /////////////////////////////////////////////
 // component
@@ -10,46 +10,46 @@ class Layer extends Component {
     return [
       <Title key="title">层</Title>,
       <View key="panel">
-        <Icon
+        <Iconfont
           key="对齐"
           title="对齐"
-          type="icon-layout"
+          type="layer-layout"
           onClick={() => window.postMessage('handleLayout', null)}
         />
-        <Icon
+        <Iconfont
           key="排序"
           title="排序"
-          type="icon-sort"
+          type="layer-sort"
           onClick={() => window.postMessage('handleSort', null)}
         />
-        <Icon
+        <Iconfont
           key="置顶"
           title="置顶"
-          type="icon-top-lite"
+          type="layer-top-lite"
           onClick={() => window.postMessage('handleTopLite', null)}
         />
-        <Icon
+        <Iconfont
           key="置底"
           title="置底"
-          type="icon-bottom-lite"
+          type="layer-bottom-lite"
           onClick={() => window.postMessage('handleBottomLite', null)}
         />
-        <Icon
+        <Iconfont
           key="大置顶"
           title="大置顶"
-          type="icon-top"
+          type="layer-top"
           onClick={() => window.postMessage('handleTop', null)}
         />
-        <Icon
+        <Iconfont
           key="大置底"
           title="大置底"
-          type="icon-bottom"
+          type="layer-bottom"
           onClick={() => window.postMessage('handleBottom', null)}
         />
-        <Icon
+        <Iconfont
           key="调高"
           title="调高"
-          type="icon-height"
+          type="layer-height"
           onClick={() => window.postMessage('handleHeight', null)}
         />
         <Close name="layer" single />

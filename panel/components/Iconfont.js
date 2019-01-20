@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 
 const Img = styled.div`
+  font-size: 1.5rem;
   width: 100%;
-  height: 48px;
-  background-image: ${props => `url("icon/${props.type}.png")`};
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 32px;
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
   transition: all 0.1s ease-out;
 `;
 const Title = styled.div`
@@ -14,6 +13,7 @@ const Title = styled.div`
   margin-top: -0.5rem;
   font-size: 0.7rem;
   font-weight: 500;
+  opacity: 0.7;
 `;
 
 const View = styled.div`
@@ -33,7 +33,7 @@ const View = styled.div`
 export default ({ type, title = '标题', ...other }) => {
   return (
     <View {...other}>
-      <Img type={type} />
+      <Img className={['iconfont', `icon-${type}`]} />
       <Title>{title}</Title>
     </View>
   );

@@ -1,4 +1,4 @@
-export { default as Icon } from './Icon';
+export { default as Iconfont } from './Iconfont';
 export { default as Title } from './Title';
 export { default as Close } from './Close';
 export { default as View } from './View';

@@ -4,7 +4,7 @@ const Cell = styled.div`
   margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   border-radius: 0.2rem;
   cursor: pointer;
   transition: all 0.2s ease-out;
@@ -17,7 +17,6 @@ Cell.Header = styled.div`
   width: 100%;
   margin-bottom: 0.5rem;
   font-weight: 600;
-  color: rgba(100, 100, 100, 0.4);
 `;
 
 Cell.Group = styled.div`
@@ -35,6 +34,10 @@ Cell.Title = styled.div`
           font-weight: 600;
         `
       : null};
+  &:active {
+    background: rgba(100, 100, 100, 0.1);
+    font-weight: 600;
+  }
 `;
 
 export default Cell;

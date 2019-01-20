@@ -9,23 +9,34 @@ import { Title, Close, View, ListView, Cell } from '../components';
 // styled
 /// /////////////////////////////////////////////
 
-const CellIcon = styled.img`
-  width: 1.5rem;
-  height: 1.5rem;
-  margin-right: 0.25rem;
+const Cover = styled.div`
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  background: rgba(100, 100, 100, 0.2);
+  border-radius: 0.1rem;
+  > img {
+    max-width: 100%;
+    max-height: 100%;
+    zoom: 0.5;
+  }
 `;
 
 const ImgTitle = styled.div`
   transition: all 0.2s ease-out;
-  margin-bottom: 0.5rem;
+  margin-top: 1rem;
   width: 100%;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.7rem;
+  text-align: center;
+  color: #666;
 `;
 
 const Img = styled.div`
   display: block;
-  margin-bottom: 1.5rem;
+  margin-bottom: 3rem;
   cursor: pointer;
   width: 100%;
   display: flex;
@@ -33,7 +44,9 @@ const Img = styled.div`
   align-items: center;
   img {
     transition: all 0.2s ease-out;
-    zoom: 0.25;
+    zoom: 0.5;
+    max-width: 100%;
+    max-height: 6rem;
   }
 
   &:hover {
@@ -52,6 +65,17 @@ const Img = styled.div`
   }
 `;
 
+const Library = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 14rem;
+  padding: 1rem;
+  background: #eee;
+  overflow-y: auto;
+`;
+
 /// /////////////////////////////////////////////
 // component
 /// /////////////////////////////////////////////
@@ -62,12 +86,14 @@ class Symbol extends Component {
     activeGroup: '状态栏',
   };
 
-  Cell = ({ toc, name }) => {
+  Cell = ({ toc, name, data }) => {
     const List = [];
     _.forEach(toc, value =>
       List.push(
         <Cell key={value} onClick={() => this.handleGroup(name, value)}>
-          <CellIcon src={`symbol/icon-${value}.png`} />
+          <Cover>
+            <img src={data[value][0].png} />
+          </Cover>
           <Cell.Title active={this.state.activeGroup === value}>{value}</Cell.Title>
         </Cell>
       )
@@ -75,21 +101,17 @@ class Symbol extends Component {
     return <Cell.Group>{List}</Cell.Group>;
   };
 
-  Cells = ({ toc }) => {
+  Cells = ({ toc, data }) => {
     const List = [];
     _.forEach(toc, (value, key) =>
       List.push(
         <div key={key}>
           <Cell.Header>{key}</Cell.Header>
-          <this.Cell toc={value} name={key} />
+          <this.Cell toc={value} data={data[key]} name={key} />
         </div>
       )
     );
-    return (
-      <ListView width="9rem" border>
-        {List}
-      </ListView>
-    );
+    return <ListView width="9rem">{List}</ListView>;
   };
 
   Library = ({ data }) => {
@@ -99,19 +121,19 @@ class Symbol extends Component {
     _.forEach(SymbolData.sort(sortSymbol), (value, key) =>
       List.push(
         <Img key={key} onDragEnd={() => window.postMessage('handleSymbol', JSON.stringify(value))}>
-          <ImgTitle>{value.name.split('-')[1]}</ImgTitle>
           <img src={value.png} />
+          <ImgTitle>{value.name.split('-')[1]}</ImgTitle>
         </Img>
       )
     );
-    return <ListView>{List}</ListView>;
+    return <Library>{List}</Library>;
   };
 
   render() {
     return [
       <Title key="title">组件库</Title>,
       <View key="panel" width={this.props.width} inner>
-        <this.Cells key="cells" toc={Toc} />
+        <this.Cells key="cells" toc={Toc} data={Data} />
         <this.Library key="library" data={Data} />
         <Close name="symbol" />
       </View>,

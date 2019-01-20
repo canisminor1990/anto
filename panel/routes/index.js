@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { connect } from 'dva';
 import styled from 'styled-components';
-import { Icon } from '../components';
+import { Iconfont } from '../components';
 import QueueAnim from 'rc-queue-anim';
 // Panel
 import Symbol from './Symbol';
@@ -19,6 +19,7 @@ import Setting from './Setting';
 const View = styled.div`
   display: flex;
   background: ${props => (props.theme === 'black' ? '#222' : '#f5f5f5')};
+  color: ${props => (props.theme === 'black' ? '#aaa' : '#777')};
 `;
 
 const SideBar = styled.div`
@@ -27,6 +28,9 @@ const SideBar = styled.div`
   height: 100vh;
   overflow: hidden;
   position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   top: 0;
   left: 0;
   border-right: ${props =>
@@ -51,13 +55,12 @@ const Logo = styled.div`
   cursor: pointer;
   box-shadow: ${props =>
     props.theme === 'black' ? '0 4px 12px rgba(0, 0, 0, 0.2)' : '0 4px 8px rgba(0, 0, 0, 0.05)'};
-  margin-bottom: 0.5rem;
 `;
 
 const Mode = styled.div`
   position: fixed;
   bottom: 1.8rem;
-  width: 48px;
+  width: 2.5rem;
   color: #fff;
   font-size: 0.7rem;
   text-align: center;
@@ -65,7 +68,6 @@ const Mode = styled.div`
   opacity: 0.4;
   transition: all 0.2s ease-out;
   cursor: pointer;
-  border: ${props => (props.theme === 'black' ? '0.3rem solid #222' : '0.3rem solid #fff')};
   border-radius: 1.5rem;
   &:hover {
     opacity: 1;
@@ -78,12 +80,10 @@ const Mode = styled.div`
 const Config = styled.div`
   position: fixed;
   bottom: 0;
-  width: 48px;
-  height: 32px;
-  background-image: url('icon/icon-setting.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 32px;
+  width: 3rem;
+  height: 2rem;
+  line-height: 2rem;
+  text-align: center;
   opacity: 0.2;
   transition: all 0.2s ease-out;
   cursor: pointer;
@@ -132,26 +132,36 @@ class WebView extends Component {
     <SideBar theme={this.props.theme}>
       <Logo theme={this.props.theme} />
       <QueueAnim duration={200} interval={50} type="bottom">
-        <Icon
+        <Iconfont
           key="组件"
           title="组件"
-          type="icon-components"
+          type="main-symbol"
           onClick={() => this.openPanel('symbol', this.state.symbol)}
         />
-        <Icon
+        <Iconfont
           key="色板"
           title="色板"
-          type="icon-color"
+          type="main-color"
           onClick={() => this.openPanel('color', this.state.color)}
         />
-        <Icon key="连线" title="连线" type="icon-line" onClick={() => this.openPanel('line')} />
-        <Icon key="图层" title="图层" type="icon-layer" onClick={() => this.openPanel('layer')} />
-        <Icon key="标注" title="标注" type="icon-note" onClick={() => this.openPanel('note')} />
-        <Icon key="制版" title="制版" type="icon-folder" onClick={() => this.openPanel('plate')} />
-        <Icon
+        <Iconfont key="连线" title="连线" type="main-line" onClick={() => this.openPanel('line')} />
+        <Iconfont
+          key="图层"
+          title="图层"
+          type="main-layer"
+          onClick={() => this.openPanel('layer')}
+        />
+        <Iconfont key="标注" title="标注" type="main-note" onClick={() => this.openPanel('note')} />
+        <Iconfont
+          key="制版"
+          title="制版"
+          type="main-plate"
+          onClick={() => this.openPanel('plate')}
+        />
+        <Iconfont
           key="说明"
           title="说明"
-          type="icon-yuque"
+          type="main-yuque"
           onClick={() => window.postMessage('handleYuque', null)}
         />
       </QueueAnim>
@@ -162,7 +172,10 @@ class WebView extends Component {
       >
         {this.props.mode}
       </Mode>
-      <Config onClick={() => this.openPanel('setting', this.state.setting)} />
+      <Config
+        className="iconfont icon-setting"
+        onClick={() => this.openPanel('setting', this.state.setting)}
+      />
     </SideBar>
   );
 

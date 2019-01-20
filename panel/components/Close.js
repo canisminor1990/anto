@@ -9,15 +9,15 @@ import { connect } from 'dva';
 const Btn = styled.div`
   position: fixed;
   bottom: 0;
-  width: 2rem;
+  right: 0;
+  width: 3rem;
   height: 2rem;
-  background-image: url('icon/icon-close.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 32px;
+  line-height: 2rem;
+  text-align: center;
   opacity: 0.2;
   transition: all 0.2s ease-out;
   cursor: pointer;
+  text-align: center;
   &:hover {
     opacity: 1;
   }
@@ -49,10 +49,9 @@ class Close extends Component {
   };
 
   render() {
-    const style = {
-      right: this.props.single ? '8px' : 0,
-    };
-    return <Btn style={style} onClick={() => this.handleClose(this.props.name)} />;
+    return (
+      <Btn className="iconfont icon-close" onClick={() => this.handleClose(this.props.name)} />
+    );
   }
 }
 

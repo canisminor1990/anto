@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Icon, Title, Close, View } from '../components';
+import { Iconfont, Title, Close, View } from '../components';
 
 /// /////////////////////////////////////////////
 // component
@@ -10,34 +10,34 @@ class Line extends Component {
     return [
       <Title key="title">线</Title>,
       <View key="panel">
-        <Icon
+        <Iconfont
           key="连线"
           title="连线"
-          type="icon-link"
+          type="line-link"
           onClick={() => window.postMessage('handleLine', null)}
         />
-        <Icon
+        <Iconfont
           key="变向"
           title="变向"
-          type="icon-change"
+          type="line-change"
           onClick={() => window.postMessage('handleChange', null)}
         />
-        <Icon
+        <Iconfont
           key="虚实"
           title="虚实"
-          type="icon-dash"
+          type="line-dash"
           onClick={() => window.postMessage('handleDash', null)}
         />
-        <Icon
+        <Iconfont
           key="说明"
           title="说明"
-          type="icon-round"
+          type="line-note"
           onClick={() => window.postMessage('setRound', null)}
         />
-        <Icon
+        <Iconfont
           key="判断"
           title="判断"
-          type="icon-if"
+          type="line-if"
           onClick={() => window.postMessage('setIf', null)}
         />
         <Close name="line" single />

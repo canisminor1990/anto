@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Icon, Title, Close, View } from '../components';
+import { Iconfont, Title, Close, View } from '../components';
 
 /// /////////////////////////////////////////////
 // component
@@ -10,52 +10,52 @@ class Note extends Component {
     return [
       <Title key="title">注</Title>,
       <View key="panel">
-        <Icon
+        <Iconfont
           key="大标题"
           title="大标题"
-          type="icon-header"
+          type="note-title"
           onClick={() => window.postMessage('setHeader', null)}
         />
-        <Icon
+        <Iconfont
           key="小标题"
           title="小标题"
-          type="icon-subheader"
+          type="note-subtitle"
           onClick={() => window.postMessage('setSubHeader', null)}
         />
-        <Icon
+        <Iconfont
           key="注释"
           title="注释"
-          type="icon-text"
+          type="note-text"
           onClick={() => window.postMessage('setText', null)}
         />
-        <Icon
+        <Iconfont
           key="注释块"
           title="注释块"
-          type="icon-block"
+          type="note-block"
           onClick={() => window.postMessage('setBlock', null)}
         />
-        <Icon
+        <Iconfont
           key="注释列"
           title="注释列"
-          type="icon-list"
+          type="note-quoter"
           onClick={() => window.postMessage('setList', null)}
         />
-        <Icon
+        <Iconfont
           key="列表"
           title="列表"
-          type="icon-ul"
+          type="note-list"
           onClick={() => window.postMessage('setUl', null)}
         />
-        <Icon
+        <Iconfont
           key="节点"
           title="节点"
-          type="icon-point"
+          type="note-point"
           onClick={() => window.postMessage('setPoint', null)}
         />
-        <Icon
+        <Iconfont
           key="变更"
           title="变更"
-          type="icon-changelog"
+          type="note-changelog"
           onClick={() => window.postMessage('setChangelog', null)}
         />
         <Close name="note" single />
