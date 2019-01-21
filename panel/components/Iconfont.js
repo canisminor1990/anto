@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Img = styled.div`
+const Icon = styled.div`
   font-size: 1.5rem;
   width: 100%;
   height: 3rem;
@@ -8,6 +8,19 @@ const Img = styled.div`
   text-align: center;
   transition: all 0.1s ease-out;
 `;
+
+const More = styled.div`
+  font-size: 1.5rem;
+  position: absolute;
+  let: 0;
+  top: 0;
+  width: 100%;
+  height: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  opacity: 0.5;
+`;
+
 const Title = styled.div`
   text-align: center;
   margin-top: -0.5rem;
@@ -24,16 +37,18 @@ const View = styled.div`
   align-items: center;
   cursor: pointer;
   &:active {
-    ${Img} {
+    ${Icon} {
       transform: scale(0.9);
     }
   }
 `;
 
-export default ({ type, title = '标题', ...other }) => {
+export default ({ type, more, title = '标题', ...other }) => {
   return (
     <View {...other}>
-      <Img className={['iconfont', `icon-${type}`]} />
+      <Icon className={['iconfont', `icon-${type}`]}>
+        {more ? <More className={['iconfont', `icon-more`]} /> : null}
+      </Icon>
       <Title>{title}</Title>
     </View>
   );

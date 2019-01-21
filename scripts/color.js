@@ -25,7 +25,7 @@ const BuildData = () => {
     const Artboard     = JSON.parse(fs.readFileSync(path.join(RootPath, a, "artboard.json")));
     const ArtboardName = Artboard.name.split("|");
     const ArtboardData = {
-      key   : ArtboardName[0],
+      key   : parseInt(ArtboardName[0]),
       name  : ArtboardName[1],
       colors: []
     };
@@ -38,7 +38,7 @@ const BuildData = () => {
       const Fill = Shape.style.fills[0];
 
       const ShapeData = {
-        key : ShapeName[0],
+        key : parseInt(ShapeName[0]),
         name: ShapeName[1],
         type: Fill.fillType === 0 ? "Color" : "Gradient"
       };

@@ -12,6 +12,7 @@ import handleLine from './models/handleLine';
 import handleDash from './models/handleDash';
 import handleChange from './models/handleChange';
 // 图层
+import handleNumber from './models/handleNumber';
 import handleFrontBackLite from './models/handleFrontBackLite';
 import handleFrontBack from './models/handleFrontBack';
 import handleSort from './models/handleSort';
@@ -81,6 +82,7 @@ export default class Router extends Sketch {
     this.webContents.on('handleSort', () => new handleSort().start());
     this.webContents.on('handleLayout', () => new handleLayout().start());
     this.webContents.on('handleHeight', () => new handleHeight().start());
+    this.webContents.on('handleNumber', () => new handleNumber().start());
   }
 
   plate() {

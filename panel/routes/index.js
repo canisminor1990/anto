@@ -137,26 +137,42 @@ class WebView extends Component {
           title="组件"
           type="main-symbol"
           onClick={() => this.openPanel('symbol', this.state.symbol)}
+          more
         />
         <Iconfont
           key="色板"
           title="色板"
           type="main-color"
           onClick={() => this.openPanel('color', this.state.color)}
+          more
         />
-        <Iconfont key="连线" title="连线" type="main-line" onClick={() => this.openPanel('line')} />
+        <Iconfont
+          key="连线"
+          title="连线"
+          type="main-line"
+          onClick={() => this.openPanel('line')}
+          more
+        />
         <Iconfont
           key="图层"
           title="图层"
           type="main-layer"
           onClick={() => this.openPanel('layer')}
+          more
         />
-        <Iconfont key="标注" title="标注" type="main-note" onClick={() => this.openPanel('note')} />
+        <Iconfont
+          key="标注"
+          title="标注"
+          type="main-note"
+          onClick={() => this.openPanel('note')}
+          more
+        />
         <Iconfont
           key="制版"
           title="制版"
           type="main-plate"
           onClick={() => this.openPanel('plate')}
+          more
         />
         <Iconfont
           key="说明"

@@ -23,6 +23,12 @@ class Layer extends Component {
           onClick={() => window.postMessage('handleSort', null)}
         />
         <Iconfont
+          key="序号"
+          title="序号"
+          type="layer-number"
+          onClick={() => window.postMessage('handleNumber', null)}
+        />
+        <Iconfont
           key="置顶"
           title="置顶"
           type="layer-top-lite"
