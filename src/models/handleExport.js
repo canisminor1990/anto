@@ -31,6 +31,7 @@ export default class handleExport extends Sketch {
     if (_.isUndefined(RootPath)) return;
 
     _.forEach(this.native.pages, page => {
+      if (String(page.name())[0] === '@') return;
       _.forEach(page.layers(), layer => {
         if (String(layer.name()) === '@制版') {
           const sliceLayer = _.filter(layer.layers(), l => String(l.class()) === 'MSSliceLayer')[0];

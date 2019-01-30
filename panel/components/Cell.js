@@ -1,4 +1,8 @@
 import styled, { css } from 'styled-components';
+import { Icon } from 'antd';
+/// /////////////////////////////////////////////
+// styled
+/// /////////////////////////////////////////////
 
 const Cell = styled.div`
   margin-bottom: 0.5rem;
@@ -13,14 +17,22 @@ const Cell = styled.div`
   }
 `;
 
-Cell.Header = styled.div`
+const Header = styled.div`
   width: 100%;
   margin-bottom: 0.5rem;
   font-weight: 600;
+  cursor: pointer;
 `;
 
-Cell.Group = styled.div`
-  margin-bottom: 1.5rem;
+const Dropdown = styled(Icon)`
+  font-size: 0.7rem;
+  opacity: 0.5;
+  margin-right: 0.2rem;
+`;
+
+const Group = styled.div`
+  margin-bottom: 1rem;
+  overflow: hidden;
 `;
 
 Cell.Title = styled.div`
@@ -39,5 +51,28 @@ Cell.Title = styled.div`
     font-weight: 600;
   }
 `;
+
+/// /////////////////////////////////////////////
+// component
+/// /////////////////////////////////////////////
+
+Cell.Group = ({ children, dropdown, active, ...other }) => {
+  let style;
+  if (dropdown) style = active ? null : { height: 0, marginBottom: 0 };
+  return (
+    <Group style={style} {...other}>
+      {children}
+    </Group>
+  );
+};
+
+Cell.Header = ({ children, dropdown, active, ...other }) => {
+  return (
+    <Header {...other}>
+      {dropdown ? <Dropdown type={active ? 'caret-down' : 'caret-right'} /> : null}
+      {children}
+    </Header>
+  );
+};
 
 export default Cell;

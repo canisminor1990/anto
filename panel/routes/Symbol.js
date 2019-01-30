@@ -66,10 +66,7 @@ const Img = styled.div`
   }
 `;
 
-const Library = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
+const LibraryView = styled.div`
   height: 100%;
   width: 14rem;
   padding: 1rem;
@@ -85,7 +82,19 @@ class Symbol extends Component {
   state = {
     activeRoot: '导航类',
     activeGroup: '状态栏',
+    header: {},
   };
+
+  localStorageName = 'dropdown-symbol';
+
+  componentDidMount() {
+    let state = localStorage.getItem(this.localStorageName);
+    if (state) {
+      this.setState({ header: JSON.parse(state) });
+    } else {
+      localStorage.setItem(this.localStorageName, '{}');
+    }
+  }
 
   Cell = ({ toc, name, data }) => {
     const List = [];
@@ -99,19 +108,24 @@ class Symbol extends Component {
         </Cell>
       )
     );
-    return <Cell.Group>{List}</Cell.Group>;
+    return List;
   };
 
   Cells = ({ toc, data }) => {
     const List = [];
-    _.forEach(toc, (value, key) =>
+    _.forEach(toc, (value, key) => {
+      const active = !this.state.header[key];
       List.push(
         <div key={key}>
-          <Cell.Header>{key}</Cell.Header>
-          <this.Cell toc={value} data={data[key]} name={key} />
+          <Cell.Header dropdown active={active} onClick={() => this.handleHeader(key)}>
+            {key}
+          </Cell.Header>
+          <Cell.Group dropdown active={active}>
+            <this.Cell toc={value} data={data[key]} name={key} />
+          </Cell.Group>
         </div>
-      )
-    );
+      );
+    });
     return <ListView width="9rem">{List}</ListView>;
   };
 
@@ -127,7 +141,7 @@ class Symbol extends Component {
         </Img>
       )
     );
-    return <Library>{List}</Library>;
+    return <LibraryView>{List}</LibraryView>;
   };
 
   render() {
@@ -140,6 +154,13 @@ class Symbol extends Component {
       </View>,
     ];
   }
+
+  handleHeader = name => {
+    const newState = this.state.header;
+    newState[name] = !this.state.header[name];
+    this.setState({ header: newState });
+    localStorage.setItem(this.localStorageName, JSON.stringify(newState));
+  };
 
   handleGroup = (activeRoot, activeGroup) => {
     this.setState({ activeRoot, activeGroup });

@@ -1,6 +1,6 @@
 import { hsl } from 'polished';
 import { Component } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Data from '../color.json';
 import _ from 'lodash';
 import { Slider, Switch } from 'antd';
@@ -94,7 +94,19 @@ class Color extends Component {
     activeColor: null,
     border: false,
     count: 8,
+    header: {},
   };
+
+  localStorageName = 'dropdown-color';
+
+  componentDidMount() {
+    let state = localStorage.getItem(this.localStorageName);
+    if (state) {
+      this.setState({ header: JSON.parse(state) });
+    } else {
+      localStorage.setItem(this.localStorageName, '{}');
+    }
+  }
 
   SwitchTitle = ({ name }) => (
     <Title.Switch active={this.state.tab === name} onClick={() => this.setState({ tab: name })}>
@@ -103,11 +115,16 @@ class Color extends Component {
   );
 
   mapGroup = (group, index) => {
+    const active = !this.state.header[group.name];
     return (
-      <Cell.Group key={index}>
-        <Cell.Header>{group.name}</Cell.Header>
-        {_.sortBy(group.colors, 'key').map(this.mapColor)}
-      </Cell.Group>
+      <div key={index}>
+        <Cell.Header dropdown active={active} onClick={() => this.handleHeader(group.name)}>
+          {group.name}
+        </Cell.Header>
+        <Cell.Group dropdown active={active}>
+          {_.sortBy(group.colors, 'key').map(this.mapColor)}
+        </Cell.Group>
+      </div>
     );
   };
 
@@ -229,6 +246,13 @@ class Color extends Component {
       </View>,
     ];
   }
+
+  handleHeader = name => {
+    const newState = this.state.header;
+    newState[name] = !this.state.header[name];
+    this.setState({ header: newState });
+    localStorage.setItem(this.localStorageName, JSON.stringify(newState));
+  };
 
   handleClick = (name, color) => {
     this.setState({ activeColor: name });
