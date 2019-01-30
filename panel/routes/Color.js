@@ -1,11 +1,11 @@
+import { hsl } from 'polished';
 import { Component } from 'react';
 import styled, { css } from 'styled-components';
 import Data from '../color.json';
 import _ from 'lodash';
-import { Switch } from 'antd';
+import { Slider, Switch } from 'antd';
 import { Title, View, Close, Cell, ButtonGroup } from '../components';
 import { PostMessage } from '../utils/PostMessage';
-import ColorBuilder from './ColorBuild';
 
 /// /////////////////////////////////////////////
 // styled
@@ -56,6 +56,41 @@ const Desc = styled.span`
   }
 `;
 
+const Flex = styled.div`
+  display: flex;
+  margin-bottom: 0.5rem;
+`;
+
+const SliderBox = styled.div`
+  width: 100%;
+  display: flex;
+  height: 4rem;
+  align-items: center;
+  margin-bottom: 14rem;
+`;
+
+const ColorBlock = styled.div`
+  width: 2rem;
+  height: 2rem;
+  background: ${props => hsl(props.h, props.s, props.l)};
+  cursor: pointer;
+  &:active {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    transform: scale(1.2);
+    z-index: 10;
+    border-radius: 2px;
+  }
+`;
+
+const Group = styled.div`
+  width: 8rem;
+  height: 8rem;
+  position: fixed;
+  top: 7rem;
+  left: 3rem;
+  transform: rotate(${props => props.deg}deg);
+`;
+
 /// /////////////////////////////////////////////
 // component
 /// /////////////////////////////////////////////
@@ -65,6 +100,7 @@ class Color extends Component {
     tab: '色板',
     activeColor: null,
     border: false,
+    count: 8,
   };
 
   SwitchTitle = ({ name }) => (
@@ -116,6 +152,52 @@ class Color extends Component {
     );
   };
 
+  ColorCircle = () => {
+    const List = [];
+    const Groups = [];
+
+    const alpha = (1 - 0.575) / 5;
+    for (let i = 0; i < this.state.count; i++) {
+      let Colors = [];
+      let angle = 220 + (360 / this.state.count) * i;
+      if (angle > 360) angle = angle - 360;
+      List.push(
+        <Group deg={angle}>
+          <ColorBlock style={{ borderRadius: '2px' }} h={angle} s={1} l={0.575} />
+        </Group>
+      );
+      for (let i = 6; i > 0; i--) {
+        const l = 1 - alpha * i;
+        Colors.push(
+          <ColorBlock
+            key={i}
+            h={angle}
+            s={1}
+            l={l}
+            onClick={() => this.handleClickBlock(hsl(angle, 1, l))}
+          />
+        );
+      }
+      Groups.push(<Flex>{Colors}</Flex>);
+    }
+
+    return (
+      <div>
+        <SliderBox>
+          <Slider
+            style={{ flex: 1 }}
+            defaultValue={this.state.count}
+            min={1}
+            max={30}
+            onChange={e => this.setState({ count: e })}
+          />
+        </SliderBox>
+        {List}
+        {Groups}
+      </div>
+    );
+  };
+
   render() {
     return [
       <Title key="title">
@@ -127,7 +209,7 @@ class Color extends Component {
           <Panel key="color">{_.sortBy(Data, 'key').map(this.mapGroup)}</Panel>
         ) : (
           <Panel key="color">
-            <ColorBuilder />
+            <this.ColorCircle />
           </Panel>
         )}
         <ButtonGroup>
@@ -148,6 +230,15 @@ class Color extends Component {
   handleClick = (name, color) => {
     this.setState({ activeColor: name });
     const data = { border: this.state.border, ...color };
+    PostMessage('handleColor', JSON.stringify(data));
+  };
+
+  handleClickBlock = color => {
+    const data = {
+      border: this.state.border,
+      color: color,
+      type: 'Color',
+    };
     PostMessage('handleColor', JSON.stringify(data));
   };
 }
