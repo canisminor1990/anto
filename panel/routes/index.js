@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import styled from 'styled-components';
 import { Iconfont } from '../components';
 import QueueAnim from 'rc-queue-anim';
+import { PostMessage } from '../utils/PostMessage';
 // Panel
 import Symbol from './Symbol';
 import Color from './Color';
@@ -178,7 +179,7 @@ class WebView extends Component {
           key="说明"
           title="说明"
           type="main-yuque"
-          onClick={() => window.postMessage('handleYuque', null)}
+          onClick={() => PostMessage('handleYuque', null)}
         />
       </QueueAnim>
       <Mode
@@ -216,11 +217,11 @@ class WebView extends Component {
     const preMode = this.props.mode;
     const mode = preMode === '视觉' ? '交互' : '视觉';
     this.props.setStore({ mode });
-    window.postMessage('changeMode', mode);
+    PostMessage('changeMode', mode);
   };
 
   openPanel = (name, width = null) => {
-    window.postMessage('openPanel', width);
+    PostMessage('openPanel', width);
     this.props.setConfig({ [name]: true });
   };
 }

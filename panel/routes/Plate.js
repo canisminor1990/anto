@@ -1,6 +1,6 @@
-import QueueAnim from 'rc-queue-anim';
 import { Component } from 'react';
 import { Iconfont, Title, Close, View } from '../components';
+import { PostMessage } from '../utils/PostMessage';
 
 /// /////////////////////////////////////////////
 // component
@@ -15,25 +15,25 @@ class Layer extends Component {
           key="排除"
           title="排除"
           type="plate-ignore"
-          onClick={() => window.postMessage('handleIgnore', null)}
+          onClick={() => PostMessage('handleIgnore', null)}
         />
         <Iconfont
           key="制标"
           title="制标"
           type="plate-title"
-          onClick={() => window.postMessage('handleTitle', null)}
+          onClick={() => PostMessage('handleTitle', null)}
         />
         <Iconfont
           key="制版"
           title="制版"
           type="plate-artboard"
-          onClick={() => window.postMessage('handlePlate', null)}
+          onClick={() => PostMessage('handlePlate', null)}
         />
         <Iconfont
           key="导出"
           title="导出"
           type="plate-export"
-          onClick={() => window.postMessage('handleExport', null)}
+          onClick={() => PostMessage('handleExport', null)}
         />
         <Close name="layer" single />
       </View>,

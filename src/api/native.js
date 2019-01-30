@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import moment from 'moment';
 import { join } from 'path';
 
 export default class SketchNative {
@@ -58,6 +59,10 @@ export default class SketchNative {
     MSLayerMovement.moveToFront(_.isArray(layer) ? layer : [layer]);
   }
 
+  remove(layer) {
+    layer.parentGroup().removeLayer(layer);
+  }
+
   addLayers(group, layer) {
     group.addLayers(_.isArray(layer) ? layer : [layer]);
   }
@@ -66,13 +71,36 @@ export default class SketchNative {
     layer.select_byExtendingSelection(true, true);
   }
 
-  setExport(layer, scale) {
-    const size = layer.exportOptions().addExportFormat();
-    size.setAbsoluteSize(0);
-    size.setVisibleScaleType(0);
-    size.setFileFormat('png');
-    size.setNamingScheme(0);
-    size.setScale(scale);
+  setSlice(layer, name, size = 1, type = 'x') {
+    const sliceLayer = MSSliceLayer.new();
+    this.setName(sliceLayer, name);
+    this.setLocked(sliceLayer);
+    this.setVisible(sliceLayer, false);
+    this.setX(sliceLayer, layer.frame.x);
+    this.setY(sliceLayer, layer.frame.y);
+    this.setWidth(sliceLayer, layer.frame.width);
+    this.setHeight(sliceLayer, layer.frame.height);
+    this.setExport(sliceLayer, size, type);
+    return sliceLayer;
+  }
+
+  setExport(layer, size = 1, type = 'x') {
+    const Slice = layer.exportOptions().addExportFormat();
+    Slice.setFileFormat('png');
+    Slice.setNamingScheme(0);
+    if (type === 'w') {
+      Slice.setVisibleScaleType(1);
+      Slice.setScale(0);
+      Slice.setAbsoluteSize(parseInt(size, 10));
+    } else if (type === 'w') {
+      Slice.setVisibleScaleType(2);
+      Slice.setScale(0);
+      Slice.setAbsoluteSize(parseInt(size, 10));
+    } else if (type === 'x') {
+      Slice.setVisibleScaleType(0);
+      Slice.setScale(parseInt(size, 10));
+      Slice.setAbsoluteSize(0);
+    }
   }
 
   exportSlice(slice, path) {

@@ -37,27 +37,48 @@ export default class handleExport extends Sketch {
           const name = String(sliceLayer.name());
           const info = name.split(' (')[1].split(') ');
           const path = join('preview', name + '.png');
+          this.native.setY(sliceLayer, sliceLayer.frame().y() + this.height);
+          this.native.setHeight(sliceLayer, sliceLayer.frame().height() - this.height);
+
+          // 设置封面
+          const symbol = _.filter(layer.layers(), l => String(l.class()) === 'MSSymbolInstance')[0];
+          const symbolName = name + '-cover';
+          const symbolSlice = this.native.setSlice(symbol, symbolName, '200', 'w');
+          this.native.addLayers(layer, symbolSlice);
+          this.native.setX(symbolSlice, sliceLayer.frame().x());
+          this.native.setY(symbolSlice, sliceLayer.frame().y());
+          this.native.setWidth(symbolSlice, sliceLayer.frame().width());
+          this.native.setHeight(symbolSlice, sliceLayer.frame().height());
+
+          // 导出切图
+          this.native.exportSlice(sliceLayer, join(RootPath, 'preview'));
+          this.native.setY(sliceLayer, sliceLayer.frame().y() - this.height);
+          this.native.setHeight(sliceLayer, sliceLayer.frame().height() + this.height);
+
+          // 导出封面
+          this.native.exportSlice(symbolSlice, join(RootPath, 'preview'));
+          const coverPath = join('preview', symbolName + '.png');
+          this.native.remove(symbolSlice);
+
+          // 添加压缩包
+          zip.file(path, fs.readFileSync(join(RootPath, path)));
+          zip.file(coverPath, fs.readFileSync(join(RootPath, coverPath)));
+
+          // 添加数据
           Data.pages.push({
             path: path,
+            cover: coverPath,
             name: String(page.name()),
             mode: info[0],
             date: info[1],
             width: sliceLayer.frame().width(),
             height: sliceLayer.frame().height() - this.height,
           });
-          this.native.setY(sliceLayer, sliceLayer.frame().y() + this.height);
-          this.native.setHeight(sliceLayer, sliceLayer.frame().height() - this.height);
-
-          // 导出切图
-          this.native.exportSlice(sliceLayer, join(RootPath, 'preview'));
-          this.native.setY(sliceLayer, sliceLayer.frame().y() - this.height);
-          this.native.setHeight(sliceLayer, sliceLayer.frame().height() + this.height);
-          zip.file(path, fs.readFileSync(join(RootPath, path)));
         }
       });
     });
 
-    // 导出文件
+    // 导出文件添加压缩包
     zip.file('data.js', ` localStorage.setItem('preview', '${JSON.stringify(Data)}');`);
     zip.file('index.css', preivew.css);
     zip.file('index.html', preivew.html);

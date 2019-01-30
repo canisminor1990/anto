@@ -9,6 +9,7 @@ import { connect } from 'dva';
 const Text = styled.div`
   width: 100%;
   height: 48px;
+  line-height: 48px;
   display: flex;
   font-size: 1.2rem;
   align-items: center;

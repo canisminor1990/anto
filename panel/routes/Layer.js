@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Iconfont, Title, Close, View } from '../components';
+import { PostMessage } from '../utils/PostMessage';
 
 /// /////////////////////////////////////////////
 // component
@@ -14,49 +15,49 @@ class Layer extends Component {
           key="对齐"
           title="对齐"
           type="layer-layout"
-          onClick={() => window.postMessage('handleLayout', null)}
+          onClick={() => PostMessage('handleLayout', null)}
         />
         <Iconfont
           key="排序"
           title="排序"
           type="layer-sort"
-          onClick={() => window.postMessage('handleSort', null)}
+          onClick={() => PostMessage('handleSort', null)}
         />
         <Iconfont
           key="序号"
           title="序号"
           type="layer-number"
-          onClick={() => window.postMessage('handleNumber', null)}
+          onClick={() => PostMessage('handleNumber', null)}
         />
         <Iconfont
           key="置顶"
           title="置顶"
           type="layer-top-lite"
-          onClick={() => window.postMessage('handleTopLite', null)}
+          onClick={() => PostMessage('handleTopLite', null)}
         />
         <Iconfont
           key="置底"
           title="置底"
           type="layer-bottom-lite"
-          onClick={() => window.postMessage('handleBottomLite', null)}
+          onClick={() => PostMessage('handleBottomLite', null)}
         />
         <Iconfont
           key="大置顶"
           title="大置顶"
           type="layer-top"
-          onClick={() => window.postMessage('handleTop', null)}
+          onClick={() => PostMessage('handleTop', null)}
         />
         <Iconfont
           key="大置底"
           title="大置底"
           type="layer-bottom"
-          onClick={() => window.postMessage('handleBottom', null)}
+          onClick={() => PostMessage('handleBottom', null)}
         />
         <Iconfont
           key="调高"
           title="调高"
           type="layer-height"
-          onClick={() => window.postMessage('handleHeight', null)}
+          onClick={() => PostMessage('handleHeight', null)}
         />
         <Close name="layer" single />
       </View>,

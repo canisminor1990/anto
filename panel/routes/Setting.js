@@ -4,6 +4,7 @@ import { Form, Input, Button, Switch } from 'antd';
 import { connect } from 'dva';
 import QueueAnim from 'rc-queue-anim';
 import { Title, View, ButtonGroup } from '../components';
+import { PostMessage } from '../utils/PostMessage';
 
 const FormItem = Form.Item;
 
@@ -124,13 +125,13 @@ class Setting extends Component {
 
   handleClose = () => {
     this.props.setConfig({ setting: false });
-    window.postMessage('closeSetting', null);
+    PostMessage('closeSetting', null);
   };
 
   handleSave = () => {
     this.props.setStore(this.state);
     this.props.setConfig({ setting: false });
-    window.postMessage('closeSetting', this.state);
+    PostMessage('closeSetting', this.state);
   };
 }
 

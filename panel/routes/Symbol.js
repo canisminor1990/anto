@@ -4,6 +4,7 @@ import Data from '../symbol.json';
 import Toc from '../toc.json';
 import _ from 'lodash';
 import { Title, Close, View, ListView, Cell } from '../components';
+import { PostMessage } from '../utils/PostMessage';
 
 /// /////////////////////////////////////////////
 // styled
@@ -120,7 +121,7 @@ class Symbol extends Component {
     const sortSymbol = (a, b) => parseInt(a.name.split('-')[0]) - parseInt(b.name.split('-')[0]);
     _.forEach(SymbolData.sort(sortSymbol), (value, key) =>
       List.push(
-        <Img key={key} onDragEnd={() => window.postMessage('handleSymbol', JSON.stringify(value))}>
+        <Img key={key} onDragEnd={() => PostMessage('handleSymbol', JSON.stringify(value))}>
           <img src={value.png} />
           <ImgTitle>{value.name.split('-')[1]}</ImgTitle>
         </Img>

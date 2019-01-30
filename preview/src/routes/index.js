@@ -208,7 +208,7 @@ class App extends Component {
         active={this.state.name === page.name}
         onClick={() => this.handleClick(page)}
       >
-        <Cover path={page.path} />
+        <Cover path={page.cover} />
         <Content>
           <Title>
             {page.name}

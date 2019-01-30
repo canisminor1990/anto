@@ -105,15 +105,11 @@ export default class handlePlate extends Sketch {
     instance.parent = Group;
 
     // 原生切片
-    const sliceLayer = this.create.slice();
-    this.native.setName(sliceLayer, [title, moment().format('MMDD')].join(' '));
-    this.native.setLocked(sliceLayer);
-    this.native.setVisible(sliceLayer, false);
-    this.native.setX(sliceLayer, instance.frame.x);
-    this.native.setY(sliceLayer, instance.frame.y);
-    this.native.setWidth(sliceLayer, instance.frame.width);
-    this.native.setHeight(sliceLayer, instance.frame.height);
-    this.native.setExport(sliceLayer, isInteractiveMode ? 0.5 : 1);
+    const sliceLayer = this.native.setSlice(
+      instance,
+      [title, moment().format('MMDD')].join(' '),
+      isInteractiveMode ? 0.5 : 1
+    );
     this.native.moveToFront(sliceLayer);
     const PlateGroup = _.filter(this.native.page.layers(), l => String(l.name()) === '@制版')[0];
     this.native.addLayers(PlateGroup, sliceLayer);

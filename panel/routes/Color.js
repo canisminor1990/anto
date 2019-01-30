@@ -1,13 +1,28 @@
 import { Component } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Data from '../color.json';
 import _ from 'lodash';
 import { Switch } from 'antd';
 import { Title, View, Close, Cell, ButtonGroup } from '../components';
+import { PostMessage } from '../utils/PostMessage';
+import ColorBuilder from './ColorBuild';
 
 /// /////////////////////////////////////////////
 // styled
 /// /////////////////////////////////////////////
+
+const SwitchTitle = styled.span`
+  display: inline-block;
+  margin-right: 1rem;
+  cursor: pointer;
+  ${props =>
+    props.active
+      ? css`
+          border-bottom: 2px solid #2a72ff;
+          color: rgba(100, 100, 100, 1);
+        `
+      : null}
+`;
 
 const Panel = styled.div`
   padding: 1rem;
@@ -47,20 +62,27 @@ const Desc = styled.span`
 
 class Color extends Component {
   state = {
+    tab: '色板',
     activeColor: null,
     border: false,
   };
 
-  mapGroup = group => {
+  SwitchTitle = ({ name }) => (
+    <SwitchTitle active={this.state.tab === name} onClick={() => this.setState({ tab: name })}>
+      {name}
+    </SwitchTitle>
+  );
+
+  mapGroup = (group, index) => {
     return (
-      <Cell.Group>
+      <Cell.Group key={index}>
         <Cell.Header>{group.name}</Cell.Header>
         {_.sortBy(group.colors, 'key').map(this.mapColor)}
       </Cell.Group>
     );
   };
 
-  mapColor = color => {
+  mapColor = (color, index) => {
     let style;
     let desc;
     let points = [];
@@ -74,17 +96,17 @@ class Color extends Component {
       );
     } else {
       let stopColors = [];
-      _.forEach(color.color.stops, stop => {
+      _.forEach(color.color.stops, (stop, index) => {
         stopColors.push(stop.color);
-        points.push(<Point style={{ background: stop.color }} />);
-        points.push(<Desc>{stop.color}</Desc>);
+        points.push(<Point key={index} style={{ background: stop.color }} />);
+        points.push(<Desc key={stop.color}>{stop.color}</Desc>);
       });
       desc = <Sub>{points}︎</Sub>;
       style = `linear-gradient(135deg,${stopColors.join(',')})`;
     }
 
     return (
-      <Cell onClick={() => this.handleClick(color.name, color)}>
+      <Cell key={index} onClick={() => this.handleClick(color.name, color)}>
         <Icon style={{ background: style }} />
         <Cell.Title>
           {color.name}
@@ -94,17 +116,20 @@ class Color extends Component {
     );
   };
 
-  handleClick = (name, color) => {
-    this.setState({ activeColor: name });
-    const data = { border: this.state.border, ...color };
-    window.postMessage('handleColor', JSON.stringify(data));
-  };
-
   render() {
     return [
-      <Title key="title">色板</Title>,
+      <Title key="title">
+        <this.SwitchTitle name="色板" />
+        <this.SwitchTitle name="色轮" />
+      </Title>,
       <View key="panel" width={this.props.width} inner>
-        <Panel key="color">{_.sortBy(Data, 'key').map(this.mapGroup)}</Panel>
+        {this.state.tab === '色板' ? (
+          <Panel key="color">{_.sortBy(Data, 'key').map(this.mapGroup)}</Panel>
+        ) : (
+          <Panel key="color">
+            <ColorBuilder />
+          </Panel>
+        )}
         <ButtonGroup>
           <div>
             描边：
@@ -119,6 +144,12 @@ class Color extends Component {
       </View>,
     ];
   }
+
+  handleClick = (name, color) => {
+    this.setState({ activeColor: name });
+    const data = { border: this.state.border, ...color };
+    PostMessage('handleColor', JSON.stringify(data));
+  };
 }
 
 export default Color;
