@@ -11,19 +11,6 @@ import { PostMessage } from '../utils/PostMessage';
 // styled
 /// /////////////////////////////////////////////
 
-const SwitchTitle = styled.span`
-  display: inline-block;
-  margin-right: 1rem;
-  cursor: pointer;
-  ${props =>
-    props.active
-      ? css`
-          border-bottom: 2px solid #2a72ff;
-          color: rgba(100, 100, 100, 1);
-        `
-      : null}
-`;
-
 const Panel = styled.div`
   padding: 1rem;
   width: 100%;
@@ -59,6 +46,7 @@ const Desc = styled.span`
 const Flex = styled.div`
   display: flex;
   margin-bottom: 0.5rem;
+  align-items: center;
 `;
 
 const SliderBox = styled.div`
@@ -74,6 +62,11 @@ const ColorBlock = styled.div`
   height: 2rem;
   background: ${props => hsl(props.h, props.s, props.l)};
   cursor: pointer;
+  color: ${props => hsl(props.h, props.s, props.l - 0.5 > 0 ? props.l - 0.5 : 0)};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
   &:active {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     transform: scale(1.2);
@@ -87,7 +80,7 @@ const Group = styled.div`
   height: 8rem;
   position: fixed;
   top: 7rem;
-  left: 3rem;
+  left: 2.8rem;
   transform: rotate(${props => props.deg}deg);
 `;
 
@@ -104,9 +97,9 @@ class Color extends Component {
   };
 
   SwitchTitle = ({ name }) => (
-    <SwitchTitle active={this.state.tab === name} onClick={() => this.setState({ tab: name })}>
+    <Title.Switch active={this.state.tab === name} onClick={() => this.setState({ tab: name })}>
       {name}
-    </SwitchTitle>
+    </Title.Switch>
   );
 
   mapGroup = (group, index) => {
@@ -175,9 +168,18 @@ class Color extends Component {
             s={1}
             l={l}
             onClick={() => this.handleClickBlock(hsl(angle, 1, l))}
-          />
+          >
+            {5 - i > 0 ? `+${5 - i}` : 5 - i}
+          </ColorBlock>
         );
       }
+      const hslColor = hsl(angle, 1, 0.575);
+      Groups.push(
+        <Flex>
+          <Point style={{ background: hslColor }} />
+          <Desc>{hslColor}</Desc>
+        </Flex>
+      );
       Groups.push(<Flex>{Colors}</Flex>);
     }
 
@@ -193,6 +195,7 @@ class Color extends Component {
           />
         </SliderBox>
         {List}
+        <Cell.Header>色彩列表</Cell.Header>
         {Groups}
       </div>
     );
@@ -205,13 +208,13 @@ class Color extends Component {
         <this.SwitchTitle name="色轮" />
       </Title>,
       <View key="panel" width={this.props.width} inner>
-        {this.state.tab === '色板' ? (
-          <Panel key="color">{_.sortBy(Data, 'key').map(this.mapGroup)}</Panel>
-        ) : (
-          <Panel key="color">
+        <Panel key="color">
+          {this.state.tab === '色板' ? (
+            _.sortBy(Data, 'key').map(this.mapGroup)
+          ) : (
             <this.ColorCircle />
-          </Panel>
-        )}
+          )}
+        </Panel>
         <ButtonGroup>
           <div>
             描边：
@@ -236,6 +239,7 @@ class Color extends Component {
   handleClickBlock = color => {
     const data = {
       border: this.state.border,
+      name: color,
       color: color,
       type: 'Color',
     };

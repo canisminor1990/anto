@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Component } from 'react';
 import { connect } from 'dva';
 
@@ -18,6 +18,19 @@ const Text = styled.div`
   color: rgba(100, 100, 100, 0.4);
 `;
 
+const Switch = styled.span`
+  display: inline-block;
+  margin-right: 1rem;
+  cursor: pointer;
+  ${props =>
+    props.active
+      ? css`
+          border-bottom: 2px solid #2a72ff;
+          color: rgba(100, 100, 100, 1);
+        `
+      : null}
+`;
+
 /// /////////////////////////////////////////////
 // connect
 /// /////////////////////////////////////////////
@@ -32,7 +45,7 @@ const State = state => {
 // component
 /// /////////////////////////////////////////////
 
-class Title extends Component {
+class TitleClass extends Component {
   render() {
     const style = {
       boxShadow:
@@ -48,4 +61,6 @@ class Title extends Component {
   }
 }
 
-export default connect(State)(Title);
+const Title = connect(State)(TitleClass);
+Title.Switch = Switch;
+export default Title;
