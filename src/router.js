@@ -3,6 +3,8 @@ import Options from './options';
 import Sketch from './sketch';
 // 组件
 import handleSymbol from './models/handleSymbol';
+import handleLocalSymbol from './models/handleLocalSymbol';
+import handleBuildLocalSymbol from './models/handleBuildLocalSymbol';
 // 色板
 import handleColor from './models/handleColor';
 // 注释
@@ -35,7 +37,9 @@ export default class Router extends Sketch {
   }
 
   sendWebview(key, data) {
-    this.browserWindow.webContents.executeJavaScript(`localStorage.setItem("${key}","${data}")`);
+    this.browserWindow.webContents.executeJavaScript(
+      `localStorage.setItem("${key}",'${JSON.stringify(data)}')`
+    );
   }
 
   panel() {
@@ -49,6 +53,11 @@ export default class Router extends Sketch {
 
   symbol() {
     this.webContents.on('handleSymbol', e => new handleSymbol().start(e));
+    this.webContents.on('handleLocalSymbol', e => new handleLocalSymbol().start(e));
+    this.webContents.on('handleBuildLocalSymbol', () => {
+      const symbol = new handleBuildLocalSymbol().build();
+      this.sendWebview('local-symbols', symbol);
+    });
   }
 
   color() {

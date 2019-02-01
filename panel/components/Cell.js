@@ -38,6 +38,8 @@ const Group = styled.div`
 Cell.Title = styled.div`
   padding: 0.2rem 0.4rem;
   border-radius: 2px;
+  word-wrap: break-word;
+  overflow: hidden;
   flex: 1;
   ${props =>
     props.active

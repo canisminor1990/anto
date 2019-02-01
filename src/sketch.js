@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { join } from 'path';
 import sketch from 'sketch/dom';
 import SketchLayer from './api/layer';
 import SketchCreate from './api/create';
@@ -10,6 +11,11 @@ import SketchNative from './api/native';
 export default class Sketch {
   constructor() {
     this.namespace = 'Anto';
+  }
+
+  // Export
+  export(...props) {
+    sketch.export(...props);
   }
 
   // UI
@@ -88,6 +94,22 @@ export default class Sketch {
     return sketch.getSelectedDocument();
   }
 
+  get symbols() {
+    const symbols = [];
+    _.forEach(this.document.pages, page => {
+      _.forEach(page.layers, l => {
+        if (l.type && l.type === 'SymbolMaster') {
+          symbols.push(l);
+        }
+      });
+    });
+    return symbols;
+  }
+
+  get allSymbols() {
+    return this.document.getSymbols();
+  }
+
   get page() {
     return this.document.selectedPage;
   }
@@ -121,6 +143,16 @@ export default class Sketch {
 
   get native() {
     return new SketchNative();
+  }
+
+  // path
+
+  get pluginPath() {
+    return this.setting.get('url');
+  }
+
+  get pluginResourcesPath() {
+    return join(this.pluginPath, 'Contents', 'Resources');
   }
 
   // open

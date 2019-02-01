@@ -2,7 +2,6 @@ import sketch from 'sketch/dom';
 import { join } from 'path';
 import _ from 'lodash';
 import { find } from './utils';
-import path from '@skpm/path';
 
 const libraryFiles = ['AFUX 输出组件.sketch', 'AFUX 交互组件.sketch'];
 
@@ -15,7 +14,6 @@ export const removeLibrary = () => {
 };
 
 export const addLibrary = context => {
-  console.log(1, path.resourcePath('sketch'));
   const Library = sketch.Library;
   _.forEach(libraryFiles, fileName => {
     const libraryUrl = context.plugin.urlForResourceNamed(join('sketch', fileName));

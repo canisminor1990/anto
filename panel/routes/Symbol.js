@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Data from '../symbol.json';
 import Toc from '../toc.json';
 import _ from 'lodash';
+import { Button, Icon } from 'antd';
 import { Title, Close, View, ListView, Cell } from '../components';
 import { PostMessage } from '../utils/PostMessage';
 
@@ -12,6 +13,7 @@ import { PostMessage } from '../utils/PostMessage';
 
 const Cover = styled.div`
   width: 2rem;
+  min-width: 2rem;
   height: 2rem;
   display: flex;
   align-items: center;
@@ -68,10 +70,36 @@ const Img = styled.div`
 
 const LibraryView = styled.div`
   height: 100%;
-  width: 14rem;
+  flex: 1;
   padding: 1rem;
   background: #eee;
   overflow-y: auto;
+`;
+
+const ButtonView = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+`;
+
+const RefreshBtn = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  background: #2b79ff;
+  padding: 0.2rem;
+  margin-bottom: 0.8rem;
+  border-radius: 0.2rem;
+  color: #fff;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.9;
+  }
 `;
 
 /// /////////////////////////////////////////////
@@ -80,9 +108,13 @@ const LibraryView = styled.div`
 
 class Symbol extends Component {
   state = {
+    local: false,
+    tab: '交互',
     activeRoot: '导航类',
     activeGroup: '状态栏',
+    activeLocal: false,
     header: {},
+    refresh: 0,
   };
 
   localStorageName = 'dropdown-symbol';
@@ -95,6 +127,12 @@ class Symbol extends Component {
       localStorage.setItem(this.localStorageName, '{}');
     }
   }
+
+  SwitchTitle = ({ name }) => (
+    <Title.Switch active={this.state.tab === name} onClick={() => this.setState({ tab: name })}>
+      {name}
+    </Title.Switch>
+  );
 
   Cell = ({ toc, name, data }) => {
     const List = [];
@@ -144,16 +182,110 @@ class Symbol extends Component {
     return <LibraryView>{List}</LibraryView>;
   };
 
+  InteractiveView = () => (
+    <View width={this.props.width} inner>
+      <this.Cells key="cells" toc={Toc} data={Data} />
+      <this.Library key="library" data={Data} />
+    </View>
+  );
+
+  LocalView = () => {
+    let LocalData = localStorage.getItem('local-symbols');
+    if (LocalData && !this.state.local) this.setState({ local: true });
+    if (this.state.local) {
+      LocalData = _.sortBy(JSON.parse(LocalData).data, 'name');
+    }
+    return (
+      <View width={this.props.width} inner>
+        {this.state.local ? (
+          [
+            <this.LocalList key="list" data={LocalData} />,
+            <this.LocalLibrary key="library" data={LocalData} />,
+          ]
+        ) : (
+          <ButtonView>
+            <h3>读取本文档Symbols</h3>
+            <Button type="primary" onClick={this.handleRefresh}>
+              生成预览
+            </Button>
+          </ButtonView>
+        )}
+      </View>
+    );
+  };
+
+  _cacheName = null;
+
+  LocalList = ({ data }) => {
+    const mapData = (s, key) => {
+      const name = s.name.replace(/ /g, '').split('/')[0];
+      if (!this.state.activeLocal && key === 0) this.setState({ activeLocal: name });
+      if (this._cacheName === name) return null;
+      this._cacheName = name;
+      return (
+        <Cell key={key} onClick={() => this.setState({ activeLocal: name })}>
+          <Cover>
+            <img src={`localSymbols/${s.id}.png`} />
+          </Cover>
+          <Cell.Title active={this.state.activeLocal === name}>{name}</Cell.Title>
+        </Cell>
+      );
+    };
+    return (
+      <ListView width="9rem">
+        <RefreshBtn onClick={this.handleRefresh}>
+          <Icon style={{ marginRight: '.5rem' }} type="reload" />
+          刷新
+        </RefreshBtn>
+        {data.map(mapData)}
+      </ListView>
+    );
+  };
+
+  LocalLibrary = ({ data }) => {
+    const mapData = (s, key) => {
+      let name = s.name.replace(/ /g, '').split('/');
+      if (name[0] !== this.state.activeLocal) return null;
+      if (name.length > 1) name.shift();
+      name = name.join(' / ');
+      return (
+        <Img key={key}>
+          <img
+            src={`localSymbols/${s.id}.png`}
+            onDragEnd={() => PostMessage('handleLocalSymbol', s.id)}
+          />
+          <ImgTitle>{name}</ImgTitle>
+        </Img>
+      );
+    };
+    return <LibraryView>{_.sortBy(data, 'name').map(mapData)}</LibraryView>;
+  };
+
   render() {
     return [
-      <Title key="title">组件库</Title>,
-      <View key="panel" width={this.props.width} inner>
-        <this.Cells key="cells" toc={Toc} data={Data} />
-        <this.Library key="library" data={Data} />
-        <Close name="symbol" />
-      </View>,
+      <Title key="title">
+        <this.SwitchTitle name="交互" />
+        <this.SwitchTitle name="本地" />
+      </Title>,
+      this.state.tab === '交互' ? <this.InteractiveView key="interactive" /> : null,
+      this.state.tab === '本地' ? <this.LocalView key={this.refresh} /> : null,
+      <Close key="close" name="symbol" />,
     ];
   }
+
+  handleRefresh = () => {
+    let getNewData = false;
+    let time = '';
+    if (this.state.local) {
+      time = JSON.parse(localStorage.getItem('local-symbols')).time;
+    }
+    PostMessage('handleBuildLocalSymbol', null);
+    while (getNewData) {
+      const newTime = JSON.parse(localStorage.getItem('local-symbols')).time;
+      getNewData = newTime !== time;
+    }
+    this.setState({ refresh: this.state.refresh + 1 });
+  };
 
   handleHeader = name => {
     const newState = this.state.header;

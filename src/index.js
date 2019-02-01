@@ -1,3 +1,4 @@
+import { join } from 'path';
 import BrowserWindow from 'sketch-module-web-view';
 import _ from 'lodash';
 import Options from './options';
@@ -9,6 +10,8 @@ const Sketch = new Sk();
 const Panel = isDev ? 'http://localhost:8000' : 'index.html';
 
 export const onRun = context => {
+  Sketch.setting.set('url', String(context.plugin.url()));
+
   const browserWindow = new BrowserWindow(Options);
   browserWindow.setSize(Options.width, Options.height);
 
