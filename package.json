@@ -79,12 +79,12 @@
 		]
 	},
 	"dependencies": {
-		"antd": "^3.10.9",
+		"antd": "^3.13.0",
 		"dva": "^2.4.1",
 		"dva-loading": "^2.0.6",
 		"lodash": "^4.17.11",
-		"react": "^16.6.3",
-		"react-dom": "^16.6.3",
+		"react": "^16.7.0",
+		"react-dom": "^16.7.0",
 		"sketch-module-web-view": "^2.1.2"
 	},
 	"devDependencies": {
@@ -128,7 +128,7 @@
 		"prettier": "^1.14.3",
 		"rc-queue-anim": "^1.6.8",
 		"redbox-react": "^1.3.2",
-		"roadhog": "2.5.0-beta.1",
+		"roadhog": "2.5.0-beta.4",
 		"sketch-utils": "^0.2.9",
 		"string_decoder": "^1.2.0",
 		"styled-components": "^4.0.2"
