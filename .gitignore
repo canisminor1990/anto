@@ -12,5 +12,7 @@ test
 dist
 Anto.sketchplugin
 .idea
+.umi
+.umi-production
 *.zip
 ./docs/AFUX 色彩库

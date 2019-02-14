@@ -81,9 +81,9 @@ export default class handleExport extends Sketch {
 
     // 导出文件添加压缩包
     zip.file('data.js', ` localStorage.setItem('preview', '${JSON.stringify(Data)}');`);
-    zip.file('index.css', preivew.css);
+    zip.file('umi.css', preivew.css);
     zip.file('index.html', preivew.html);
-    zip.file('index.js', preivew.js);
+    zip.file('umi.js', preivew.js);
 
     // 删除缓存图片
     fs.unlinkSync(RootPath);
