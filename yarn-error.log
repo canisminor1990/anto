@@ -1,11 +1,11 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add compare-versions --dev
+  /usr/local/bin/node /usr/local/bin/yarn
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin
 
 Yarn version: 
-  1.10.1
+  1.13.0
 
 Node version: 
   10.11.0
@@ -14,17 +14,12 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: http://registry.npm.taobao.org/compare-versions/download/compare-versions-3.4.0.tgz: ETIMEDOUT
-      at Timeout._onTimeout (/usr/local/lib/node_modules/yarn/lib/cli.js:120826:19)
-      at ontimeout (timers.js:425:11)
-      at tryOnTimeout (timers.js:289:5)
-      at listOnTimeout (timers.js:252:5)
-      at Timer.processTimers (timers.js:212:10)
+  Error: EINVAL: invalid argument, unlink '/Users/yangyufan/anto/node_modules/@babel/preset-env/node_modules/browserslist'
 
 npm manifest: 
   {
   	"name": "Anto",
-  	"version": "1.1.4",
+  	"version": "1.1.6",
   	"description": "Sketch tools for AFUX",
   	"repository": {
   		"type": "git",
@@ -124,6 +119,7 @@ npm manifest:
   		"babel-plugin-import": "^1.10.0",
   		"babel-plugin-lodash": "^3.3.4",
   		"babel-plugin-transform-decorators-legacy": "^1.3.5",
+  		"compare-versions": "^3.4.0",
   		"concurrently": "^3.6.1",
   		"cross-env": "^5.2.0",
   		"eslint": "^4.13.1",
@@ -3270,6 +3266,11 @@ Lockfile:
     version "1.0.1"
     resolved "http://registry.npm.taobao.org/commondir/download/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
     integrity sha1-3dgA2gxmEnOTzKWVDqloo6rxJTs=
+  
+  compare-versions@^3.4.0:
+    version "3.4.0"
+    resolved "http://registry.npm.taobao.org/compare-versions/download/compare-versions-3.4.0.tgz#e0747df5c9cb7f054d6d3dc3e1dbc444f9e92b26"
+    integrity sha1-4HR99cnLfwVNbT3D4dvERPnpKyY=
   
   component-classes@1.x, component-classes@^1.2.5, component-classes@^1.2.6:
     version "1.2.6"
