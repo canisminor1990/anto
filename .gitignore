@@ -6,12 +6,12 @@ npm-debug.log
 # mac
 .DS_Store
 yarn.lock
+yarn-error.log
 
 # other
 test
 dist
-Anto.sketchplugin
 .idea
-*.zip
 ./docs/AFUX 色彩库
-yarn-error.log
+*.sketchplugin
+*.zip

@@ -1,7 +1,6 @@
 export default {
   entry             : "./panel/index.js",
   disableCSSModules  : true,
-  hash               : true,
   ignoreMomentLocale : true,
   theme             : {
     "@primary-color": "#2A72FF",
