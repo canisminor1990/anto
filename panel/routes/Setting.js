@@ -95,6 +95,9 @@ class Setting extends Component {
               onChange={this.handleTitle}
             />
           </FormItem>
+          <FormItem key="Copyright" label="Design & Develop by">
+            <a onClick={() => PostMessage('handleYuque', null)}>CanisMinor (倏昱)</a>
+          </FormItem>
         </QueueAnim>
         <ButtonGroup>
           <Button

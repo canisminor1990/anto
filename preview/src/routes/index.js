@@ -81,7 +81,7 @@ const Content = styled.div`
 `;
 const Title = styled.div`
   display: flex;
-  font-size: .9rem;
+  font-size: 0.9rem;
   align-items: center;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -210,9 +210,7 @@ class App extends Component {
       >
         <Cover path={page.cover} />
         <Content>
-          <Title>
-            {page.name}
-          </Title>
+          <Title>{page.name}</Title>
           <Date>
             <Icon type="clock-circle" /> {page.date[0]}
             {page.date[1]}-{page.date[2]}

@@ -51,7 +51,6 @@ const Img = styled.div`
     max-width: 100%;
     max-height: 6rem;
   }
-
   &:hover {
     ${ImgTitle} {
       color: #2b79ff;
@@ -60,7 +59,6 @@ const Img = styled.div`
       transform: scale(1.05);
     }
   }
-
   &:active {
     img {
       transform: scale(0.95);
@@ -232,7 +230,7 @@ class Symbol extends Component {
       );
     };
     return (
-      <ListView width="9rem">
+      <ListView width="9rem" key={this.refresh}>
         <RefreshBtn onClick={this.handleRefresh}>
           <Icon style={{ marginRight: '.5rem' }} type="reload" />
           刷新
@@ -258,7 +256,7 @@ class Symbol extends Component {
         </Img>
       );
     };
-    return <LibraryView>{_.sortBy(data, 'name').map(mapData)}</LibraryView>;
+    return <LibraryView key={this.refresh}>{_.sortBy(data, 'name').map(mapData)}</LibraryView>;
   };
 
   render() {
@@ -281,7 +279,10 @@ class Symbol extends Component {
     }
     PostMessage('handleBuildLocalSymbol', null);
     while (getNewData) {
-      const newTime = JSON.parse(localStorage.getItem('local-symbols')).time;
+      let newTime = time;
+      setTimeout(() => {
+        newTime = JSON.parse(localStorage.getItem('local-symbols')).time;
+      }, 100);
       getNewData = newTime !== time;
     }
     this.setState({ refresh: this.state.refresh + 1 });
