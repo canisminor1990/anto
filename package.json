@@ -28,7 +28,7 @@
 			"dist/**/*"
 		]
 	},
-	"appcast": "https://raw.githubusercontent.com/canisminor1990/anto/master/.appcast.xml",
+	"appcast": ".appcast.xml",
 	"scripts": {
 		"start": "yarn build:panel && concurrently \"yarn start:panel\" \"yarn start:plugin\"",
 		"start:plugin": "yarn dev && cross-env NODE_ENV=development skpm-build --watch",
