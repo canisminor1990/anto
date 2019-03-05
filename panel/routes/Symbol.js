@@ -260,15 +260,17 @@ class Symbol extends Component {
   };
 
   render() {
-    return [
-      <Title key="title">
-        <this.SwitchTitle name="交互" />
-        <this.SwitchTitle name="本地" />
-      </Title>,
-      this.state.tab === '交互' ? <this.InteractiveView key="interactive" /> : null,
-      this.state.tab === '本地' ? <this.LocalView key={this.refresh} /> : null,
-      <Close key="close" name="symbol" />,
-    ];
+    return (
+      <>
+        <Title>
+          <this.SwitchTitle name="交互" />
+          <this.SwitchTitle name="本地" />
+        </Title>
+        {this.state.tab === '交互' ? <this.InteractiveView key="interactive" /> : null}
+        {this.state.tab === '本地' ? <this.LocalView key={this.refresh} /> : null}
+        <Close key="close" name="symbol" />
+      </>
+    );
   }
 
   handleRefresh = () => {

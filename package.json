@@ -39,6 +39,7 @@
 		"build:symbol": "node ./scripts/symbol.js",
 		"build:preview": "cd preview && yarn build && cd ../ && node ./scripts/preview.js",
 		"build:color": "node ./scripts/color.js && rm -r './docs/AFUX 色彩库'",
+		"build:word": "node ./scripts/word.js",
 		"publish": "skpm publish",
 		"link": "skpm-link",
 		"dev": "defaults write ~/Library/Preferences/com.bohemiancoding.sketch3.plist AlwaysReloadScript -bool YES",
@@ -84,6 +85,7 @@
 		"dva-loading": "^2.0.6",
 		"lodash": "^4.17.11",
 		"react": "^16.6.3",
+		"react-copy-to-clipboard": "^5.0.1",
 		"react-dom": "^16.6.3",
 		"sketch-module-web-view": "^2.1.2"
 	},
@@ -121,6 +123,7 @@
 		"jszip": "^3.1.5",
 		"kactus-cli": "^0.5.4",
 		"lint-staged": "^4.2.3",
+		"md-2-json": "^1.0.5",
 		"moment": "^2.22.2",
 		"path": "^0.12.7",
 		"polished": "^2.3.1",

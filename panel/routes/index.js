@@ -11,6 +11,7 @@ import Line from './Line';
 import Note from './Note';
 import Layer from './Layer';
 import Plate from './Plate';
+import Word from './Word';
 import Setting from './Setting';
 
 /// /////////////////////////////////////////////
@@ -127,6 +128,7 @@ class WebView extends Component {
     symbol: 370,
     color: 220,
     setting: 250,
+    word: 370,
   };
 
   SideBar = () => (
@@ -176,6 +178,13 @@ class WebView extends Component {
           more
         />
         <Iconfont
+          key="话术"
+          title="话术"
+          type="main-word"
+          onClick={() => this.openPanel('word', this.state.word)}
+          more
+        />
+        <Iconfont
           key="说明"
           title="说明"
           type="main-yuque"
@@ -207,6 +216,7 @@ class WebView extends Component {
           {this.props.note ? <Note /> : null}
           {this.props.layer ? <Layer /> : null}
           {this.props.plate ? <Plate /> : null}
+          {this.props.word ? <Word width={this.state.word} /> : null}
           {this.props.setting ? <Setting width={this.state.setting} /> : null}
         </Panel>
       </View>

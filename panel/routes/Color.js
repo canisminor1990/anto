@@ -219,32 +219,34 @@ class Color extends Component {
   };
 
   render() {
-    return [
-      <Title key="title">
-        <this.SwitchTitle name="色板" />
-        <this.SwitchTitle name="色轮" />
-      </Title>,
-      <View key="panel" width={this.props.width} inner>
-        <Panel key="color">
-          {this.state.tab === '色板' ? (
-            _.sortBy(Data, 'key').map(this.mapGroup)
-          ) : (
-            <this.ColorCircle />
-          )}
-        </Panel>
-        <ButtonGroup>
-          <div>
-            描边：
-            <Switch
-              checkedChildren="开"
-              unCheckedChildren="关"
-              onChange={e => this.setState({ border: e })}
-            />
-          </div>
-        </ButtonGroup>
-        <Close name="color" />
-      </View>,
-    ];
+    return (
+      <>
+        <Title>
+          <this.SwitchTitle name="色板" />
+          <this.SwitchTitle name="色轮" />
+        </Title>
+        <View width={this.props.width} inner>
+          <Panel key="panel">
+            {this.state.tab === '色板' ? (
+              _.sortBy(Data, 'key').map(this.mapGroup)
+            ) : (
+              <this.ColorCircle />
+            )}
+          </Panel>
+          <ButtonGroup key="btn">
+            <div>
+              描边：
+              <Switch
+                checkedChildren="开"
+                unCheckedChildren="关"
+                onChange={e => this.setState({ border: e })}
+              />
+            </div>
+          </ButtonGroup>
+          <Close name="color" />
+        </View>
+      </>
+    );
   }
 
   handleHeader = name => {

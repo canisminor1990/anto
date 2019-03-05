@@ -10,6 +10,7 @@ export default {
     note: false,
     layer: false,
     plate: false,
+    word: false,
     setting: false,
   },
 

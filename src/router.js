@@ -101,6 +101,12 @@ export default class Router extends Sketch {
     this.webContents.on('handleExport', () => new handleExport().start());
   }
 
+  word() {
+    this.webContents.on('handleWord', e => {
+      this.ui.success(`"${e}"已复制到剪切板`);
+    });
+  }
+
   yuque() {
     this.webContents.on('handleYuque', () => {
       const url = 'https://www.yuque.com/canisminor/anto/readme';
@@ -132,6 +138,7 @@ export default class Router extends Sketch {
     this.layer();
     this.plate();
     this.yuque();
+    this.word();
     this.config();
   }
 }

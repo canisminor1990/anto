@@ -65,53 +65,55 @@ class Setting extends Component {
   }
 
   render() {
-    return [
-      <Title key="title">设置</Title>,
-      <View key="panel" width={this.props.width} padding>
-        <QueueAnim type="bottom">
-          <Version key="title">
-            ANTO <span>ver{this.version ? this.version : '1.0.0'}</span>
-          </Version>
-          <FormItem key="花名" label="花名">
-            <Input
-              placeholder="请输入花名"
-              defaultValue={this.state.name}
-              onChange={e => this.handleChange(e.target.value, 'name')}
-            />
-          </FormItem>
-          <FormItem key="皮肤" label="皮肤">
-            <Switch
-              checkedChildren="黑"
-              unCheckedChildren="白"
-              defaultChecked={this.props.theme === 'black'}
-              onChange={this.handleTheme}
-            />
-          </FormItem>
-          <FormItem key="交互画板标题" label="交互画板标题">
-            <Switch
-              checkedChildren="强"
-              unCheckedChildren="弱"
-              defaultChecked={this.props.title === 'strong'}
-              onChange={this.handleTitle}
-            />
-          </FormItem>
-          <FormItem key="Copyright" label="Design & Develop by">
-            <a onClick={() => PostMessage('handleYuque', null)}>CanisMinor (倏昱)</a>
-          </FormItem>
-        </QueueAnim>
-        <ButtonGroup>
-          <Button
-            style={{ background: this.props.theme === 'black' ? '#333' : '#fff' }}
-            onClick={this.handleClose}
-          >
-            取消
-          </Button>
-          <Button type="primary" onClick={this.handleSave}>
-            保存
-          </Button>
-        </ButtonGroup>
-      </View>,
-    ];
+    return (
+      <>
+        <Title>设置</Title>
+        <View width={this.props.width} padding>
+          <QueueAnim type="bottom">
+            <Version key="title">
+              ANTO <span>ver{this.version ? this.version : '1.0.0'}</span>
+            </Version>
+            <FormItem key="花名" label="花名">
+              <Input
+                placeholder="请输入花名"
+                defaultValue={this.state.name}
+                onChange={e => this.handleChange(e.target.value, 'name')}
+              />
+            </FormItem>
+            <FormItem key="皮肤" label="皮肤">
+              <Switch
+                checkedChildren="黑"
+                unCheckedChildren="白"
+                defaultChecked={this.props.theme === 'black'}
+                onChange={this.handleTheme}
+              />
+            </FormItem>
+            <FormItem key="交互画板标题" label="交互画板标题">
+              <Switch
+                checkedChildren="强"
+                unCheckedChildren="弱"
+                defaultChecked={this.props.title === 'strong'}
+                onChange={this.handleTitle}
+              />
+            </FormItem>
+            <FormItem key="Copyright" label="Design & Develop by">
+              <a onClick={() => PostMessage('handleYuque', null)}>CanisMinor (倏昱)</a>
+            </FormItem>
+          </QueueAnim>
+          <ButtonGroup>
+            <Button
+              style={{ background: this.props.theme === 'black' ? '#333' : '#fff' }}
+              onClick={this.handleClose}
+            >
+              取消
+            </Button>
+            <Button type="primary" onClick={this.handleSave}>
+              保存
+            </Button>
+          </ButtonGroup>
+        </View>
+      </>
+    );
   }
 
   handleChange = (e, key) => {

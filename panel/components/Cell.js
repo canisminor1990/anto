@@ -41,6 +41,7 @@ Cell.Title = styled.div`
   word-wrap: break-word;
   overflow: hidden;
   flex: 1;
+  cursor: pointer;
   ${props =>
     props.active
       ? css`

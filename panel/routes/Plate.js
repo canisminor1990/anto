@@ -8,36 +8,38 @@ import { PostMessage } from '../utils/PostMessage';
 
 class Layer extends Component {
   render() {
-    return [
-      <Title key="title">板</Title>,
-      <View key="panel">
-        <Iconfont
-          key="排除"
-          title="排除"
-          type="plate-ignore"
-          onClick={() => PostMessage('handleIgnore', null)}
-        />
-        <Iconfont
-          key="制标"
-          title="制标"
-          type="plate-title"
-          onClick={() => PostMessage('handleTitle', null)}
-        />
-        <Iconfont
-          key="制版"
-          title="制版"
-          type="plate-artboard"
-          onClick={() => PostMessage('handlePlate', null)}
-        />
-        <Iconfont
-          key="导出"
-          title="导出"
-          type="plate-export"
-          onClick={() => PostMessage('handleExport', null)}
-        />
-        <Close name="layer" single />
-      </View>,
-    ];
+    return (
+      <>
+        <Title key="title">板</Title>
+        <View key="panel">
+          <Iconfont
+            key="排除"
+            title="排除"
+            type="plate-ignore"
+            onClick={() => PostMessage('handleIgnore', null)}
+          />
+          <Iconfont
+            key="制标"
+            title="制标"
+            type="plate-title"
+            onClick={() => PostMessage('handleTitle', null)}
+          />
+          <Iconfont
+            key="制版"
+            title="制版"
+            type="plate-artboard"
+            onClick={() => PostMessage('handlePlate', null)}
+          />
+          <Iconfont
+            key="导出"
+            title="导出"
+            type="plate-export"
+            onClick={() => PostMessage('handleExport', null)}
+          />
+          <Close name="layer" single />
+        </View>
+      </>
+    );
   }
 }
 
