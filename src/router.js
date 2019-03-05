@@ -103,7 +103,7 @@ export default class Router extends Sketch {
 
   word() {
     this.webContents.on('handleWord', e => {
-      this.ui.success(`"${e}"已复制到剪切板`);
+      this.ui.success(`「${e}」已复制到剪切板`);
     });
   }
 

@@ -43,11 +43,16 @@ const LibHeader = styled.div`
   color: #333;
   font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid #ddd;
 `;
 
 const LibBlock = styled.div`
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
+
+  padding: 1rem 0;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px dashed #ddd;
 `;
 
 const LibTitle = styled.span`
