@@ -1,7 +1,7 @@
 import { hsl } from 'polished';
 import { Component } from 'react';
 import styled from 'styled-components';
-import Data from '../color.json';
+import Data from '../data/color.json';
 import _ from 'lodash';
 import { Slider, Switch } from 'antd';
 import { Title, View, Close, Cell, ButtonGroup } from '../components';

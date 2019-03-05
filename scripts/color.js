@@ -63,7 +63,7 @@ const BuildData = () => {
     });
     Data.push(ArtboardData);
   });
-  fs.writeFileSync("panel/color.json", JSON.stringify(Data));
+  fs.writeFileSync("panel/data/color.json", JSON.stringify(Data));
   console.log(Data)
 };
 

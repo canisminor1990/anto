@@ -61,4 +61,4 @@ const newDoc = (new Doc(doc)).run();
 
 console.log(JSON.stringify(newDoc, null, 2));
 
-fs.writeFileSync('panel/word.json',JSON.stringify(newDoc))
+fs.writeFileSync('panel/data/word.json',JSON.stringify(newDoc))

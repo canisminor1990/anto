@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import styled from 'styled-components';
-import Data from '../symbol.json';
-import Toc from '../toc.json';
+import Data from '../data/symbol.json';
+import Toc from '../data/toc.json';
 import _ from 'lodash';
 import { Button, Icon } from 'antd';
 import { Title, Close, View, ListView, Cell } from '../components';

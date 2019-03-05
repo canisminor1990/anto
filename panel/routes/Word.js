@@ -1,11 +1,11 @@
 import { Component } from 'react';
 import styled from 'styled-components';
-import Data from '../word.json';
 import { Input } from 'antd';
 import { Title, View, Close, Cell } from '../components';
 import _ from 'lodash';
 import { PostMessage } from '../utils/PostMessage';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Data from '../data/word.json';
 
 const Search = Input.Search;
 /// /////////////////////////////////////////////

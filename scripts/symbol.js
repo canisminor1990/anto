@@ -30,6 +30,6 @@ _.forEach(rootDirs, rootDir => {
   });
 });
 
-fs.writeFileSync("panel/symbol.json", JSON.stringify(Tree));
+fs.writeFileSync("panel/data/symbol.json", JSON.stringify(Tree));
 console.log(JSON.stringify(Tree))
 
