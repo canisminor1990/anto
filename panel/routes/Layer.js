@@ -25,12 +25,6 @@ class Layer extends Component {
             onClick={() => PostMessage('handleSort', null)}
           />
           <Iconfont
-            key="序号"
-            title="序号"
-            type="layer-number"
-            onClick={() => PostMessage('handleNumber', null)}
-          />
-          <Iconfont
             key="置顶"
             title="置顶"
             type="layer-top-lite"
@@ -59,6 +53,12 @@ class Layer extends Component {
             title="调高"
             type="layer-height"
             onClick={() => PostMessage('handleHeight', null)}
+          />
+          <Iconfont
+            key="混合"
+            title="混合"
+            type="layer-blender"
+            onClick={() => PostMessage('handleBlender', null)}
           />
           <Close name="layer" single />
         </View>

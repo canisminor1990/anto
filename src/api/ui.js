@@ -18,8 +18,8 @@ export default class sketchUI {
   alert(title, string) {
     UI.alert(title, string);
   }
-  inputPanel(title, defalutValue) {
-    return UI.getStringFromUser(title, defalutValue);
+  inputPanel(title, defalutValue, func) {
+    return UI.getInputFromUser(title, defalutValue, func);
   }
   selectPanel(title, options = []) {
     const selection = UI.getSelectionFromUser(title, options);

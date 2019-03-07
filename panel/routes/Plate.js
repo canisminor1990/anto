@@ -19,6 +19,12 @@ class Layer extends Component {
             onClick={() => PostMessage('handleIgnore', null)}
           />
           <Iconfont
+            key="序号"
+            title="序号"
+            type="plate-number"
+            onClick={() => PostMessage('handleNumber', null)}
+          />
+          <Iconfont
             key="制标"
             title="制标"
             type="plate-title"

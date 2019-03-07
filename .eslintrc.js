@@ -29,7 +29,7 @@ module.exports = {
     "localStorage"        : true,
     "$isDev"              : true,
     "define"              : true,
-    "fetch"              : true,
+    "fetch"               : true,
     "AppController"       : true,
     "MSSliceLayer"        : true,
     "MSLayerMovement"     : true,
@@ -41,7 +41,11 @@ module.exports = {
     "NSWorkspace"         : true,
     "NSURL"               : true,
     "NSSavePanel"         : true,
-    "NSString"            : true
+    "NSString"            : true,
+    "MSTextLayer"         : true,
+    "MSRectangleShape"    : true,
+    "NSMakeRect"          : true,
+    "MSColor"             : true
   },
   env          : {
     "es6" : true,

@@ -20,7 +20,7 @@ export default class SketchNative {
   }
 
   get selection() {
-    return this.page.selectedLayers();
+    return this.document.selectedLayers();
   }
 
   get firstSelectLayer() {

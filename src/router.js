@@ -14,14 +14,15 @@ import handleLine from './models/handleLine';
 import handleDash from './models/handleDash';
 import handleChange from './models/handleChange';
 // 图层
-import handleNumber from './models/handleNumber';
 import handleFrontBackLite from './models/handleFrontBackLite';
 import handleFrontBack from './models/handleFrontBack';
 import handleSort from './models/handleSort';
 import handleLayout from './models/handleLayout';
 import handleHeight from './models/handleHeight';
+import handleBlender from './models/handleBlender';
 // 制版
 import handleIgnore from './models/handleIgnore';
+import handleNumber from './models/handleNumber';
 import handleTitle from './models/handleTitle';
 import handlePlate from './models/handlePlate';
 import handleExport from './models/handleExport';
@@ -91,11 +92,12 @@ export default class Router extends Sketch {
     this.webContents.on('handleSort', () => new handleSort().start());
     this.webContents.on('handleLayout', () => new handleLayout().start());
     this.webContents.on('handleHeight', () => new handleHeight().start());
-    this.webContents.on('handleNumber', () => new handleNumber().start());
+    this.webContents.on('handleBlender', () => new handleBlender().start());
   }
 
   plate() {
     this.webContents.on('handleIgnore', () => new handleIgnore().start());
+    this.webContents.on('handleNumber', () => new handleNumber().start());
     this.webContents.on('handleTitle', () => new handleTitle().start());
     this.webContents.on('handlePlate', () => new handlePlate().start());
     this.webContents.on('handleExport', () => new handleExport().start());
