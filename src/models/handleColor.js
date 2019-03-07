@@ -39,6 +39,7 @@ export default class handleColor extends Sketch {
           layer.style.fills = [
             {
               fillType: type,
+              fill: type, // fix new sketch version
               [type === 'Color' ? 'color' : 'gradient']: color,
             },
           ];
