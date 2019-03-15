@@ -15,4 +15,4 @@ dist
 ./docs/AFUX 色彩库
 *.sketchplugin
 *.zip
-webhook.json
+./scripts/webhook.json
