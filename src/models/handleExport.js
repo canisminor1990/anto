@@ -37,7 +37,7 @@ export default class handleExport extends Sketch {
           const sliceLayer = _.filter(layer.layers(), l => String(l.class()) === 'MSSliceLayer')[0];
           const name = String(sliceLayer.name());
           const info = name.split(' (')[1].split(') ');
-          const path = join('preview', name + '.png');
+          const path = join('preview', name + '.jpg');
           this.native.setY(sliceLayer, sliceLayer.frame().y() + this.height);
           this.native.setHeight(sliceLayer, sliceLayer.frame().height() - this.height);
 
@@ -58,7 +58,7 @@ export default class handleExport extends Sketch {
 
           // 导出封面
           this.native.exportSlice(symbolSlice, join(RootPath, 'preview'));
-          const coverPath = join('preview', symbolName + '.png');
+          const coverPath = join('preview', symbolName + '.jpg');
           this.native.remove(symbolSlice);
 
           // 添加压缩包

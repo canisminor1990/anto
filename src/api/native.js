@@ -86,7 +86,7 @@ export default class SketchNative {
 
   setExport(layer, size = 1, type = 'x') {
     const Slice = layer.exportOptions().addExportFormat();
-    Slice.setFileFormat('png');
+    Slice.setFileFormat('jpg');
     Slice.setNamingScheme(0);
     if (type === 'w') {
       Slice.setVisibleScaleType(1);
@@ -104,6 +104,6 @@ export default class SketchNative {
   }
 
   exportSlice(slice, path) {
-    this.document.saveArtboardOrSlice_toFile(slice, join(path, String(slice.name()) + '.png'));
+    this.document.saveArtboardOrSlice_toFile(slice, join(path, String(slice.name()) + '.jpg'));
   }
 }
