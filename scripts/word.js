@@ -35,6 +35,7 @@ class Doc {
   }
 
   Content(data) {
+    try{
     const Data =  data.split(/\n\n\n/g);
     const Example = Data[1].split("- 错误:")
     _.forEach(Example,(text,index) =>{
@@ -46,6 +47,14 @@ class Doc {
       true:Example[0],
       wrong:Example[1]
     };
+    } catch (e) {
+      console.log(data)
+      return {
+        desc: "null",
+        true:["null"],
+        wrong:["null"]
+      }
+    }
   }
 
   handleTag(tags) {
@@ -53,12 +62,11 @@ class Doc {
   }
 
   run() {
+
     return this.H1(this.data);
   }
 }
 
 const newDoc = (new Doc(doc)).run();
-
-console.log(JSON.stringify(newDoc, null, 2));
 
 fs.writeFileSync('panel/data/word.json',JSON.stringify(newDoc))

@@ -203,17 +203,19 @@ class Word extends Component {
         ))}
         <LibContent>
           <LibTrue>✓</LibTrue>
-          {data.true.map((t, i) => (
-            <CopyToClipboard key={i} text={t}>
-              <LibTrue onClick={() => this.handleCopy(t)}>{t}</LibTrue>
-            </CopyToClipboard>
-          ))}
+          {data.true && data.true.length > 0
+            ? data.true.map((t, i) => (
+                <CopyToClipboard key={i} text={t}>
+                  <LibTrue onClick={() => this.handleCopy(t)}>{t}</LibTrue>
+                </CopyToClipboard>
+              ))
+            : null}
         </LibContent>
         <LibContent>
           <LibWrong>✗</LibWrong>
-          {data.wrong.map((t, i) => (
-            <LibWrong key={i}>{t}</LibWrong>
-          ))}
+          {data.wrong && data.wrong.length > 0
+            ? data.wrong.map((t, i) => <LibWrong key={i}>{t}</LibWrong>)
+            : null}
         </LibContent>
       </LibBlock>
     );
@@ -232,17 +234,24 @@ class Word extends Component {
     const result = [];
 
     _.forEach(newData, d => {
-      let state = false;
-      if (JSON.stringify(d.title).indexOf(this.state.keywords) > -1) state = true;
-      if (d.desc.indexOf(this.state.keywords) > -1) state = true;
-      if (JSON.stringify(d.true).indexOf(this.state.keywords) > -1) state = true;
-      if (JSON.stringify(d.wrong).indexOf(this.state.keywords) > -1) state = true;
-      if (state) result.push(d);
+      if (JSON.stringify(d.title).indexOf(this.state.keywords) > -1) result.push(d);
+    });
+
+    _.forEach(newData, d => {
+      if (d.true && JSON.stringify(d.true).indexOf(this.state.keywords) > -1) result.push(d);
+    });
+
+    _.forEach(newData, d => {
+      if (d.wrong && JSON.stringify(d.wrong).indexOf(this.state.keywords) > -1) result.push(d);
+    });
+
+    _.forEach(newData, d => {
+      if (d.desc.indexOf(this.state.keywords) > -1) result.push(d);
     });
 
     return (
       <LibGroup>
-        {result.length > 0 ? result.map(this.mapLibGroup) : '对不起，未找到匹配结果...'}
+        {result.length > 0 ? _.uniq(result).map(this.mapLibGroup) : '对不起，未找到匹配结果...'}
       </LibGroup>
     );
   };
