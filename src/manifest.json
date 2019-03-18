@@ -27,6 +27,7 @@
 			"icon"      : "minicon.png",
 			"identifier": "AntoPanel",
 			"script"    : "index.js",
+			"shortcut" : "cmd option a",
 			"handlers"  : {
 				"actions": {
 					"run"         : "onRun",

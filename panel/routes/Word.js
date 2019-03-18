@@ -231,27 +231,23 @@ class Word extends Component {
       });
     });
 
-    const result = [];
+    const result1 = [];
+    const result2 = [];
+    const result3 = [];
+    const result4 = [];
 
     _.forEach(newData, d => {
-      if (JSON.stringify(d.title).indexOf(this.state.keywords) > -1) result.push(d);
+      if (JSON.stringify(d.title).indexOf(this.state.keywords) > -1) result1.push(d);
+      if (d.true && JSON.stringify(d.true).indexOf(this.state.keywords) > -1) result2.push(d);
+      if (d.wrong && JSON.stringify(d.wrong).indexOf(this.state.keywords) > -1) result3.push(d);
+      if (d.desc.indexOf(this.state.keywords) > -1) result4.push(d);
     });
 
-    _.forEach(newData, d => {
-      if (d.true && JSON.stringify(d.true).indexOf(this.state.keywords) > -1) result.push(d);
-    });
-
-    _.forEach(newData, d => {
-      if (d.wrong && JSON.stringify(d.wrong).indexOf(this.state.keywords) > -1) result.push(d);
-    });
-
-    _.forEach(newData, d => {
-      if (d.desc.indexOf(this.state.keywords) > -1) result.push(d);
-    });
+    const result = _.uniq([].concat(result1, result2, result3, result4));
 
     return (
       <LibGroup>
-        {result.length > 0 ? _.uniq(result).map(this.mapLibGroup) : '对不起，未找到匹配结果...'}
+        {result.length > 0 ? result.map(this.mapLibGroup) : '对不起，未找到匹配结果...'}
       </LibGroup>
     );
   };
