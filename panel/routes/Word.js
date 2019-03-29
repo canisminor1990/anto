@@ -101,11 +101,9 @@ const LibTag = styled.span`
   display: block;
   font-size: 0.8rem;
   color: #fff;
-  height: 1.2rem;
   border-radius: 0.2rem;
   line-height: 1.2rem;
   padding: 0 0.3rem;
-  text-align: center;
   margin-right: 0.2rem;
   margin-bottom: 0.2rem;
 `;
