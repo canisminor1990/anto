@@ -57,7 +57,8 @@ export default class Router extends Sketch {
     this.webContents.on('handleLocalSymbol', e => new handleLocalSymbol().start(e));
     this.webContents.on('handleBuildLocalSymbol', () => {
       const symbol = new handleBuildLocalSymbol().build();
-      this.sendWebview('local-symbols', symbol);
+      this.sendWebview('local-symbols-data', symbol.data);
+      this.sendWebview('local-symbols-time', symbol.time);
     });
   }
 

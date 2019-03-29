@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { Button, Icon } from 'antd';
 import { Title, Close, View, ListView, Cell } from '../components';
 import { PostMessage } from '../utils/PostMessage';
-
+import { resolve } from 'path';
 /// /////////////////////////////////////////////
 // styled
 /// /////////////////////////////////////////////
@@ -188,10 +188,10 @@ class Symbol extends Component {
   );
 
   LocalView = () => {
-    let LocalData = localStorage.getItem('local-symbols');
+    let LocalData = localStorage.getItem('local-symbols-data');
     if (LocalData && !this.state.local) this.setState({ local: true });
     if (this.state.local) {
-      LocalData = _.sortBy(JSON.parse(LocalData).data, 'name');
+      LocalData = _.sortBy(JSON.parse(LocalData), 'name');
     }
     return (
       <View width={this.props.width} inner>
@@ -223,14 +223,14 @@ class Symbol extends Component {
       return (
         <Cell key={key} onClick={() => this.setState({ activeLocal: name })}>
           <Cover>
-            <img src={`localSymbols/${s.id}.png`} />
+            <img src={s.path} />
           </Cover>
           <Cell.Title active={this.state.activeLocal === name}>{name}</Cell.Title>
         </Cell>
       );
     };
     return (
-      <ListView width="9rem" key={this.refresh}>
+      <ListView width="9rem" key={this.state.refresh}>
         <RefreshBtn onClick={this.handleRefresh}>
           <Icon style={{ marginRight: '.5rem' }} type="reload" />
           刷新
@@ -248,15 +248,14 @@ class Symbol extends Component {
       name = name.join(' / ');
       return (
         <Img key={key}>
-          <img
-            src={`localSymbols/${s.id}.png`}
-            onDragEnd={() => PostMessage('handleLocalSymbol', s.id)}
-          />
+          <img src={s.path} onDragEnd={() => PostMessage('handleLocalSymbol', s.id)} />
           <ImgTitle>{name}</ImgTitle>
         </Img>
       );
     };
-    return <LibraryView key={this.refresh}>{_.sortBy(data, 'name').map(mapData)}</LibraryView>;
+    return (
+      <LibraryView key={this.state.refresh}>{_.sortBy(data, 'name').map(mapData)}</LibraryView>
+    );
   };
 
   render() {
@@ -267,7 +266,7 @@ class Symbol extends Component {
           <this.SwitchTitle name="本地" />
         </Title>
         {this.state.tab === '交互' ? <this.InteractiveView key="interactive" /> : null}
-        {this.state.tab === '本地' ? <this.LocalView key={this.refresh} /> : null}
+        {this.state.tab === '本地' ? <this.LocalView key={this.state.refresh} /> : null}
         <Close key="close" name="symbol" />
       </>
     );
@@ -277,13 +276,13 @@ class Symbol extends Component {
     let getNewData = false;
     let time = '';
     if (this.state.local) {
-      time = JSON.parse(localStorage.getItem('local-symbols')).time;
+      time = JSON.parse(localStorage.getItem('local-symbols-time'));
     }
     PostMessage('handleBuildLocalSymbol', null);
     while (getNewData) {
       let newTime = time;
       setTimeout(() => {
-        newTime = JSON.parse(localStorage.getItem('local-symbols')).time;
+        newTime = JSON.parse(localStorage.getItem('local-symbols-time'));
       }, 100);
       getNewData = newTime !== time;
     }
