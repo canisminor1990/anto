@@ -68,6 +68,7 @@ module.exports = {
     "react/no-string-refs"       : 0,
     "react/no-unescaped-entities": 0,
     "handle-callback-err"        : 1,
-    "new-cap"                    : 0
+    "new-cap"                    : 0,
+    "node/no-deprecated-api"     : 1
   }
 };

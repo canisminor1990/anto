@@ -177,7 +177,7 @@ class Symbol extends Component {
         </Img>
       )
     );
-    return <LibraryView>{List}</LibraryView>;
+    return <LibraryView data-app-region="no-drag">{List}</LibraryView>;
   };
 
   InteractiveView = () => (
@@ -254,7 +254,9 @@ class Symbol extends Component {
       );
     };
     return (
-      <LibraryView key={this.state.refresh}>{_.sortBy(data, 'name').map(mapData)}</LibraryView>
+      <LibraryView key={this.state.refresh} data-app-region="no-drag">
+        {_.sortBy(data, 'name').map(mapData)}
+      </LibraryView>
     );
   };
 

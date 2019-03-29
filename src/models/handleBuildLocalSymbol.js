@@ -30,7 +30,7 @@ export default class handleBuildLocalSymbol extends Sketch {
 
     _.forEach(this.symbols, symbol => {
       let img = fs.readFileSync(join(path, `${symbol.id}@0.5x.jpg`));
-      img = Buffer.from(img).toString('base64');
+      img = new Buffer(img).toString('base64');
       const base64 = 'data:jpg;base64,' + img;
       data.push({
         name: symbol.name,
