@@ -118,6 +118,10 @@ export default class Router extends Sketch {
   }
 
   config() {
+    this.webContents.on('handleClose', () => {
+      this.browserWindow.destroy();
+    });
+
     this.webContents.on('changeMode', e => {
       this.setting.set('panel-mode', e);
       this.ui.success(`切换到「${e}模式」`);

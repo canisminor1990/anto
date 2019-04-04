@@ -20,8 +20,8 @@ import Setting from './Setting';
 
 const View = styled.div`
   display: flex;
-  background: ${props => (props.theme === 'black' ? '#222' : '#f5f5f5')};
   color: ${props => (props.theme === 'black' ? '#aaa' : '#777')};
+  background: ${props => (props.theme === 'black' ? '#222' : '#f5f5f5')};
 `;
 
 const SideBar = styled.div`
@@ -35,6 +35,7 @@ const SideBar = styled.div`
   align-items: center;
   top: 0;
   left: 0;
+  z-index: 100;
   border-right: ${props =>
     props.theme === 'black' ? '1px solid rgba(0, 0, 0, 0.1)' : '1px solid #eee'};
   z-index: 999;
@@ -54,7 +55,6 @@ const Logo = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: 28px auto;
-  cursor: pointer;
   box-shadow: ${props =>
     props.theme === 'black' ? '0 4px 12px rgba(0, 0, 0, 0.2)' : '0 4px 8px rgba(0, 0, 0, 0.05)'};
 `;
@@ -79,7 +79,7 @@ const Mode = styled.div`
   }
 `;
 
-const Config = styled.div`
+const Close = styled.div`
   position: fixed;
   bottom: 0;
   width: 3rem;
@@ -190,6 +190,12 @@ class WebView extends Component {
           type="main-yuque"
           onClick={() => PostMessage('handleYuque', null)}
         />
+        <Iconfont
+          key="设置"
+          title="设置"
+          type="main-config"
+          onClick={() => this.openPanel('setting', this.state.setting)}
+        />
       </QueueAnim>
       <Mode
         onClick={this.handleChangeMode}
@@ -198,10 +204,7 @@ class WebView extends Component {
       >
         {this.props.mode}
       </Mode>
-      <Config
-        className="iconfont icon-setting"
-        onClick={() => this.openPanel('setting', this.state.setting)}
-      />
+      <Close className="iconfont icon-close" onClick={() => PostMessage('handleClose', null)} />
     </SideBar>
   );
 

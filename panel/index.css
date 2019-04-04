@@ -4,6 +4,7 @@ body,
   height: 100%;
   overflow: hidden;
   user-select: none;
+  background: transparent;
 }
 
 body {
