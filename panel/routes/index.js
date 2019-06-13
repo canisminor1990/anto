@@ -132,7 +132,7 @@ class WebView extends Component {
   };
 
   SideBar = () => (
-    <SideBar theme={this.props.theme}>
+    <SideBar theme={this.props.theme} data-app-region="drag">
       <Logo theme={this.props.theme} />
       <QueueAnim duration={200} interval={50} type="bottom">
         <Iconfont
