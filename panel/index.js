@@ -11,8 +11,12 @@ const app = dva({
 });
 
 // 2. Models
+app.model(require('./models/check').default);
 app.model(require('./models/store').default);
 app.model(require('./models/config').default);
+app.model(require('./models/symbols').default);
+app.model(require('./models/colors').default);
+app.model(require('./models/docs').default);
 
 // 2. Plugins
 app.use(createLoading());

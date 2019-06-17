@@ -50,7 +50,7 @@ export default class handleNote extends Sketch {
     // 找到Symbol
     let master;
     if (!isText) {
-      master = this.library.getSymbol(this.library.afuxExport, this.option[type].name);
+      master = this.library.getSymbol(this.library.antoExport, this.option[type].name);
       if (!master) return this.ui.warn('请检查Symbol是否存在');
     }
 

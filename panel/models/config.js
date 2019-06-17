@@ -11,6 +11,7 @@ export default {
     layer: false,
     plate: false,
     word: false,
+    dev: false,
     setting: false,
   },
 

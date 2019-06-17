@@ -5,13 +5,14 @@ import { Iconfont } from '../components';
 import QueueAnim from 'rc-queue-anim';
 import { PostMessage } from '../utils/PostMessage';
 // Panel
-import Symbol from './Symbol';
-import Color from './Color';
+import Symbols from './Symbols';
+import Colors from './Colors';
 import Line from './Line';
 import Note from './Note';
 import Layer from './Layer';
 import Plate from './Plate';
-import Word from './Word';
+import Docs from './Docs';
+import Dev from './Dev';
 import Setting from './Setting';
 
 /// /////////////////////////////////////////////
@@ -115,6 +116,9 @@ const Dispatch = dispatch => ({
   setStore(obj) {
     dispatch({ type: `store/update`, payload: obj });
   },
+  check() {
+    dispatch({ type: `check/get` });
+  },
 });
 
 /// /////////////////////////////////////////////
@@ -122,14 +126,16 @@ const Dispatch = dispatch => ({
 /// /////////////////////////////////////////////
 
 class WebView extends Component {
-  componentDidMount() {}
-
   state = {
     symbol: 370,
     color: 220,
     setting: 250,
     word: 370,
   };
+
+  componentDidMount() {
+    this.props.check();
+  }
 
   SideBar = () => (
     <SideBar theme={this.props.theme} data-app-region="drag">
@@ -190,6 +196,14 @@ class WebView extends Component {
           type="main-yuque"
           onClick={() => PostMessage('handleYuque', null)}
         />
+        {this.props.devMode ? (
+          <Iconfont
+            key="开发"
+            title="开发"
+            type="main-config"
+            onClick={() => this.openPanel('dev')}
+          />
+        ) : null}
         <Iconfont
           key="设置"
           title="设置"
@@ -213,13 +227,14 @@ class WebView extends Component {
       <View theme={this.props.theme}>
         <this.SideBar />
         <Panel>
-          {this.props.symbol ? <Symbol width={this.state.symbol} /> : null}
-          {this.props.color ? <Color width={this.state.color} /> : null}
+          {this.props.symbol ? <Symbols width={this.state.symbol} /> : null}
+          {this.props.color ? <Colors width={this.state.color} /> : null}
           {this.props.line ? <Line /> : null}
           {this.props.note ? <Note /> : null}
           {this.props.layer ? <Layer /> : null}
           {this.props.plate ? <Plate /> : null}
-          {this.props.word ? <Word width={this.state.word} /> : null}
+          {this.props.word ? <Docs width={this.state.word} /> : null}
+          {this.props.dev ? <Dev /> : null}
           {this.props.setting ? <Setting width={this.state.setting} /> : null}
         </Panel>
       </View>

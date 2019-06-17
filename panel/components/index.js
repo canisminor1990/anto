@@ -5,3 +5,5 @@ export { default as View } from './View';
 export { default as ListView } from './ListView';
 export { default as Cell } from './Cell';
 export { default as ButtonGroup } from './ButtonGroup';
+export { default as Loading } from './Loading';
+export { default as Check } from './Check';

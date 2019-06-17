@@ -25,7 +25,7 @@ const Switch = styled.span`
   ${props =>
     props.active
       ? css`
-          border-bottom: 2px solid #2a72ff;
+          border-bottom: 3px solid #2a72ff;
           color: rgba(100, 100, 100, 1);
         `
       : null}

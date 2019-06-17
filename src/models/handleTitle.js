@@ -25,7 +25,7 @@ export default class handleTitle extends Sketch {
       symbolName = titleStyle === 'strong' ? '交互 / 标题-强' : '交互 / 标题';
     }
 
-    const master = this.library.getSymbol(this.library.afuxExport, symbolName);
+    const master = this.library.getSymbol(this.library.antoExport, symbolName);
     if (!master) return this.ui.warn('请检查Symbol是否存在');
 
     // 导入

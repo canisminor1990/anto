@@ -15,7 +15,7 @@ export default class handlePlate extends Sketch {
   run() {
     const isInteractiveMode = this.mode === '交互';
     // 找到Symbol
-    const master = this.library.getSymbol(this.library.afuxExport, `${this.mode} / 画板`);
+    const master = this.library.getSymbol(this.library.antoExport, `${this.mode} / 画板`);
     if (!master) return this.ui.warn('请检查Symbol是否存在');
     const symbolMaster = master.import();
 

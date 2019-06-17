@@ -26,6 +26,8 @@ import handleNumber from './models/handleNumber';
 import handleTitle from './models/handleTitle';
 import handlePlate from './models/handlePlate';
 import handleExport from './models/handleExport';
+// 制版
+import handleBuild from './models/handleBuild';
 
 export default class Router extends Sketch {
   constructor(browserWindow) {
@@ -117,6 +119,10 @@ export default class Router extends Sketch {
     });
   }
 
+  dev() {
+    this.webContents.on('handleBuild', () => new handleBuild().start());
+  }
+
   config() {
     this.webContents.on('handleClose', () => {
       this.browserWindow.destroy();
@@ -146,6 +152,7 @@ export default class Router extends Sketch {
     this.plate();
     this.yuque();
     this.word();
+    this.dev();
     this.config();
   }
 }

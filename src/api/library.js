@@ -7,12 +7,16 @@ export default class SketchLibrary {
     return sketch.Library.getLibraries();
   }
 
-  get afuxExport() {
-    return this.get('AFUX 输出组件');
+  get antoExport() {
+    return this.get('Anto 输出组件');
   }
 
-  get afuxInteractive() {
-    return this.get('AFUX 交互组件');
+  get ux() {
+    return this.get('Anto 交互组件');
+  }
+
+  get ui() {
+    return this.get('Anto 视觉组件');
   }
 
   get(name) {

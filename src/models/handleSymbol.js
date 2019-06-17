@@ -11,11 +11,9 @@ export default class handlSymbol extends Sketch {
     const data = JSON.parse(e);
 
     // 找到Library
-    const library = this.library.afuxInteractive;
+    const library = this.library[data.type];
     const libDocument = library.getDocument();
-    const libPage = _.filter(libDocument.pages, p => p.name === 'B 控件库')[0];
-    const artboard = _.filter(libPage.layers, l => l.name === data.type)[0];
-    const symbol = _.filter(artboard.layers, l => l.name === data.layer)[0];
+    const symbol = libDocument.getLayerWithID(data.id);
 
     // 制作临时组件
     const copySymbol = symbol.duplicate();
@@ -23,7 +21,7 @@ export default class handlSymbol extends Sketch {
     const masterArtboard = this.create.artboard({
       name: name,
       frame: copySymbol.frame,
-      parent: libPage,
+      parent: libDocument.pages[1],
       layers: [],
       flowStartPoint: true,
     });

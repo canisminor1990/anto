@@ -56,6 +56,7 @@ class Setting extends Component {
     name: '',
     theme: 'black',
     title: 'low',
+    devMode: false,
   };
 
   version = localStorage.getItem('version');
@@ -96,6 +97,14 @@ class Setting extends Component {
                 onChange={this.handleTitle}
               />
             </FormItem>
+            <FormItem key="开发者模式" label="开发者模式">
+              <Switch
+                checkedChildren="开"
+                unCheckedChildren="关"
+                defaultChecked={this.props.devMode === true}
+                onChange={this.handleDev}
+              />
+            </FormItem>
             <FormItem key="Copyright" label="Design & Develop by">
               <a onClick={() => PostMessage('handleYuque', null)}>CanisMinor (倏昱)</a>
             </FormItem>
@@ -118,6 +127,10 @@ class Setting extends Component {
 
   handleChange = (e, key) => {
     this.setState({ [key]: e });
+  };
+
+  handleDev = bool => {
+    this.setState({ devMode: bool });
   };
 
   handleTheme = bool => {

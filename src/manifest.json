@@ -17,8 +17,7 @@
 			"script"  : "library.js",
 			"handlers": {
 				"actions": {
-					"Startup"     : "addLibrary",
-					"Shutdown"    : "removeLibrary"
+					"Startup"     : "addLibrary"
 				}
 			}
 		},
