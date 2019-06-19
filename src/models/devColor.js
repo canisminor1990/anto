@@ -22,9 +22,13 @@ export default class devSymbol extends Sketch {
       _.forEach(sortedLayers, l => {
         const color = l.style.fills[0].color;
         const rgba = hexToRgba(color);
+        console.log(rgba);
         Tree[artboard.name].push({
           name: l.name,
-          desc: rgba[3] === 1 ? color.slice(0, 7) : hexToRgba(color).toString(),
+          desc:
+            rgba[3] === 1
+              ? color.slice(0, 7)
+              : `rgba(${rgba[0]},${rgba[1]},${rgba[2]},${rgba[3].toFixed(2)})`,
           color: color,
         });
       });

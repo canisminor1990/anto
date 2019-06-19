@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import styled from 'styled-components';
-import { Form, Input, Button, Switch } from 'antd';
+import { Form, Input, Button, Switch, AutoComplete } from 'antd';
 import { connect } from 'dva';
 import QueueAnim from 'rc-queue-anim';
 import { Title, View, ButtonGroup } from '../components';
@@ -32,6 +32,7 @@ const Version = styled.div`
 
 const State = state => {
   return {
+    username: state.username,
     store: state.store,
     ...state.store,
     ...state.config,
@@ -44,6 +45,9 @@ const Dispatch = dispatch => ({
   },
   setStore(obj) {
     dispatch({ type: `store/update`, payload: obj });
+  },
+  gerUsers(name) {
+    dispatch({ type: `username/get`, payload: name });
   },
 });
 
@@ -65,6 +69,11 @@ class Setting extends Component {
     this.setState(this.props.store);
   }
 
+  handleSearch = value => {
+    this.props.gerUsers(value);
+    console.log(this.props.username);
+  };
+
   render() {
     return (
       <>
@@ -75,10 +84,12 @@ class Setting extends Component {
               ANTO <span>ver{this.version ? this.version : '1.0.0'}</span>
             </Version>
             <FormItem key="花名" label="花名">
-              <Input
-                placeholder="请输入花名"
+              <AutoComplete
+                dataSource={this.props.username}
+                onSearch={this.handleSearch}
                 defaultValue={this.state.name}
-                onChange={e => this.handleChange(e.target.value, 'name')}
+                onChange={e => this.handleChange(e, 'name')}
+                placeholder="请输入花名"
               />
             </FormItem>
             <FormItem key="皮肤" label="皮肤">

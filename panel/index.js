@@ -12,6 +12,7 @@ const app = dva({
 
 // 2. Models
 app.model(require('./models/check').default);
+app.model(require('./models/username').default);
 app.model(require('./models/store').default);
 app.model(require('./models/config').default);
 app.model(require('./models/symbols').default);

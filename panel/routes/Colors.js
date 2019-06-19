@@ -132,23 +132,25 @@ class Colors extends Component {
     </Title.Switch>
   );
 
-  mapColor = (data, key) => {
-    const desc = (
-      <Sub>
-        <Point style={{ background: data.desc }} />
-        <Desc>{data.desc}</Desc>
-      </Sub>
-    );
-
-    return (
-      <Cell key={key} onClick={() => this.handleClick(data.color)}>
-        <Icon style={{ background: data.desc }} />
-        <Cell.Title>
-          {data.name}
-          {desc}
-        </Cell.Title>
-      </Cell>
-    );
+  mapColor = group => {
+    const List = [];
+    _.forEach(group, (data, key) => {
+      const desc = (
+        <Sub>
+          <Desc>{data.desc}</Desc>
+        </Sub>
+      );
+      List.push(
+        <Cell key={key} onClick={() => this.handleClick(data.color)}>
+          <Icon style={{ background: data.desc }} />
+          <Cell.Title>
+            {data.name}
+            {desc}
+          </Cell.Title>
+        </Cell>
+      );
+    });
+    return List;
   };
 
   ColorCircle = () => {
@@ -217,7 +219,7 @@ class Colors extends Component {
             {key}
           </Cell.Header>
           <Cell.Group dropdown active={active}>
-            {group.map(this.mapColor)}
+            {this.mapColor(group)}
           </Cell.Group>
         </div>
       );
