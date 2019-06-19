@@ -13,13 +13,17 @@ export default {
   effects: {
     *get(action, { call, put }) {
       const name = action.payload;
-      const result = yield call(() =>
-        request(`http://anto.inc.alipay.net/api/user/search?keyword=${name}`)
-      );
       const names = [];
-      _.forEach(result.data.result, value => {
-        if (value.nick && value.nick !== '') names.push(value.nick);
-      });
+      try {
+        const result = yield call(() =>
+          request(`http://anto.inc.alipay.net/api/user/search?keyword=${name}`)
+        );
+        _.forEach(result.data.result, value => {
+          if (value.nick && value.nick !== '') names.push(value.nick);
+        });
+      } catch (e) {
+        console.log(e);
+      }
       yield put({
         type: 'save',
         payload: names,
