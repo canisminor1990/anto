@@ -43,7 +43,7 @@ export default class SketchCreate {
     return master.createNewInstance();
   }
 
-  slice() {
-    return MSSliceLayer.new();
+  slice(config) {
+    return new sketch.Slice(config);
   }
 }

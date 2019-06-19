@@ -137,7 +137,6 @@ class Symbols extends Component {
       ux: {},
       ui: {},
     },
-    refresh: 0,
   };
 
   localStorageName = 'dropdown-symbols';
@@ -218,17 +217,12 @@ class Symbols extends Component {
   );
 
   LocalView = () => {
-    let LocalData = localStorage.getItem('local-symbols-data');
-    if (LocalData && !this.state.local) this.setState({ local: true });
-    if (this.state.local) {
-      LocalData = _.sortBy(JSON.parse(LocalData), 'name');
-    }
     return (
       <View width={this.props.width} inner>
         {this.state.local ? (
           [
-            <this.LocalList key="list" data={LocalData} />,
-            <this.LocalLibrary key="library" data={LocalData} />,
+            <this.LocalList key="list" data={this.state.local} />,
+            <this.LocalLibrary key="library" data={this.state.local} />,
           ]
         ) : (
           <ButtonView>
@@ -260,7 +254,7 @@ class Symbols extends Component {
       );
     };
     return (
-      <ListView width="9rem" key={this.state.refresh}>
+      <ListView width="9rem">
         <RefreshBtn onClick={this.handleRefresh}>
           <Icon style={{ marginRight: '.5rem' }} type="reload" />
           刷新
@@ -284,9 +278,7 @@ class Symbols extends Component {
       );
     };
     return (
-      <LibraryView key={this.state.refresh} data-app-region="no-drag">
-        {_.sortBy(data, 'name').map(mapData)}
-      </LibraryView>
+      <LibraryView data-app-region="no-drag">{_.sortBy(data, 'name').map(mapData)}</LibraryView>
     );
   };
 
@@ -312,7 +304,7 @@ class Symbols extends Component {
           <this.SwitchTitle name="本地" />
         </Title>
         {this.state.tab === '本地' ? (
-          <this.LocalView key={this.state.refresh} />
+          <this.LocalView />
         ) : this.props.check ? (
           <this.CheckView />
         ) : (
@@ -346,7 +338,10 @@ class Symbols extends Component {
       }, 100);
       getNewData = newTime !== time;
     }
-    this.setState({ refresh: this.state.refresh + 1 });
+    let LocalData = localStorage.getItem('local-symbols-data');
+    if (LocalData && !this.state.local) {
+      this.setState({ local: _.sortBy(JSON.parse(LocalData), 'name') });
+    }
   };
 
   handleHeader = (type, name) => {

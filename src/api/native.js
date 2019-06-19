@@ -103,7 +103,7 @@ export default class SketchNative {
     }
   }
 
-  exportSlice(slice, path) {
-    this.document.saveArtboardOrSlice_toFile(slice, join(path, String(slice.name()) + '.jpg'));
+  exportSlice(slice, path, name) {
+    this.document.saveArtboardOrSlice_toFile(slice, join(path, name + '.jpg'));
   }
 }

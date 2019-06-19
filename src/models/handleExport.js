@@ -52,12 +52,12 @@ export default class handleExport extends Sketch {
           this.native.setHeight(symbolSlice, sliceLayer.frame().height());
 
           // 导出切图
-          this.native.exportSlice(sliceLayer, join(RootPath, 'preview'));
+          this.native.exportSlice(sliceLayer, join(RootPath, 'preview'), name);
           this.native.setY(sliceLayer, sliceLayer.frame().y() - this.height);
           this.native.setHeight(sliceLayer, sliceLayer.frame().height() + this.height);
 
           // 导出封面
-          this.native.exportSlice(symbolSlice, join(RootPath, 'preview'));
+          this.native.exportSlice(symbolSlice, join(RootPath, 'preview'), symbolName);
           const coverPath = join('preview', symbolName + '.jpg');
           this.native.remove(symbolSlice);
 
