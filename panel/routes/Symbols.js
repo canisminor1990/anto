@@ -170,7 +170,7 @@ class Symbols extends Component {
         </Cell>
       )
     );
-    return _.reverse(List);
+    return List;
   };
 
   Cells = ({ data, type }) => {
@@ -188,7 +188,7 @@ class Symbols extends Component {
         </div>
       );
     });
-    return <ListView width="9rem">{_.reverse(List)}</ListView>;
+    return <ListView width="9rem">{List}</ListView>;
   };
 
   Library = ({ data, type }) => {
@@ -207,7 +207,7 @@ class Symbols extends Component {
         </Img>
       );
     });
-    return <LibraryView data-app-region="no-drag">{_.reverse(List)}</LibraryView>;
+    return <LibraryView data-app-region="no-drag">{List}</LibraryView>;
   };
 
   View = ({ data, type }) => (

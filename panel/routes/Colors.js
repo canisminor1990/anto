@@ -91,7 +91,7 @@ const State = state => {
   return {
     check: state.check,
     loading: state.loading.global || state.colors.length === 0,
-    colors: state.colors,
+    colors: state.colors || {},
   };
 };
 
@@ -132,48 +132,19 @@ class Colors extends Component {
     </Title.Switch>
   );
 
-  mapGroup = (group, index) => {
-    const active = !this.state.header[group.name];
-    return (
-      <div key={index}>
-        <Cell.Header dropdown active={active} onClick={() => this.handleHeader(group.name)}>
-          {group.name}
-        </Cell.Header>
-        <Cell.Group dropdown active={active}>
-          {_.sortBy(group.colors, 'key').map(this.mapColor)}
-        </Cell.Group>
-      </div>
+  mapColor = (data, key) => {
+    const desc = (
+      <Sub>
+        <Point style={{ background: data.desc }} />
+        <Desc>{data.desc}</Desc>
+      </Sub>
     );
-  };
-
-  mapColor = (color, index) => {
-    let style;
-    let desc;
-    let points = [];
-    if (color.type === 'Color') {
-      style = color.color;
-      desc = (
-        <Sub>
-          <Point style={{ background: color.color }} />
-          <Desc>{color.color}</Desc>
-        </Sub>
-      );
-    } else {
-      let stopColors = [];
-      _.forEach(color.color.stops, (stop, index) => {
-        stopColors.push(stop.color);
-        points.push(<Point key={index} style={{ background: stop.color }} />);
-        points.push(<Desc key={stop.color}>{stop.color}</Desc>);
-      });
-      desc = <Sub>{points}︎</Sub>;
-      style = `linear-gradient(135deg,${stopColors.join(',')})`;
-    }
 
     return (
-      <Cell key={index} onClick={() => this.handleClick(color.name, color)}>
-        <Icon style={{ background: style }} />
+      <Cell key={key} onClick={() => this.handleClick(data.color)}>
+        <Icon style={{ background: data.desc }} />
         <Cell.Title>
-          {color.name}
+          {data.name}
           {desc}
         </Cell.Title>
       </Cell>
@@ -202,7 +173,7 @@ class Colors extends Component {
             h={angle}
             s={1}
             l={l}
-            onClick={() => this.handleClickBlock(hsl(angle, 1, l))}
+            onClick={() => this.handleClick(hsl(angle, 1, l))}
           >
             {5 - i > 0 ? `+${5 - i}` : 5 - i}
           </ColorBlock>
@@ -236,7 +207,23 @@ class Colors extends Component {
     );
   };
 
-  ColorView = () => _.sortBy(this.props.colors, 'key').map(this.mapGroup);
+  ColorView = () => {
+    const List = [];
+    _.forEach(this.props.colors, (group, key) => {
+      const active = !this.state.header[key];
+      List.push(
+        <div key={key}>
+          <Cell.Header dropdown active={active} onClick={() => this.handleHeader(key)}>
+            {key}
+          </Cell.Header>
+          <Cell.Group dropdown active={active}>
+            {group.map(this.mapColor)}
+          </Cell.Group>
+        </div>
+      );
+    });
+    return List;
+  };
   CheckView = () => (this.props.loading ? <Loading /> : <this.ColorView />);
 
   render() {
@@ -281,19 +268,8 @@ class Colors extends Component {
     localStorage.setItem(this.localStorageName, JSON.stringify(newState));
   };
 
-  handleClick = (name, color) => {
-    this.setState({ activeColor: name });
-    const data = { border: this.state.border, ...color };
-    PostMessage('handleColor', JSON.stringify(data));
-  };
-
-  handleClickBlock = color => {
-    const data = {
-      border: this.state.border,
-      name: color,
-      color: color,
-      type: 'Color',
-    };
+  handleClick = color => {
+    const data = { border: this.state.border, color };
     PostMessage('handleColor', JSON.stringify(data));
   };
 }

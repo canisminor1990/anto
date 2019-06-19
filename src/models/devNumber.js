@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import Sketch from '../sketch';
 
-export default class handleNumber extends Sketch {
+export default class devNumber extends Sketch {
   constructor() {
     super();
-    this.namespace = '序号|handleNumber';
+    this.namespace = '序号|devNumber';
   }
   run() {
     if (this.selection.isEmpty) return this.ui.warn('请选择图层');

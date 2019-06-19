@@ -22,12 +22,13 @@ import handleHeight from './models/handleHeight';
 import handleBlender from './models/handleBlender';
 // 制版
 import handleIgnore from './models/handleIgnore';
-import handleNumber from './models/handleNumber';
 import handleTitle from './models/handleTitle';
 import handlePlate from './models/handlePlate';
 import handleExport from './models/handleExport';
 // 制版
-import handleBuild from './models/handleBuild';
+import devSymbol from './models/devSymbol';
+import devColor from './models/devColor';
+import devNumber from './models/devNumber';
 
 export default class Router extends Sketch {
   constructor(browserWindow) {
@@ -100,7 +101,6 @@ export default class Router extends Sketch {
 
   plate() {
     this.webContents.on('handleIgnore', () => new handleIgnore().start());
-    this.webContents.on('handleNumber', () => new handleNumber().start());
     this.webContents.on('handleTitle', () => new handleTitle().start());
     this.webContents.on('handlePlate', () => new handlePlate().start());
     this.webContents.on('handleExport', () => new handleExport().start());
@@ -120,7 +120,9 @@ export default class Router extends Sketch {
   }
 
   dev() {
-    this.webContents.on('handleBuild', () => new handleBuild().start());
+    this.webContents.on('devNumber', () => new devNumber().start());
+    this.webContents.on('devSymbol', () => new devSymbol().start());
+    this.webContents.on('devColor', () => new devColor().start());
   }
 
   config() {

@@ -7,46 +7,37 @@ export default class handleColor extends Sketch {
     this.namespace = '色板|handleColor';
   }
 
+  shapeBorder(layer, fill) {
+    const oldStyle = _.assign(layer.style.borders[0]);
+    layer.style.borders = [_.assign(oldStyle, fill)];
+  }
+
+  shapeFill(layer, fill) {
+    layer.style.fills = [fill];
+  }
+
+  textColor(layer, fill) {
+    layer.style.textColor = fill.color;
+    layer.style.fills = [];
+  }
+
   run(e) {
     if (this.selection.isEmpty) return this.ui.warn('请选择图形');
-    const { border, type, color, name } = JSON.parse(e);
-
+    const { border, color } = JSON.parse(e);
+    const fill = {
+      fillType: 'Color',
+      color: color,
+    };
     _.forEach(this.selection.layers, layer => {
       if (!layer.type) return;
-      if (layer.type === 'ShapePath' || layer.type === 'Text') {
-        if (type === 'Gradient') {
-          color.from = {
-            x: 0,
-            y: 0,
-          };
-          color.to = {
-            x: 1,
-            y: 1,
-          };
-        }
-        if (border) {
-          const borderStyle = {
-            fillType: type,
-            [type === 'Color' ? 'color' : 'gradient']: color,
-          };
-          if (layer.style.borders.length > 0) {
-            const oldBorder = layer.style.borders[0];
-            borderStyle.thickness = oldBorder.thickness;
-            borderStyle.position = oldBorder.position;
-          }
-          layer.style.borders = [borderStyle];
-        } else {
-          layer.style.fills = [
-            {
-              fillType: type,
-              fill: type, // fix new sketch version
-              [type === 'Color' ? 'color' : 'gradient']: color,
-            },
-          ];
-        }
+      if (layer.type === 'ShapePath') {
+        border ? this.shapeBorder(layer, fill) : this.shapeFill(layer, fill);
+      }
+      if (layer.type === 'Text') {
+        this.textColor(layer, fill);
       }
     });
 
-    this.ui.success(`${border ? '描边' : '填充'}「${name}」`);
+    this.ui.success(`${border ? '描边' : '填充'}「${fill.color}」`);
   }
 }
