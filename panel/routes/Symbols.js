@@ -82,20 +82,20 @@ const ButtonView = styled.div`
   flex-direction: column;
 `;
 
-const RefreshBtn = styled.div`
+const ListBtn = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.8rem;
-  background: #2b79ff;
+  background: rgba(100, 100, 100, 0.3);
   padding: 0.2rem;
   margin-bottom: 0.8rem;
   border-radius: 0.2rem;
-  color: #fff;
+
   cursor: pointer;
   &:hover {
-    opacity: 0.9;
+    background: rgba(100, 100, 100, 0.5);
   }
 `;
 
@@ -107,6 +107,7 @@ const State = state => {
     check: state.check,
     loading: state.loading.global || Object.keys(state.symbols).length === 0,
     ...state.symbols,
+    ...state.store,
   };
 };
 
@@ -142,6 +143,7 @@ class Symbols extends Component {
   localStorageName = 'dropdown-symbols';
 
   componentDidMount() {
+    this.setState({ tab: this.props.mode });
     this.props.getSymbols();
     let state = localStorage.getItem(this.localStorageName);
     if (state) {
@@ -187,7 +189,15 @@ class Symbols extends Component {
         </div>
       );
     });
-    return <ListView width="9rem">{List}</ListView>;
+    return (
+      <ListView width="9rem">
+        <ListBtn onClick={() => this.handleRule(this.state.tab)}>
+          <Icon style={{ marginRight: '.5rem' }} type="read" />
+          查看规范
+        </ListBtn>
+        {List}
+      </ListView>
+    );
   };
 
   Library = ({ data, type }) => {
@@ -255,10 +265,10 @@ class Symbols extends Component {
     };
     return (
       <ListView width="9rem">
-        <RefreshBtn onClick={this.handleRefresh}>
+        <ListBtn onClick={this.handleRefresh}>
           <Icon style={{ marginRight: '.5rem' }} type="reload" />
           刷新
-        </RefreshBtn>
+        </ListBtn>
         {data.map(mapData)}
       </ListView>
     );
@@ -322,6 +332,10 @@ class Symbols extends Component {
   getName = name => {
     let newName = name.split('-');
     return newName.length === 2 ? newName[1] : name;
+  };
+
+  handleRule = tab => {
+    PostMessage('handleRule', tab);
   };
 
   handleRefresh = () => {
