@@ -12,11 +12,6 @@ const remoteLibrary = [
 export const addLibrary = context => {
   _.forEach(remoteLibrary, fileName => {
     const url = `https://raw.githubusercontent.com/canisminor1990/anto-cloud/master/${fileName}`;
-    Library.getRemoteLibraryWithRSS(url, err => {
-      if (err)
-        Library.getRemoteLibraryWithRSS(url, err => {
-          if (err) Library.getRemoteLibraryWithRSS(url);
-        });
-    });
+    Library.getRemoteLibraryWithRSS(url, err => {});
   });
 };
