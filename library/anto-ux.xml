@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
   <channel>
-    <title>Anto UX</title>
-    <description>Anto UX</description>
+    <title>Anto 交互组件</title>
+    <description>Anto 交互组件</description>
     <image>
-      <url>http://anto.inc.alipay.net/static/library/anto-ux-cover.png</url>
-      <title>Anto UX</title>
+      <url>https://raw.githubusercontent.com/canisminor1990/anto/master/library/anto-ux-cover.png</url>
+      <title>Anto 交互组件</title>
     </image>
     <generator>Sketch</generator>
     <item>
-      <title>Anto UX</title>
+      <title>Anto 交互组件</title>
       <pubDate>Wed, 13 Jun 2019 08:48:39 +0000</pubDate>
-      <enclosure url="http://anto.inc.alipay.net/library/anto-ux.sketch" type="application/octet-stream" sparkle:version="3"/>
+      <enclosure url="https://raw.githubusercontent.com/canisminor1990/anto/master/library/anto-ux.sketch" type="application/octet-stream" sparkle:version="3"/>
     </item>
   </channel>
 </rss>

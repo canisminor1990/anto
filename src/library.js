@@ -7,14 +7,14 @@ import fetch from 'sketch-polyfill-fetch';
 const Library = sketch.Library;
 
 const remoteLibrary = [
-  'anto-export', // Anto 输出组件
-  'anto-ui', // Anto 视觉组件
-  'anto-ux', // Anto 交互组件
+  'anto-export.xml', // Anto 输出组件
+  'anto-ui.xml', // Anto 视觉组件
+  'anto-ux.xml', // Anto 交互组件
 ];
 
 export const addLibrary = context => {
   _.forEach(remoteLibrary, fileName => {
-    const url = `http://anto.inc.alipay.net/static/library/${fileName}`;
+    const url = `https://raw.githubusercontent.com/canisminor1990/anto/master/library/${fileName}`;
     UI.alert('title', url);
     Library.getRemoteLibraryWithRSS(url, (err, library) => {
       if (err) {
