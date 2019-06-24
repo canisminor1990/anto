@@ -8,15 +8,15 @@ export default class SketchLibrary {
   }
 
   get antoExport() {
-    return this.get('Anto 输出组件');
+    return this.get('Anto Export');
   }
 
   get ux() {
-    return this.get('Anto 交互组件');
+    return this.get('Anto UX');
   }
 
   get ui() {
-    return this.get('Anto 视觉组件');
+    return this.get('Anto UI');
   }
 
   get(name) {
