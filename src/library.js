@@ -15,16 +15,7 @@ const remoteLibrary = [
 export const addLibrary = context => {
   _.forEach(remoteLibrary, fileName => {
     const url = `https://raw.githubusercontent.com/canisminor1990/anto/master/library/${fileName}`;
-    UI.alert('title', url);
-    Library.getRemoteLibraryWithRSS(url, (err, library) => {
-      if (err) {
-        UI.alert('title', JSON.stringify(err));
-      }
-      if (library.name) {
-        UI.alert('title', library.name + ' Add Succeed!');
-        console.log('Conguratelation!');
-      }
-    });
+    Library.getRemoteLibraryWithRSS(url, (err, library) => {});
     // Library.getRemoteLibraryWithRSS(url, (err, lib) => {
     //   if (err) return console.log(err);
     //   fetch(url)
