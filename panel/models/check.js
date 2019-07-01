@@ -13,7 +13,7 @@ export default {
     *get(action, { call, put }) {
       let check = false;
       try {
-        const result = yield call(() => request('http://anto.inc.alipay.net/api/check'));
+        const result = yield call(() => request('http://anto.inc.alipay.net/static/check.json'));
         console.log(result);
         if (result.data && result.data.check) check = true;
       } catch (e) {
