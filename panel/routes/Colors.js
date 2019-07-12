@@ -237,15 +237,7 @@ class Colors extends Component {
         </Title>
         <View width={this.props.width} inner>
           <Panel key="panel">
-            {this.state.tab === '色板' ? (
-              this.props.check ? (
-                <this.CheckView />
-              ) : (
-                <Check />
-              )
-            ) : (
-              <this.ColorCircle />
-            )}
+            {this.state.tab === '色板' ? <this.CheckView /> : <this.ColorCircle />}
           </Panel>
           <ButtonGroup key="btn">
             <div>

@@ -10,9 +10,18 @@ export default {
     },
   },
   effects: {
-    *get(action, { call, put }) {
-      const ux = yield call(() => request(`http://anto.inc.alipay.net/static/ux/data.json`));
-      const ui = yield call(() => request(`http://anto.inc.alipay.net/static/ui/data.json`));
+    *get(action, { call, put, select }) {
+      const check = yield select(state => state.check);
+      let uxUrl =
+        'https://raw.githubusercontent.com/canisminor1990/anto-cloud/master/public/ux/data.json';
+      let uiUrL =
+        'https://raw.githubusercontent.com/canisminor1990/anto-cloud/master/public/ui/data.json';
+      if (check) {
+        uxUrl = 'http://anto.inc.alipay.net/static/ux/data.json';
+        uiUrL = 'http://anto.inc.alipay.net/static/ui/data.json';
+      }
+      const ux = yield call(() => request(uxUrl));
+      const ui = yield call(() => request(uiUrL));
       yield put({
         type: 'save',
         payload: { ux: ux.data, ui: ui.data },

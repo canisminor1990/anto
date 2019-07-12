@@ -191,10 +191,12 @@ class Symbols extends Component {
     });
     return (
       <ListView width="9rem">
-        <ListBtn onClick={() => this.handleRule(this.state.tab)}>
-          <Icon style={{ marginRight: '.5rem' }} type="read" />
-          查看规范
-        </ListBtn>
+        {this.props.check ? (
+          <ListBtn onClick={() => this.handleRule(this.state.tab)}>
+            <Icon style={{ marginRight: '.5rem' }} type="read" />
+            查看规范
+          </ListBtn>
+        ) : null}
         {List}
       </ListView>
     );
@@ -313,20 +315,24 @@ class Symbols extends Component {
           <this.SwitchTitle name="交互" />
           <this.SwitchTitle name="本地" />
         </Title>
-        {this.state.tab === '本地' ? (
-          <this.LocalView />
-        ) : this.props.check ? (
-          <this.CheckView />
-        ) : (
-          <Check />
-        )}
+        {this.state.tab === '本地' ? <this.LocalView /> : <this.CheckView />}
         <Close key="close" name="symbol" />
       </>
     );
   }
 
   getImg = (type, id) => {
-    return 'http://' + join('anto.inc.alipay.net/static', type, 'img', id + '.png');
+    let url =
+      'http://' +
+      join(
+        'raw.githubusercontent.com/canisminor1990/anto-cloud/master/public',
+        type,
+        'img',
+        id + '.png'
+      );
+    if (this.props.check)
+      url = 'http://' + join('anto.inc.alipay.net/static', type, 'img', id + '.png');
+    return url;
   };
 
   getName = name => {
