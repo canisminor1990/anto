@@ -1,0 +1,124 @@
+{
+	"type"         : "SymbolInstance",
+	"id"           : "1908A112-B2E0-43ED-A733-4F67AC56DE5A",
+	"frame"        : {
+		"x"     : 92,
+		"y"     : 115.5,
+		"width" : 326,
+		"height": 237
+	},
+	"name"         : "o",
+	"selected"     : true,
+	"hidden"       : false,
+	"locked"       : false,
+	"exportFormats": [],
+	"transform"    : {
+		"rotation"           : 0,
+		"flippedHorizontally": false,
+		"flippedVertically"  : false
+	},
+	"style"        : {
+		"type"         : "Style",
+		"id"           : "A5C51B5D-0EC2-4459-9995-736638E9604B",
+		"opacity"      : 1,
+		"blendingMode" : "Normal",
+		"borderOptions": {
+			"startArrowhead": "None",
+			"endArrowhead"  : "None",
+			"dashPattern"   : [],
+			"lineEnd"       : "Butt",
+			"lineJoin"      : "Miter"
+		},
+		"blur"         : {
+			"center"     : {
+				"x": 0.5,
+				"y": 0.5
+			},
+			"motionAngle": 0,
+			"radius"     : 10,
+			"enabled"    : false,
+			"blurType"   : "Gaussian"
+		},
+		"fills"        : [],
+		"borders"      : [],
+		"shadows"      : [],
+		"innerShadows" : [],
+		"styleType"    : "Layer"
+	},
+	"sharedStyleId": null,
+	"symbolId"     : "F7BB0B0E-EB90-43D4-AA70-9292C475B2B3",
+	"overrides"    : [
+		{
+			"type"          : "Override",
+			"id"            : "6F52AC17-1142-4BD9-A8D7-7B8BE37B86D4_stringValue",
+			"path"          : "6F52AC17-1142-4BD9-A8D7-7B8BE37B86D4",
+			"property"      : "stringValue",
+			"affectedLayer" : {
+				"type"         : "Text",
+				"id"           : "6F52AC17-1142-4BD9-A8D7-7B8BE37B86D4",
+				"frame"        : {
+					"x"     : -22,
+					"y"     : 77,
+					"width" : 371,
+					"height": 70
+				},
+				"name"         : "Type something",
+				"hidden"       : false,
+				"locked"       : false,
+				"exportFormats": [],
+				"transform"    : {
+					"rotation"           : 0,
+					"flippedHorizontally": false,
+					"flippedVertically"  : false
+				},
+				"style"        : {
+					"type"             : "Style",
+					"id"               : "A4A6D38E-EB3C-4251-8216-35BEFB06611B",
+					"opacity"          : 1,
+					"blendingMode"     : "Normal",
+					"borderOptions"    : {
+						"startArrowhead": "None",
+						"endArrowhead"  : "None",
+						"dashPattern"   : [],
+						"lineEnd"       : "Butt",
+						"lineJoin"      : "Miter"
+					},
+					"blur"             : {
+						"center"     : {
+							"x": 0.5,
+							"y": 0.5
+						},
+						"motionAngle": 0,
+						"radius"     : 10,
+						"enabled"    : false,
+						"blurType"   : "Gaussian"
+					},
+					"fills"            : [],
+					"borders"          : [],
+					"shadows"          : [],
+					"innerShadows"     : [],
+					"styleType"        : "Text",
+					"alignment"        : "justified",
+					"verticalAlignment": "top",
+					"kerning"          : 0,
+					"lineHeight"       : null,
+					"paragraphSpacing" : 0,
+					"textColor"        : "#999999ff",
+					"fontSize"         : 50,
+					"textTransform"    : "none",
+					"fontFamily"       : "PingFang SC",
+					"fontWeight"       : 5
+				},
+				"sharedStyleId": null,
+				"text"         : "Type something",
+				"lineSpacing"  : "constantBaseline",
+				"fixedWidth"   : false
+			},
+			"symbolOverride": false,
+			"value"         : "Type something",
+			"isDefault"     : true,
+			"editable"      : true,
+			"selected"      : false
+		}
+	]
+}

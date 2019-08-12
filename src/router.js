@@ -25,10 +25,11 @@ import handleIgnore from './models/handleIgnore';
 import handleTitle from './models/handleTitle';
 import handlePlate from './models/handlePlate';
 import handleExport from './models/handleExport';
-// 制版
+// 开发
 import devSymbol from './models/devSymbol';
 import devColor from './models/devColor';
 import devNumber from './models/devNumber';
+import devTest from './models/devTest';
 
 export default class Router extends Sketch {
   constructor(browserWindow) {
@@ -131,6 +132,7 @@ export default class Router extends Sketch {
     this.webContents.on('devNumber', () => new devNumber().start());
     this.webContents.on('devSymbol', () => new devSymbol().start());
     this.webContents.on('devColor', () => new devColor().start());
+    this.webContents.on('devTest', () => new devTest().start());
   }
 
   config() {

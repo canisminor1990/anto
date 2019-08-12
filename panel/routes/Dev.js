@@ -30,6 +30,12 @@ class Dev extends Component {
             type="plate-artboard"
             onClick={() => PostMessage('devColor', null)}
           />
+          <Iconfont
+            key="test"
+            title="test"
+            type="plate-artboard"
+            onClick={() => PostMessage('devTest', null)}
+          />
           <Close name="dev" single />
         </View>
       </>

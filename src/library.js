@@ -9,9 +9,19 @@ const remoteLibrary = [
   'anto-export.xml', // Anto 输出组件
 ];
 
+const libName = [
+  'Anto UI', // Anto 视觉组件
+  'Anto UX', // Anto 交互组件
+  'Anto Export', // Anto 输出组件
+];
+
 export const addLibrary = context => {
+  _.forEach(Library.getLibraries(), lib => {
+    if (_.includes(libName, lib.name)) lib.remove();
+  });
+
   _.forEach(remoteLibrary, fileName => {
-    const url = `https://raw.githubusercontent.com/canisminor1990/anto-cloud/master/${fileName}`;
+    const url = `http://100.88.232.163/library/${fileName}`;
     Library.getRemoteLibraryWithRSS(url, err => {});
   });
 };

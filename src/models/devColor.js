@@ -7,7 +7,7 @@ import { hexToRgba } from 'hex-and-rgba';
 const home = require('os').homedir();
 const buildPath = join(home, '.anto');
 
-export default class devSymbol extends Sketch {
+export default class devColor extends Sketch {
   constructor() {
     super();
     this.namespace = '颜色|devColor';
