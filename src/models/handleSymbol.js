@@ -11,7 +11,7 @@ export default class handlSymbol extends Sketch {
     const data = JSON.parse(e);
 
     // 找到Library
-    const library = this.library[data.type];
+    const library = this.library.get(data.libname);
     const libDocument = library.getDocument();
     const symbol = libDocument.getLayerWithID(data.id);
 

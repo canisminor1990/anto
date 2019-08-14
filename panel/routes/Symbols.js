@@ -73,15 +73,6 @@ const LibraryView = styled.div`
   overflow-y: auto;
 `;
 
-const ButtonView = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-`;
-
 const ListBtn = styled.div`
   flex: 1;
   display: flex;
@@ -106,7 +97,7 @@ const State = state => {
   return {
     check: state.check,
     loading: state.loading.global || Object.keys(state.symbols).length === 0,
-    ...state.symbols,
+    symbols: state.symbols,
     ...state.store,
   };
 };
@@ -125,32 +116,14 @@ class Symbols extends Component {
   state = {
     local: false,
     tab: '交互',
-    ui: {
-      activeRoot: '导航类',
-      activeGroup: '状态栏',
-    },
-    ux: {
-      activeRoot: '导航类',
-      activeGroup: '状态栏',
-    },
     activeLocal: false,
-    activeHeader: {
-      ux: {},
-      ui: {},
-    },
+    activeHeader: {},
   };
 
   localStorageName = 'dropdown-symbols';
 
   componentDidMount() {
-    this.setState({ tab: this.props.mode });
     this.props.getSymbols();
-    let state = localStorage.getItem(this.localStorageName);
-    if (state) {
-      this.setState({ activeHeader: JSON.parse(state) });
-    } else {
-      localStorage.setItem(this.localStorageName, JSON.stringify({ ui: {}, ux: {} }));
-    }
   }
 
   SwitchTitle = ({ name }) => (
@@ -176,6 +149,11 @@ class Symbols extends Component {
 
   Cells = ({ data, type }) => {
     const List = [];
+    if (!this.state.activeHeader[type]) {
+      const header = this.state.activeHeader;
+      header[type] = {};
+      this.setState({ activeHeader: header });
+    }
     _.forEach(data, (value, key) => {
       const active = !this.state.activeHeader[type][key];
       List.push(
@@ -204,11 +182,21 @@ class Symbols extends Component {
 
   Library = ({ data, type }) => {
     const List = [];
-    const { activeRoot, activeGroup } = this.state[type];
+    let activeRoot;
+    let activeGroup;
+    if (!this.state[type]) {
+      activeRoot = _.keys(data)[0];
+      activeGroup = _.keys(data[activeRoot])[0];
+      this.setState({ [type]: { activeRoot, activeGroup } });
+    } else {
+      activeRoot = this.state[type].activeRoot;
+      activeGroup = this.state[type].activeGroup;
+    }
     const SymbolData = data[activeRoot][activeGroup];
     _.forEach(SymbolData, (value, key) => {
       const postData = {
         id: value.id,
+        libname: this.props.symbols[type].libname,
         type,
       };
       List.push(
@@ -228,111 +216,42 @@ class Symbols extends Component {
     </View>
   );
 
-  LocalView = () => {
-    return (
-      <View width={this.props.width} inner>
-        {this.state.local ? (
-          [
-            <this.LocalList key="list" data={this.state.local} />,
-            <this.LocalLibrary key="library" data={this.state.local} />,
-          ]
-        ) : (
-          <ButtonView>
-            <h3>读取本文档Symbols</h3>
-            <Button type="primary" onClick={this.handleRefresh}>
-              生成预览
-            </Button>
-          </ButtonView>
-        )}
-      </View>
-    );
+  MainView = () => {
+    const List = [];
+    _.forEach(this.props.symbols, t => {
+      List.push(<this.ChildView name={t.name} type={t.dirname} />);
+    });
+    return List;
   };
 
-  _cacheName = null;
-
-  LocalList = ({ data }) => {
-    const mapData = (s, key) => {
-      const name = s.name.replace(/ /g, '').split('/')[0];
-      if (!this.state.activeLocal && key === 0) this.setState({ activeLocal: name });
-      if (this._cacheName === name) return null;
-      this._cacheName = name;
-      return (
-        <Cell key={key} onClick={() => this.setState({ activeLocal: name })}>
-          <Cover>
-            <img src={s.path} />
-          </Cover>
-          <Cell.Title active={this.state.activeLocal === name}>{name}</Cell.Title>
-        </Cell>
-      );
-    };
-    return (
-      <ListView width="9rem">
-        <ListBtn onClick={this.handleRefresh}>
-          <Icon style={{ marginRight: '.5rem' }} type="reload" />
-          刷新
-        </ListBtn>
-        {data.map(mapData)}
-      </ListView>
-    );
+  ChildView = ({ name, type }) => {
+    return this.state.tab === name ? (
+      <this.View data={this.props.symbols[type].data} type={type} />
+    ) : null;
   };
-
-  LocalLibrary = ({ data }) => {
-    const mapData = (s, key) => {
-      let name = s.name.replace(/ /g, '').split('/');
-      if (name[0] !== this.state.activeLocal) return null;
-      if (name.length > 1) name.shift();
-      name = name.join(' / ');
-      return (
-        <Img key={key}>
-          <img src={s.path} onDragEnd={() => PostMessage('handleLocalSymbol', s.id)} />
-          <ImgTitle>{name}</ImgTitle>
-        </Img>
-      );
-    };
-    return (
-      <LibraryView data-app-region="no-drag">{_.sortBy(data, 'name').map(mapData)}</LibraryView>
-    );
-  };
-
-  UiView = type => {
-    return <View width={this.props.width} inner />;
-  };
-
-  MainView = () => (
-    <>
-      {this.state.tab === '视觉' ? <this.View data={this.props.ui} type="ui" /> : null}
-      {this.state.tab === '交互' ? <this.View data={this.props.ux} type="ux" /> : null}
-    </>
-  );
 
   CheckView = () => (this.props.loading ? <Loading /> : <this.MainView />);
+
+  Tabs = () => {
+    let Tab = [];
+    _.forEach(this.props.symbols, t => {
+      Tab.push(<this.SwitchTitle name={t.name} />);
+    });
+    return Tab;
+  };
 
   render() {
     return (
       <>
-        <Title>
-          <this.SwitchTitle name="视觉" />
-          <this.SwitchTitle name="交互" />
-          <this.SwitchTitle name="本地" />
-        </Title>
-        {this.state.tab === '本地' ? <this.LocalView /> : <this.CheckView />}
+        <Title>{this.props.loading ? null : <this.Tabs />}</Title>
+        {this.props.check ? <this.CheckView /> : <Check />}
         <Close key="close" name="symbol" />
       </>
     );
   }
 
   getImg = (type, id) => {
-    let url =
-      'http://' +
-      join(
-        'raw.githubusercontent.com/canisminor1990/anto-cloud/master/public',
-        type,
-        'img',
-        id + '.png'
-      );
-    if (this.props.check)
-      url = 'http://' + join('anto.inc.alipay.net/static', type, 'img', id + '.png');
-    return url;
+    return 'http://' + join('anto.inc.alipay.net/static', type, 'img', id + '.png');
   };
 
   getName = name => {
@@ -342,26 +261,6 @@ class Symbols extends Component {
 
   handleRule = tab => {
     PostMessage('handleRule', tab);
-  };
-
-  handleRefresh = () => {
-    let getNewData = false;
-    let time = '';
-    if (this.state.local) {
-      time = JSON.parse(localStorage.getItem('local-symbols-time'));
-    }
-    PostMessage('handleBuildLocalSymbol', null);
-    while (getNewData) {
-      let newTime = time;
-      setTimeout(() => {
-        newTime = JSON.parse(localStorage.getItem('local-symbols-time'));
-      }, 100);
-      getNewData = newTime !== time;
-    }
-    let LocalData = localStorage.getItem('local-symbols-data');
-    if (LocalData && !this.state.local) {
-      this.setState({ local: _.sortBy(JSON.parse(LocalData), 'name') });
-    }
   };
 
   handleHeader = (type, name) => {

@@ -19,7 +19,7 @@
 				"actions": {
 					"Startup"     : "addLibrary",
 					"OpenDocument": "addLibrary",
-					"Shutdown": "addLibrary"
+					"Shutdown": "cleanLibrary"
 				}
 			}
 		},

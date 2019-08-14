@@ -10,21 +10,22 @@ export default {
     },
   },
   effects: {
-    *get(action, { call, put, select }) {
-      const check = yield select(state => state.check);
-      let uxUrl =
-        'https://raw.githubusercontent.com/canisminor1990/anto-cloud/master/public/ux/data.json';
-      let uiUrL =
-        'https://raw.githubusercontent.com/canisminor1990/anto-cloud/master/public/ui/data.json';
-      if (check) {
-        uxUrl = 'http://anto.inc.alipay.net/static/ux/data.json';
-        uiUrL = 'http://anto.inc.alipay.net/static/ui/data.json';
+    *get(action, { call, put }) {
+      const tabs = yield call(() => request('http://100.88.232.163/static/tabs.json'));
+      const tabsData = tabs.data;
+      let data = {};
+      for (let i = 0; i < tabsData.length; i++) {
+        const libdata = yield call(() =>
+          request(`http://100.88.232.163/static/${tabsData[i].dirname}/data.json`)
+        );
+        data[tabsData[i].dirname] = {
+          data: libdata.data,
+          ...tabsData[i],
+        };
       }
-      const ux = yield call(() => request(uxUrl));
-      const ui = yield call(() => request(uiUrL));
       yield put({
         type: 'save',
-        payload: { ux: ux.data, ui: ui.data },
+        payload: data,
       });
     },
   },
