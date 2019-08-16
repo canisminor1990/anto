@@ -17,7 +17,7 @@
 			"script"  : "library.js",
 			"handlers": {
 				"actions": {
-					"Startup"     : "addLibrary",
+					"Startup"     : "cleanLibrary",
 					"OpenDocument": "addLibrary",
 					"Shutdown": "cleanLibrary"
 				}
