@@ -115,7 +115,7 @@ const Dispatch = dispatch => ({
 class Symbols extends Component {
   state = {
     local: false,
-    tab: '交互',
+    tab: '场景',
     activeLocal: false,
     activeHeader: {},
   };
@@ -124,6 +124,7 @@ class Symbols extends Component {
 
   componentDidMount() {
     this.props.getSymbols();
+    if (this.props.mode === '交互') this.setState({ tab: '交互' });
   }
 
   SwitchTitle = ({ name }) => (

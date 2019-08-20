@@ -60,11 +60,10 @@ export default class Router extends Sketch {
     this.webContents.on('handleSymbol', e => new handleSymbol().start(e));
     this.webContents.on('handleLocalSymbol', e => new handleLocalSymbol().start(e));
     this.webContents.on('handleRule', e => {
-      const url = {
-        视觉: 'https://yuque.antfin-inc.com/books/share/7044905e-f758-4d1c-ab06-d7765b524d80',
-        交互: 'https://yuque.antfin-inc.com/books/share/411ef2eb-0b33-4e1c-a440-b7a2a68fecbb',
-      };
-      this.openUrl(url[e]);
+      let url = 'https://yuque.antfin-inc.com/haitunmarket/docs';
+      if (e === '交互')
+        url = 'https://yuque.antfin-inc.com/books/share/411ef2eb-0b33-4e1c-a440-b7a2a68fecbb';
+      this.openUrl(url);
     });
 
     this.webContents.on('handleBuildLocalSymbol', () => {
