@@ -87,7 +87,7 @@
 		"react": "^16.6.3",
 		"react-copy-to-clipboard": "^5.0.1",
 		"react-dom": "^16.6.3",
-		"sketch-module-web-view": "^3.0.7"
+		"sketch-module-web-view": "^3.2.2"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.1.2",
