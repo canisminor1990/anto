@@ -1,3 +1,6 @@
+> 暂停维护，将于 21 年 12 月底合并至 Kitchen 对外版 https://kitchen.antfin-inc.com/
+
+
 # <img src="https://raw.githubusercontent.com/canisminor1990/anto/master/icon.png" width="24"> Anto
 
 ![banner.png](https://raw.githubusercontent.com/canisminor1990/anto/master/docs/banner.png)
